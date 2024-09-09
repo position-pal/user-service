@@ -1,0 +1,75 @@
+syntax = "proto3";
+import "user.proto";
+
+service GroupService {
+  rpc CreateGroup (CreateGroupRequest) returns (CreateGroupResponse);
+  rpc GetGroup (GetGroupRequest) returns (GetGroupResponse);
+  rpc UpdateGroup (UpdateGroupRequest) returns (UpdateGroupResponse);
+  rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupResponse);
+  rpc AddUserToGroup (AddUserToGroupRequest) returns (AddUserToGroupResponse);
+  rpc RemoveUserFromGroup (RemoveUserFromGroupRequest) returns (RemoveUserFromGroupResponse);
+  rpc ListGroups (ListGroupsRequest) returns (ListGroupsResponse);
+}
+
+message Group {
+  string id = 1;
+  string name = 2;
+  repeated User users = 3;
+}
+
+message CreateGroupRequest {
+  string name = 1;
+}
+
+message CreateGroupResponse {
+  Group group = 1;
+}
+
+message GetGroupRequest {
+  string groupId = 1;
+}
+
+message GetGroupResponse {
+  Group group = 1;
+}
+
+message UpdateGroupRequest {
+  string groupId = 1;
+  string name = 2;
+}
+
+message UpdateGroupResponse {
+  Group group = 1;
+}
+
+message DeleteGroupRequest {
+  string groupId = 1;
+}
+
+message DeleteGroupResponse {
+  string groupId = 1;
+}
+
+message AddUserToGroupRequest {
+  string userId = 1;
+  string groupId = 2;
+}
+
+message AddUserToGroupResponse {
+  Group group = 1;
+}
+
+message RemoveUserFromGroupRequest {
+  string userId = 1;
+  string groupId = 2;
+}
+
+message RemoveUserFromGroupResponse {
+  Group group = 1;
+}
+
+message ListGroupsRequest {}
+
+message ListGroupsResponse {
+  repeated Group groups = 1;
+}

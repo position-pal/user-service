@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.qa)
     alias(libs.plugins.kotlin.dokka)
     alias(libs.plugins.git.semantic.versioning)
+    alias(libs.plugins.protobuf)
 }
 
 allprojects {
@@ -22,13 +23,22 @@ subprojects {
         apply(plugin = kotlin.jvm.get().pluginId)
         apply(plugin = kotlin.qa.get().pluginId)
         apply(plugin = kotlin.dokka.get().pluginId)
+        apply(plugin = protobuf.get().pluginId)
     }
 
     with(rootProject.libs) {
         dependencies {
+            implementation(grpc.protobuf)
+            implementation(grpc.stub)
+            implementation(protobuf.java)
+            runtimeOnly(grpc.netty.shaded)
+
+            implementation("javax.annotation:javax.annotation-api:1.3.2")
+
             implementation(kotlin.stdlib)
             implementation(kotlin.stdlib.jdk8)
             testImplementation(bundles.kotlin.testing)
+            testImplementation(grpc.testing)
         }
     }
 
@@ -44,5 +54,32 @@ subprojects {
             exceptionFormat = TestExceptionFormat.FULL
         }
         useJUnitPlatform()
+    }
+
+    protobuf {
+        protoc {
+            artifact = rootProject.libs.protobuf.protoc.get().toString()
+        }
+        plugins {
+            create("grpc") {
+                artifact = rootProject.libs.grpc.generator.java.get().toString()
+            }
+        }
+        generateProtoTasks {
+            all().forEach { task ->
+                task.plugins {
+                    create("grpc")
+                }
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs("build/generated/source/proto/main/grpc")
+                srcDirs("build/generated/source/proto/main/java")
+            }
+        }
     }
 }
