@@ -21,14 +21,20 @@ class UserService : UserServiceImplBase() {
     /**
      * Creates a new user.
      *
-     * @param request the request containing the user's name and email.
+     * @param request the request containing the user information.
      * @return the response containing the created user.
      */
     fun createUser(request: CreateUserRequest): CreateUserResponse {
+
+        val userID = if(request.user.id.isNotBlank()) request.user.id else java.util.UUID.randomUUID().toString()
+
         val user = User.newBuilder()
-            .setId(users.size.toString())
-            .setName(request.name)
-            .setEmail(request.email)
+            .setId(userID)
+            .setName(request.user.name)
+            .setSurname(request.user.surname)
+            .setEmail(request.user.email)
+            .setPassword(request.user.password)
+            .setRole(request.user.role)
             .build()
 
         users[user.id] = user
@@ -43,23 +49,26 @@ class UserService : UserServiceImplBase() {
      * @throws IllegalArgumentException if the user is not found.
      */
     fun getUser(request: GetUserRequest): GetUserResponse {
-        val user = users[request.userId] ?: throw IllegalArgumentException("Utente non trovato")
+        val user = users[request.userId] ?: throw IllegalArgumentException("User not found")
         return GetUserResponse.newBuilder().setUser(user).build()
     }
 
     /**
      * Updates an existing user.
      *
-     * @param request the request containing the user ID, name, and email.
+     * @param request the request containing the userId and user info.
      * @return the response containing the updated user.
      * @throws IllegalArgumentException if the user is not found.
      */
     fun updateUser(request: UpdateUserRequest): UpdateUserResponse {
-        val existingUser = users[request.userId] ?: throw IllegalArgumentException("Utente non trovato")
+        val existingUser = users[request.userId] ?: throw IllegalArgumentException("User not found")
 
         val updatedUser = existingUser.toBuilder()
-            .setName(request.name)
-            .setEmail(request.email)
+            .setName(request.user.name)
+            .setSurname(request.user.surname)
+            .setEmail(request.user.email)
+            .setPassword(request.user.password)
+            .setRole(request.user.role)
             .build()
 
         users[updatedUser.id] = updatedUser

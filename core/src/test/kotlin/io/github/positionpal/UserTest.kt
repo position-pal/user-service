@@ -4,6 +4,7 @@ import UserOuterClass.CreateUserRequest
 import UserOuterClass.DeleteUserRequest
 import UserOuterClass.GetUserRequest
 import UserOuterClass.UpdateUserRequest
+import UserOuterClass.User
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -13,9 +14,15 @@ class UserTest : FunSpec({
     val userService = UserService()
 
     test("createUser should add a user and return the created user") {
-        val request = CreateUserRequest.newBuilder()
+
+        val user = User.newBuilder()
             .setName("John Doe")
             .setEmail("john.doe@example.com")
+            .build()
+
+
+        val request = CreateUserRequest.newBuilder()
+            .setUser(user)
             .build()
 
         val response = userService.createUser(request)
@@ -35,16 +42,27 @@ class UserTest : FunSpec({
     }
 
     test("updateUser should update the user details if user exists") {
-        val createRequest = CreateUserRequest.newBuilder()
+
+        val user = User.newBuilder()
+            .setId("john-smith-id")
             .setName("John Smith")
             .setEmail("john.smith@example.com")
             .build()
-        val createResponse = userService.createUser(createRequest)
+
+        val createRequest = CreateUserRequest.newBuilder()
+            .setUser(user)
+            .build()
+
+        userService.createUser(createRequest)
+
+        val updatedUser = User.newBuilder()
+            .setName("John Smith Updated")
+            .setEmail("john.smit.updated@example.com")
+            .build()
 
         val updateRequest = UpdateUserRequest.newBuilder()
-            .setUserId(createResponse.user.id)
-            .setName("John Smith Updated")
-            .setEmail("john.smith.updated@example.com")
+            .setUserId("john-smith-id")
+            .setUser(updatedUser)
             .build()
         val updateResponse = userService.updateUser(updateRequest)
 
@@ -55,8 +73,7 @@ class UserTest : FunSpec({
     test("updateUser should throw exception if user does not exist") {
         val updateRequest = UpdateUserRequest.newBuilder()
             .setUserId("non-existent-id")
-            .setName("Non Existent")
-            .setEmail("non.existent@example.com")
+            .setUser(User.newBuilder().build())
             .build()
 
         shouldThrow<IllegalArgumentException> {
@@ -65,9 +82,14 @@ class UserTest : FunSpec({
     }
 
     test("deleteUser should remove the user if exists") {
-        val createRequest = CreateUserRequest.newBuilder()
+
+        val user = User.newBuilder()
             .setName("Jane Smith")
             .setEmail("jane.smith@example.com")
+            .build()
+
+        val createRequest = CreateUserRequest.newBuilder()
+            .setUser(user)
             .build()
         val createResponse = userService.createUser(createRequest)
 
