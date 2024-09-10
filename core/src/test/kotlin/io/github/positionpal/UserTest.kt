@@ -14,12 +14,10 @@ class UserTest : FunSpec({
     val userService = UserService()
 
     test("createUser should add a user and return the created user") {
-
         val user = User.newBuilder()
             .setName("John Doe")
             .setEmail("john.doe@example.com")
             .build()
-
 
         val request = CreateUserRequest.newBuilder()
             .setUser(user)
@@ -42,7 +40,6 @@ class UserTest : FunSpec({
     }
 
     test("updateUser should update the user details if user exists") {
-
         val user = User.newBuilder()
             .setId("john-smith-id")
             .setName("John Smith")
@@ -57,7 +54,7 @@ class UserTest : FunSpec({
 
         val updatedUser = User.newBuilder()
             .setName("John Smith Updated")
-            .setEmail("john.smit.updated@example.com")
+            .setEmail("john.smith.updated@example.com")
             .build()
 
         val updateRequest = UpdateUserRequest.newBuilder()
@@ -82,7 +79,6 @@ class UserTest : FunSpec({
     }
 
     test("deleteUser should remove the user if exists") {
-
         val user = User.newBuilder()
             .setName("Jane Smith")
             .setEmail("jane.smith@example.com")

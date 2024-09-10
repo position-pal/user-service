@@ -25,8 +25,7 @@ class UserService : UserServiceImplBase() {
      * @return the response containing the created user.
      */
     fun createUser(request: CreateUserRequest): CreateUserResponse {
-
-        val userID = if(request.user.id.isNotBlank()) request.user.id else java.util.UUID.randomUUID().toString()
+        val userID = if (request.user.id.isNotBlank()) request.user.id else java.util.UUID.randomUUID().toString()
 
         val user = User.newBuilder()
             .setId(userID)
