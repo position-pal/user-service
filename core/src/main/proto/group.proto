@@ -8,13 +8,11 @@ service GroupService {
   rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupResponse);
   rpc AddUserToGroup (AddUserToGroupRequest) returns (AddUserToGroupResponse);
   rpc RemoveUserFromGroup (RemoveUserFromGroupRequest) returns (RemoveUserFromGroupResponse);
-  rpc ListGroups (ListGroupsRequest) returns (ListGroupsResponse);
 }
 
 message Group {
   string id = 1;
   string name = 2;
-  repeated User users = 3;
 }
 
 message CreateGroupRequest {
@@ -66,10 +64,4 @@ message RemoveUserFromGroupRequest {
 
 message RemoveUserFromGroupResponse {
   Group group = 1;
-}
-
-message ListGroupsRequest {}
-
-message ListGroupsResponse {
-  repeated Group groups = 1;
 }
