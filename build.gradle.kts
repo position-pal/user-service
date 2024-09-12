@@ -28,13 +28,11 @@ subprojects {
 
     with(rootProject.libs) {
         dependencies {
+            runtimeOnly(grpc.netty.shaded)
             implementation(grpc.protobuf)
             implementation(grpc.stub)
             implementation(protobuf.java)
-            runtimeOnly(grpc.netty.shaded)
-
-            implementation("javax.annotation:javax.annotation-api:1.3.2")
-
+            implementation(javax.annotation.api)
             implementation(kotlin.stdlib)
             implementation(kotlin.stdlib.jdk8)
             testImplementation(bundles.kotlin.testing)

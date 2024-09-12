@@ -7,6 +7,20 @@ service UserService {
   rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
 }
 
+enum StatusCode {
+  OK = 0;
+  BAD_CONTENT = 1;
+  CONFLICT = 2;
+  WRONG_CREDENTIALS = 3;
+  NOT_FOUND = 4;
+  GENERIC_ERROR = 5;
+}
+
+message Status {
+  StatusCode code = 1;
+  string message = 2;
+}
+
 message User {
   string id = 1;
   string name = 2;
@@ -22,6 +36,7 @@ message CreateUserRequest {
 
 message CreateUserResponse {
   User user = 1;
+  Status status = 2;
 }
 
 message GetUserRequest {
@@ -30,6 +45,7 @@ message GetUserRequest {
 
 message GetUserResponse {
   User user = 1;
+  Status status = 2;
 }
 
 message UpdateUserRequest {
@@ -39,6 +55,7 @@ message UpdateUserRequest {
 
 message UpdateUserResponse {
   User user = 1;
+  Status status = 2;
 }
 
 message DeleteUserRequest {
@@ -47,4 +64,5 @@ message DeleteUserRequest {
 
 message DeleteUserResponse {
   string userId = 1;
+  Status status = 2;
 }

@@ -21,6 +21,7 @@ message CreateGroupRequest {
 
 message CreateGroupResponse {
   Group group = 1;
+  Status status = 2;
 }
 
 message GetGroupRequest {
@@ -29,6 +30,7 @@ message GetGroupRequest {
 
 message GetGroupResponse {
   Group group = 1;
+  Status status = 2;
 }
 
 message UpdateGroupRequest {
@@ -38,6 +40,7 @@ message UpdateGroupRequest {
 
 message UpdateGroupResponse {
   Group group = 1;
+  Status status = 2;
 }
 
 message DeleteGroupRequest {
@@ -46,6 +49,7 @@ message DeleteGroupRequest {
 
 message DeleteGroupResponse {
   string groupId = 1;
+  Status status = 2;
 }
 
 message AddUserToGroupRequest {
@@ -55,6 +59,7 @@ message AddUserToGroupRequest {
 
 message AddUserToGroupResponse {
   Group group = 1;
+  Status status = 2;
 }
 
 message RemoveUserFromGroupRequest {
@@ -64,4 +69,5 @@ message RemoveUserFromGroupRequest {
 
 message RemoveUserFromGroupResponse {
   Group group = 1;
+  Status status = 2;
 }

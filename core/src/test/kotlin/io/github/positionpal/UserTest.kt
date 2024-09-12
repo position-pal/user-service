@@ -3,9 +3,10 @@ package io.github.positionpal
 import UserOuterClass.CreateUserRequest
 import UserOuterClass.DeleteUserRequest
 import UserOuterClass.GetUserRequest
+import UserOuterClass.StatusCode
 import UserOuterClass.UpdateUserRequest
 import UserOuterClass.User
-import io.kotest.assertions.throwables.shouldThrow
+import io.github.positionpal.core.UserService
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
@@ -15,7 +16,6 @@ class UserTest : FunSpec({
     context("createUser") {
         test("createUser should add a user and return the created user") {
             val user = User.newBuilder()
-                .setId("john-doe-id")
                 .setName("John Doe")
                 .setEmail("john.doe@example.com")
                 .build()
@@ -28,44 +28,57 @@ class UserTest : FunSpec({
 
             response.user.name shouldBe "John Doe"
             response.user.email shouldBe "john.doe@example.com"
+            response.status.code shouldBe StatusCode.OK
         }
     }
     context("getUser") {
 
         test("getUser should return a user given an id") {
+            val createUserRequest = CreateUserRequest.newBuilder()
+                .setUser(
+                    User.newBuilder()
+                        .setName("John Doe")
+                        .setEmail("john.doe@example.com")
+                        .build(),
+                )
+                .build()
+
+            val createUserResponse = userService.createUser(createUserRequest)
+            val userId = createUserResponse.user.id
+
             val getRequest = GetUserRequest.newBuilder()
-                .setUserId("john-doe-id")
+                .setUserId(userId)
                 .build()
 
             val response = userService.getUser(getRequest)
             response.user.name shouldBe "John Doe"
             response.user.email shouldBe "john.doe@example.com"
+            response.status.code shouldBe StatusCode.OK
         }
 
-        test("getUser should throw exception if user does not exist") {
+        test("getUser should return not found status if user does not exist") {
             val getRequest = GetUserRequest.newBuilder()
                 .setUserId("non-existent-id")
                 .build()
 
-            shouldThrow<IllegalArgumentException> {
-                userService.getUser(getRequest)
-            }
+            val response = userService.getUser(getRequest)
+            response.status.code shouldBe StatusCode.NOT_FOUND
         }
     }
 
     context("updateUser") {
         test("updateUser should update the user details if user exists") {
-            val user = User.newBuilder()
-                .setId("john-smith-id")
-                .setName("John Smith")
-                .setEmail("john.smith@example.com")
+            val createUserRequest = CreateUserRequest.newBuilder()
+                .setUser(
+                    User.newBuilder()
+                        .setName("John Smith")
+                        .setEmail("john.smith@example.com")
+                        .build(),
+                )
                 .build()
 
-            val createRequest = CreateUserRequest.newBuilder()
-                .setUser(user)
-                .build()
-
-            userService.createUser(createRequest)
+            val createUserResponse = userService.createUser(createUserRequest)
+            val userId = createUserResponse.user.id
 
             val updatedUser = User.newBuilder()
                 .setName("John Smith Updated")
@@ -73,58 +86,59 @@ class UserTest : FunSpec({
                 .build()
 
             val updateRequest = UpdateUserRequest.newBuilder()
-                .setUserId("john-smith-id")
+                .setUserId(userId)
                 .setUser(updatedUser)
                 .build()
             val updateResponse = userService.updateUser(updateRequest)
 
             updateResponse.user.name shouldBe "John Smith Updated"
             updateResponse.user.email shouldBe "john.smith.updated@example.com"
+            updateResponse.status.code shouldBe StatusCode.OK
         }
 
-        test("updateUser should throw exception if user does not exist") {
+        test("updateUser should return not found status if user does not exist") {
             val updateRequest = UpdateUserRequest.newBuilder()
                 .setUserId("non-existent-id")
                 .setUser(User.newBuilder().build())
                 .build()
 
-            shouldThrow<IllegalArgumentException> {
-                userService.updateUser(updateRequest)
-            }
+            val response = userService.updateUser(updateRequest)
+            response.status.code shouldBe StatusCode.NOT_FOUND
         }
     }
 
     context("deleteUser") {
         test("deleteUser should remove the user if exists") {
-            val user = User.newBuilder()
-                .setName("Jane Smith")
-                .setEmail("jane.smith@example.com")
+            val createUserRequest = CreateUserRequest.newBuilder()
+                .setUser(
+                    User.newBuilder()
+                        .setName("Jane Smith")
+                        .setEmail("jane.smith@example.com")
+                        .build(),
+                )
                 .build()
-
-            val createRequest = CreateUserRequest.newBuilder()
-                .setUser(user)
-                .build()
-            val createResponse = userService.createUser(createRequest)
+            val createResponse = userService.createUser(createUserRequest)
+            val userId = createResponse.user.id
 
             val deleteRequest = DeleteUserRequest.newBuilder()
-                .setUserId(createResponse.user.id)
+                .setUserId(userId)
                 .build()
             val deleteResponse = userService.deleteUser(deleteRequest)
 
-            deleteResponse.userId shouldBe createResponse.user.id
-            shouldThrow<IllegalArgumentException> {
-                userService.getUser(GetUserRequest.newBuilder().setUserId(createResponse.user.id).build())
-            }
+            deleteResponse.userId shouldBe userId
+            deleteResponse.status.code shouldBe StatusCode.OK
+
+            val response = userService.getUser(GetUserRequest.newBuilder().setUserId(userId).build())
+            response.status.code shouldBe StatusCode.NOT_FOUND
         }
 
-        test("deleteUser should throw exception if user does not exist") {
+        test("deleteUser should return not found status if user does not exist") {
             val deleteRequest = DeleteUserRequest.newBuilder()
                 .setUserId("non-existent-id")
                 .build()
 
-            shouldThrow<IllegalArgumentException> {
-                userService.deleteUser(deleteRequest)
-            }
+            val response = userService.deleteUser(deleteRequest)
+            response.status.code shouldBe StatusCode.NOT_FOUND
         }
     }
 })

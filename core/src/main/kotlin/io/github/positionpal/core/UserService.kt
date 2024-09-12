@@ -1,4 +1,4 @@
-package io.github.positionpal
+package io.github.positionpal.core
 
 import UserOuterClass.CreateUserRequest
 import UserOuterClass.CreateUserResponse
@@ -6,11 +6,13 @@ import UserOuterClass.DeleteUserRequest
 import UserOuterClass.DeleteUserResponse
 import UserOuterClass.GetUserRequest
 import UserOuterClass.GetUserResponse
+import UserOuterClass.Status
+import UserOuterClass.StatusCode
 import UserOuterClass.UpdateUserRequest
 import UserOuterClass.UpdateUserResponse
 import UserOuterClass.User
 import UserServiceGrpc.UserServiceImplBase
-
+import io.github.positionpal.util.StatusUtility.createStatus
 /**
  * Service class for managing users.
  */
@@ -25,7 +27,7 @@ class UserService : UserServiceImplBase() {
      * @return the response containing the created user.
      */
     fun createUser(request: CreateUserRequest): CreateUserResponse {
-        val userID = if (request.user.id.isNotBlank()) request.user.id else java.util.UUID.randomUUID().toString()
+        val userID = java.util.UUID.randomUUID().toString()
 
         val user = User.newBuilder()
             .setId(userID)
@@ -37,7 +39,10 @@ class UserService : UserServiceImplBase() {
             .build()
 
         users[user.id] = user
-        return CreateUserResponse.newBuilder().setUser(user).build()
+        return CreateUserResponse.newBuilder()
+            .setUser(user)
+            .setStatus(createStatus(StatusCode.OK, "User created successfully"))
+            .build()
     }
 
     /**
@@ -48,8 +53,16 @@ class UserService : UserServiceImplBase() {
      * @throws IllegalArgumentException if the user is not found.
      */
     fun getUser(request: GetUserRequest): GetUserResponse {
-        val user = users[request.userId] ?: throw IllegalArgumentException("User not found")
-        return GetUserResponse.newBuilder().setUser(user).build()
+        val user = users[request.userId]
+        val status = if (user != null) {
+            createStatus(StatusCode.OK, "User retrieved successfully")
+        } else {
+            createStatus(StatusCode.NOT_FOUND, "User not found")
+        }
+        return GetUserResponse.newBuilder()
+            .setUser(user ?: User.getDefaultInstance())
+            .setStatus(status)
+            .build()
     }
 
     /**
@@ -60,18 +73,27 @@ class UserService : UserServiceImplBase() {
      * @throws IllegalArgumentException if the user is not found.
      */
     fun updateUser(request: UpdateUserRequest): UpdateUserResponse {
-        val existingUser = users[request.userId] ?: throw IllegalArgumentException("User not found")
+        val existingUser = users[request.userId]
+        val status: Status
+        val updatedUser: User
 
-        val updatedUser = existingUser.toBuilder()
-            .setName(request.user.name)
-            .setSurname(request.user.surname)
-            .setEmail(request.user.email)
-            .setPassword(request.user.password)
-            .setRole(request.user.role)
-            .build()
+        if (existingUser != null) {
+            updatedUser = existingUser.toBuilder()
+                .setName(request.user.name)
+                .setSurname(request.user.surname)
+                .setEmail(request.user.email)
+                .setPassword(request.user.password)
+                .setRole(request.user.role)
+                .build()
 
-        users[updatedUser.id] = updatedUser
-        return UpdateUserResponse.newBuilder().setUser(updatedUser).build()
+            users[updatedUser.id] = updatedUser
+            status = createStatus(StatusCode.OK, "User updated successfully")
+        } else {
+            updatedUser = User.getDefaultInstance()
+            status = createStatus(StatusCode.NOT_FOUND, "User not found")
+        }
+
+        return UpdateUserResponse.newBuilder().setUser(updatedUser).setStatus(status).build()
     }
 
     /**
@@ -82,7 +104,12 @@ class UserService : UserServiceImplBase() {
      * @throws IllegalArgumentException if the user is not found.
      */
     fun deleteUser(request: DeleteUserRequest): DeleteUserResponse {
-        users.remove(request.userId) ?: throw IllegalArgumentException("Utente non trovato")
-        return DeleteUserResponse.newBuilder().setUserId(request.userId).build()
+        val user = users.remove(request.userId)
+        val status = if (user != null) {
+            createStatus(StatusCode.OK, "User deleted successfully")
+        } else {
+            createStatus(StatusCode.NOT_FOUND, "User not found")
+        }
+        return DeleteUserResponse.newBuilder().setUserId(request.userId).setStatus(status).build()
     }
 }
