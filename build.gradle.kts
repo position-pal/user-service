@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
+    `java-library`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.qa)
     alias(libs.plugins.kotlin.dokka)
@@ -19,6 +20,7 @@ allprojects {
 subprojects {
 
     with(rootProject.libs.plugins) {
+        apply(plugin = "java-library")
         apply(plugin = kotlin.jvm.get().pluginId)
         apply(plugin = kotlin.qa.get().pluginId)
         apply(plugin = kotlin.dokka.get().pluginId)
