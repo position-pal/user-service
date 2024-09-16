@@ -10,10 +10,10 @@ repositories {
 }
 
 dependencies {
+    api(project(":application"))
     with(libs) {
-        runtimeOnly(grpc.netty.shaded)
-        implementation(grpc.protobuf)
         implementation(grpc.stub)
+        implementation(grpc.protobuf)
         implementation(protobuf.java)
         implementation(javax.annotation.api)
     }
