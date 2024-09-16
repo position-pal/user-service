@@ -11,6 +11,7 @@ include(
     "storage",
     "presentation",
     "grpc",
+    "tests",
 )
 
 develocity {
