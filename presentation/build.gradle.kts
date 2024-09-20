@@ -27,6 +27,10 @@ tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 
+tasks.named("cpdKotlinCheck") {
+    dependsOn(tasks.named("generateProto"))
+}
+
 protobuf {
     protoc {
         artifact = rootProject.libs.protobuf.protoc.get().toString()
