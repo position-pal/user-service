@@ -12,9 +12,10 @@ import UserOuterClass.UpdateUserRequest
 import UserOuterClass.UpdateUserResponse
 import UserServiceGrpc.UserServiceImplBase
 import io.grpc.stub.StreamObserver
+import user.UserService
 
 /**
- * Adapter class for gRPC UserService, implementing the UserServiceImplBase.
+ * Adapter class for gRPC user.UserService, implementing the UserServiceImplBase.
  *
  * @property userService the service used for managing User entities
  */

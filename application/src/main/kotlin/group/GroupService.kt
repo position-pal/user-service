@@ -1,3 +1,7 @@
+package group
+
+import Group
+
 /**
  * Service interface for managing Group entities.
  */

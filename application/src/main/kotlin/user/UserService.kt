@@ -1,3 +1,7 @@
+package user
+
+import User
+
 /**
  * Service interface for managing User entities.
  */

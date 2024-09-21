@@ -1,3 +1,7 @@
+package group
+
+import Group
+
 /**
  * Repository interface for managing Group entities.
  */

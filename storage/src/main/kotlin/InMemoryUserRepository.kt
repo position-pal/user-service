@@ -1,5 +1,7 @@
+import user.UserRepository
+
 /**
- * In-memory implementation of the UserRepository interface.
+ * In-memory implementation of the user.UserRepository interface.
  */
 class InMemoryUserRepository : UserRepository {
 
@@ -22,9 +24,7 @@ class InMemoryUserRepository : UserRepository {
      * @param userId the ID of the user to retrieve
      * @return the user with the given ID, or null if no user found
      */
-    override fun findById(userId: String): User? {
-        return users[userId]
-    }
+    override fun findById(userId: String): User? = users[userId]
 
     /**
      * Updates a given user.
@@ -41,15 +41,11 @@ class InMemoryUserRepository : UserRepository {
      * @param userId the ID of the user to delete
      * @return true if the user was deleted, false otherwise
      */
-    override fun deleteById(userId: String): Boolean {
-        return users.remove(userId) != null
-    }
+    override fun deleteById(userId: String): Boolean = users.remove(userId) != null
 
     /**
      * Retrieves all users.
      * @return a list of all users
      */
-    override fun findAll(): List<User> {
-        return users.values.toList()
-    }
+    override fun findAll(): List<User> = users.values.toList()
 }

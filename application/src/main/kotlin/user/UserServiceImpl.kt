@@ -1,5 +1,9 @@
+package user
+
+import User
+
 /**
- * Implementation of the UserService interface.
+ * Implementation of the user.UserService interface.
  *
  * @property userRepository the repository used for managing User entities
  */

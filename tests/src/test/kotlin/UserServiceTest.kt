@@ -1,6 +1,9 @@
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import user.UserRepository
+import user.UserService
+import user.UserServiceImpl
 
 class UserServiceTest : FunSpec({
 
