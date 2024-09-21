@@ -1,5 +1,47 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:////PointingToDeclaration/storage/[root]/index.html
+$dokka.location:/Converter///PointingToDeclaration/presentation/[root]/-converter/index.html
+$dokka.location:/Converter/mapFromGrpcUser/#UserOuterClass.User/PointingToDeclaration/presentation/[root]/-converter/map-from-grpc-user.html
+$dokka.location:/Converter/mapToGrpcUser/#User/PointingToDeclaration/presentation/[root]/-converter/map-to-grpc-user.html
+$dokka.location:/GrpcUserServiceAdapter///PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/index.html
+$dokka.location:/GrpcUserServiceAdapter/GrpcUserServiceAdapter/#UserService/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/-grpc-user-service-adapter.html
+$dokka.location:/GrpcUserServiceAdapter/createUser/#UserOuterClass.CreateUserRequest?#io.grpc.stub.StreamObserver[UserOuterClass.CreateUserResponse]?/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/create-user.html
+$dokka.location:/GrpcUserServiceAdapter/deleteUser/#UserOuterClass.DeleteUserRequest?#io.grpc.stub.StreamObserver[UserOuterClass.DeleteUserResponse]?/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/delete-user.html
+$dokka.location:/GrpcUserServiceAdapter/getUser/#UserOuterClass.GetUserRequest?#io.grpc.stub.StreamObserver[UserOuterClass.GetUserResponse]?/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/get-user.html
+$dokka.location:/GrpcUserServiceAdapter/updateUser/#UserOuterClass.UpdateUserRequest?#io.grpc.stub.StreamObserver[UserOuterClass.UpdateUserResponse]?/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/update-user.html
+$dokka.location:/InMemoryUserRepository///PointingToDeclaration/storage/[root]/-in-memory-user-repository/index.html
+$dokka.location:/InMemoryUserRepository/InMemoryUserRepository/#/PointingToDeclaration/storage/[root]/-in-memory-user-repository/-in-memory-user-repository.html
+$dokka.location:/InMemoryUserRepository/deleteById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-user-repository/delete-by-id.html
+$dokka.location:/InMemoryUserRepository/findAll/#/PointingToDeclaration/storage/[root]/-in-memory-user-repository/find-all.html
+$dokka.location:/InMemoryUserRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-user-repository/find-by-id.html
+$dokka.location:/InMemoryUserRepository/save/#User/PointingToDeclaration/storage/[root]/-in-memory-user-repository/save.html
+$dokka.location:/InMemoryUserRepository/update/#User/PointingToDeclaration/storage/[root]/-in-memory-user-repository/update.html
+$dokka.location:/StatusUtility///PointingToDeclaration/grpc/[root]/-status-utility/index.html
+$dokka.location:/StatusUtility/createStatus/#UserOuterClass.StatusCode#kotlin.String/PointingToDeclaration/grpc/[root]/-status-utility/create-status.html
+$dokka.location:/User///PointingToDeclaration/domain/[root]/-user/index.html
+$dokka.location:/User/User/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/domain/[root]/-user/-user.html
+$dokka.location:/User/email/#/PointingToDeclaration/domain/[root]/-user/email.html
+$dokka.location:/User/id/#/PointingToDeclaration/domain/[root]/-user/id.html
+$dokka.location:/User/name/#/PointingToDeclaration/domain/[root]/-user/name.html
+$dokka.location:/User/password/#/PointingToDeclaration/domain/[root]/-user/password.html
+$dokka.location:/User/role/#/PointingToDeclaration/domain/[root]/-user/role.html
+$dokka.location:/User/surname/#/PointingToDeclaration/domain/[root]/-user/surname.html
+$dokka.location:/UserRepository///PointingToDeclaration/application/[root]/-user-repository/index.html
+$dokka.location:/UserRepository/deleteById/#kotlin.String/PointingToDeclaration/application/[root]/-user-repository/delete-by-id.html
+$dokka.location:/UserRepository/findAll/#/PointingToDeclaration/application/[root]/-user-repository/find-all.html
+$dokka.location:/UserRepository/findById/#kotlin.String/PointingToDeclaration/application/[root]/-user-repository/find-by-id.html
+$dokka.location:/UserRepository/save/#User/PointingToDeclaration/application/[root]/-user-repository/save.html
+$dokka.location:/UserRepository/update/#User/PointingToDeclaration/application/[root]/-user-repository/update.html
+$dokka.location:/UserService///PointingToDeclaration/application/[root]/-user-service/index.html
+$dokka.location:/UserService/createUser/#User/PointingToDeclaration/application/[root]/-user-service/create-user.html
+$dokka.location:/UserService/deleteUser/#kotlin.String/PointingToDeclaration/application/[root]/-user-service/delete-user.html
+$dokka.location:/UserService/getUser/#kotlin.String/PointingToDeclaration/application/[root]/-user-service/get-user.html
+$dokka.location:/UserService/updateUser/#kotlin.String#User/PointingToDeclaration/application/[root]/-user-service/update-user.html
+$dokka.location:/UserServiceImpl///PointingToDeclaration/application/[root]/-user-service-impl/index.html
+$dokka.location:/UserServiceImpl/UserServiceImpl/#UserRepository/PointingToDeclaration/application/[root]/-user-service-impl/-user-service-impl.html
+$dokka.location:/UserServiceImpl/createUser/#User/PointingToDeclaration/application/[root]/-user-service-impl/create-user.html
+$dokka.location:/UserServiceImpl/deleteUser/#kotlin.String/PointingToDeclaration/application/[root]/-user-service-impl/delete-user.html
+$dokka.location:/UserServiceImpl/getUser/#kotlin.String/PointingToDeclaration/application/[root]/-user-service-impl/get-user.html
+$dokka.location:/UserServiceImpl/updateUser/#kotlin.String#User/PointingToDeclaration/application/[root]/-user-service-impl/update-user.html
 
-module:core
-io.github.positionpal
