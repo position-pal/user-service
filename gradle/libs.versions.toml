@@ -2,7 +2,7 @@
 kotlin = "2.0.20"
 kotest = "5.9.1"
 mockito = "5.13.0"
-proto = "3.25.5"
+proto = "4.28.2"
 grpc = "1.68.0"
 protobuf = "0.9.1"
 
