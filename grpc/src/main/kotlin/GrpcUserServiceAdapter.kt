@@ -51,11 +51,9 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
      */
     override fun getUser(request: GetUserRequest?, responseObserver: StreamObserver<GetUserResponse>?) {
         val user = request?.let { userService.getUser(it.userId) }
-        val status = if (user != null) {
-            createStatus(StatusCode.OK, "User retrieved successfully")
-        } else {
-            createStatus(StatusCode.NOT_FOUND, "User not found")
-        }
+        val status = user?.let {
+            createStatus(StatusCode.OK, "User updated successfully")
+        } ?: createStatus(StatusCode.NOT_FOUND, "User not found")
         val response = GetUserResponse.newBuilder()
             .setUser(user?.let { mapToGrpcUser(it) } ?: UserOuterClass.User.getDefaultInstance())
             .setStatus(status)
@@ -71,11 +69,9 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
      */
     override fun updateUser(request: UpdateUserRequest?, responseObserver: StreamObserver<UpdateUserResponse>?) {
         val updatedUser = request?.let { mapFromGrpcUser(it.user) }?.let { userService.updateUser(request.userId, it) }
-        val status = if (updatedUser != null) {
+        val status = updatedUser?.let {
             createStatus(StatusCode.OK, "User updated successfully")
-        } else {
-            createStatus(StatusCode.NOT_FOUND, "User not found")
-        }
+        } ?: createStatus(StatusCode.NOT_FOUND, "User not found")
         val response = UpdateUserResponse.newBuilder()
             .setUser(updatedUser?.let { mapToGrpcUser(it) } ?: UserOuterClass.User.getDefaultInstance())
             .setStatus(status)

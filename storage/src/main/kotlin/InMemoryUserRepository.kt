@@ -31,14 +31,10 @@ class InMemoryUserRepository : UserRepository {
      * @param user the user to update
      * @return the updated user, or null if the user does not exist
      */
-    override fun update(user: User): User? {
-        return if (users.containsKey(user.id)) {
-            users[user.id] = user
-            user
-        } else {
-            null
-        }
-    }
+    override fun update(user: User): User? =
+        users.takeIf { it.containsKey(user.id) }
+            ?.apply { this[user.id] = user }
+            ?.let { user }
 
     /**
      * Deletes a user by their ID.
