@@ -36,4 +36,34 @@ object Converter {
             role = grpcUser.role,
         )
     }
+
+    /**
+     * Maps a Group entity to a gRPC Group.
+     *
+     * @param group the Group entity to map
+     * @return the mapped gRPC Group
+     */
+    fun mapToGrpcGroup(group: Group): GroupOuterClass.Group {
+        return GroupOuterClass.Group.newBuilder()
+            .setId(group.id)
+            .setName(group.name)
+            .addAllMembers(group.members)
+            .setCreatedBy(mapToGrpcUser(group.createdBy))
+            .build()
+    }
+
+    /**
+     * Maps a gRPC Group to a Group entity.
+     *
+     * @param grpcGroup the gRPC Group to map
+     * @return the mapped Group entity
+     */
+    fun mapFromGrpcGroup(grpcGroup: GroupOuterClass.Group): Group {
+        return Group(
+            id = grpcGroup.id,
+            name = grpcGroup.name,
+            members = grpcGroup.membersList,
+            createdBy = mapFromGrpcUser(grpcGroup.createdBy),
+        )
+    }
 }

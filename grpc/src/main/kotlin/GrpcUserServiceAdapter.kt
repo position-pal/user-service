@@ -27,18 +27,11 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
      * @param responseObserver the gRPC response observer
      */
     override fun createUser(request: CreateUserRequest?, responseObserver: StreamObserver<CreateUserResponse>?) {
-        val user = User(
-            id = "",
-            name = request?.user?.name.orEmpty(),
-            surname = request?.user?.surname.orEmpty(),
-            email = request?.user?.email.orEmpty(),
-            password = request?.user?.password.orEmpty(),
-            role = request?.user?.role.orEmpty(),
-        )
+        val user = request?.let { mapFromGrpcUser(it.user) }
 
-        val createdUser = userService.createUser(user)
+        val createdUser = user?.let { userService.createUser(it) }
         val response = CreateUserResponse.newBuilder()
-            .setUser(mapToGrpcUser(createdUser))
+            .setUser(createdUser?.let { mapToGrpcUser(it) })
             .setStatus(createStatus(StatusCode.OK, "User created successfully"))
             .build()
         responseObserver?.onNext(response)
