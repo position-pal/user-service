@@ -4,7 +4,7 @@ kotest = "5.9.1"
 mockito = "5.13.0"
 proto = "4.28.2"
 grpc = "1.68.0"
-protobuf = "0.9.1"
+protobuf = "0.9.4"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
