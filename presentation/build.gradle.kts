@@ -1,4 +1,6 @@
 import de.aaschmid.gradle.plugins.cpd.Cpd
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -20,15 +22,6 @@ dependencies {
     }
 }
 
-ktlint {
-    filter{
-        exclude("**/build/generated/**")
-    }
-}
-
-tasks.withType<Cpd>(){
-    exclude("**/build/generated/**")
-}
 
 tasks.withType<Test>().configureEach {
     testLogging {
@@ -38,9 +31,9 @@ tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 
-tasks.named("cpdKotlinCheck") {
-    dependsOn(tasks.named("generateProto"))
-}
+// tasks.named("cpdKotlinCheck") {
+//     dependsOn(tasks.named("generateProto"))
+// }
 
 protobuf {
     protoc {

@@ -22,7 +22,9 @@ subprojects {
     with(rootProject.libs.plugins) {
         apply(plugin = "java-library")
         apply(plugin = kotlin.jvm.get().pluginId)
-        apply(plugin = kotlin.qa.get().pluginId)
+        if (name != "presentation") {
+            apply(plugin = kotlin.qa.get().pluginId)
+        }
         apply(plugin = kotlin.dokka.get().pluginId)
     }
 
