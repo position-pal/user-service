@@ -12,6 +12,17 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 
+private fun getDefaultUser(): User {
+    return User(
+        id = "999",
+        name = "Admin",
+        surname = "User",
+        email = "",
+        password = "",
+        role = "",
+    )
+}
+
 class GrpcGroupServiceTest : FunSpec({
 
     val mockGroupService = mockk<GroupService>()
@@ -25,7 +36,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = User.getEmptyUser(),
+                createdBy = getDefaultUser(),
             )
 
             coEvery { mockGroupService.createGroup(any()) } returns createdGroup
@@ -43,7 +54,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = User.getEmptyUser(),
+                createdBy = getDefaultUser(),
             )
             coEvery { mockGroupService.getGroup("123") } returns retrievedGroup
 
@@ -73,7 +84,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Updated Group",
                 members = emptyList(),
-                createdBy = User.getEmptyUser(),
+                createdBy = getDefaultUser(),
             )
 
             coEvery { mockGroupService.updateGroup("123", any()) } returns updatedGroup
@@ -133,7 +144,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = listOf("user1"),
-                createdBy = User.getEmptyUser(),
+                createdBy = getDefaultUser(),
             )
             coEvery { mockGroupService.addMember("123", "user1") } returns updatedGroup
 
@@ -161,7 +172,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = User.getEmptyUser(),
+                createdBy = getDefaultUser(),
             )
             coEvery { mockGroupService.removeMember("123", "user1") } returns updatedGroup
 

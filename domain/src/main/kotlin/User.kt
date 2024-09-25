@@ -15,18 +15,4 @@ data class User(
     val email: String,
     val password: String,
     val role: String,
-) {
-    /**
-     * Companion object for the User class.
-     */
-    companion object {
-        /**
-         * Returns an empty User instance with all properties set to empty strings.
-         *
-         * @return an empty User instance
-         */
-        fun getEmptyUser(): User {
-            return User("", "", "", "", "", "")
-        }
-    }
-}
+)
