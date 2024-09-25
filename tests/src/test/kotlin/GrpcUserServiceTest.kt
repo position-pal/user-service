@@ -1,25 +1,19 @@
 import UserOuterClass.CreateUserRequest
-import UserOuterClass.CreateUserResponse
 import UserOuterClass.DeleteUserRequest
-import UserOuterClass.DeleteUserResponse
 import UserOuterClass.GetUserRequest
-import UserOuterClass.GetUserResponse
 import UserOuterClass.StatusCode
 import UserOuterClass.UpdateUserRequest
-import UserOuterClass.UpdateUserResponse
-import io.grpc.stub.StreamObserver
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
-import io.mockk.slot
-import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import user.UserService
 
 class GrpcUserServiceTest : FunSpec({
 
     val mockUserService = mockk<UserService>()
-    val grpcAdapter = GrpcUserServiceAdapter(mockUserService)
+    val grpcAdapter = GrpcUserServiceAdapterKt(mockUserService)
 
     context("createUser") {
         test("should create a user and return success status") {
@@ -42,18 +36,12 @@ class GrpcUserServiceTest : FunSpec({
                 role = "admin",
             )
 
-            every { mockUserService.createUser(any()) } returns createdUser
+            coEvery { mockUserService.createUser(any()) } returns createdUser
 
-            val responseObserver = mockk<StreamObserver<CreateUserResponse>>(relaxed = true)
-            grpcAdapter.createUser(request, responseObserver)
+            val response = runBlocking { grpcAdapter.createUser(request) }
 
-            val slot = slot<CreateUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
-
-            val response = slot.captured
             response.status.code shouldBe StatusCode.OK
             response.user.name shouldBe "Alice"
-            verify { responseObserver.onCompleted() }
         }
     }
 
@@ -68,36 +56,25 @@ class GrpcUserServiceTest : FunSpec({
                 role = "admin",
             )
 
-            every { mockUserService.getUser("123") } returns retrievedUser
+            coEvery { mockUserService.getUser("123") } returns retrievedUser
 
             val request = GetUserRequest.newBuilder().setUserId("123").build()
 
-            val responseObserver = mockk<StreamObserver<GetUserResponse>>(relaxed = true)
-            grpcAdapter.getUser(request, responseObserver)
+            val response = runBlocking { grpcAdapter.getUser(request) }
 
-            val slot = slot<GetUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
-
-            val response = slot.captured
             response.status.code shouldBe StatusCode.OK
             response.user.name shouldBe "Alice"
-            verify { responseObserver.onCompleted() }
         }
 
         test("should return NOT_FOUND if user does not exist") {
-            every { mockUserService.getUser("non-existent-id") } returns null
+            coEvery { mockUserService.getUser("non-existent-id") } returns null
 
             val request = GetUserRequest.newBuilder().setUserId("non-existent-id").build()
-            val responseObserver = mockk<StreamObserver<GetUserResponse>>(relaxed = true)
-            grpcAdapter.getUser(request, responseObserver)
 
-            val slot = slot<GetUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
+            val response = runBlocking { grpcAdapter.getUser(request) }
 
-            val response = slot.captured
             response.status.code shouldBe StatusCode.NOT_FOUND
             response.user.name shouldBe ""
-            verify { responseObserver.onCompleted() }
         }
     }
 
@@ -126,22 +103,16 @@ class GrpcUserServiceTest : FunSpec({
                 role = "admin",
             )
 
-            every { mockUserService.updateUser("123", any()) } returns updatedUser
+            coEvery { mockUserService.updateUser("123", any()) } returns updatedUser
 
-            val responseObserver = mockk<StreamObserver<UpdateUserResponse>>(relaxed = true)
-            grpcAdapter.updateUser(request, responseObserver)
+            val response = runBlocking { grpcAdapter.updateUser(request) }
 
-            val slot = slot<UpdateUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
-
-            val response = slot.captured
             response.status.code shouldBe StatusCode.OK
             response.user.password shouldBe "newpassword"
-            verify { responseObserver.onCompleted() }
         }
 
         test("should return NOT_FOUND if user does not exist") {
-            every { mockUserService.updateUser("non-existent-id", any()) } returns null
+            coEvery { mockUserService.updateUser("non-existent-id", any()) } returns null
 
             val grpcUser = UserOuterClass.User.newBuilder()
                 .setId("non-existent-id")
@@ -157,52 +128,34 @@ class GrpcUserServiceTest : FunSpec({
                 .setUser(grpcUser)
                 .build()
 
-            val responseObserver = mockk<StreamObserver<UpdateUserResponse>>(relaxed = true)
-            grpcAdapter.updateUser(request, responseObserver)
+            val response = runBlocking { grpcAdapter.updateUser(request) }
 
-            val slot = slot<UpdateUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
-
-            val response = slot.captured
             response.status.code shouldBe StatusCode.NOT_FOUND
             response.user.name shouldBe ""
-            verify { responseObserver.onCompleted() }
         }
     }
 
     context("deleteUser") {
         test("should delete a user and return success status") {
-            every { mockUserService.deleteUser("123") } returns true
+            coEvery { mockUserService.deleteUser("123") } returns true
 
             val request = DeleteUserRequest.newBuilder().setUserId("123").build()
 
-            val responseObserver = mockk<StreamObserver<DeleteUserResponse>>(relaxed = true)
-            grpcAdapter.deleteUser(request, responseObserver)
+            val response = runBlocking { grpcAdapter.deleteUser(request) }
 
-            val slot = slot<DeleteUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
-
-            val response = slot.captured
             response.status.code shouldBe StatusCode.OK
             response.userId shouldBe "123"
-            verify { responseObserver.onCompleted() }
         }
 
         test("should return NOT_FOUND if user does not exist") {
-            every { mockUserService.deleteUser("non-existent-id") } returns false
+            coEvery { mockUserService.deleteUser("non-existent-id") } returns false
 
             val request = DeleteUserRequest.newBuilder().setUserId("non-existent-id").build()
 
-            val responseObserver = mockk<StreamObserver<DeleteUserResponse>>(relaxed = true)
-            grpcAdapter.deleteUser(request, responseObserver)
+            val response = runBlocking { grpcAdapter.deleteUser(request) }
 
-            val slot = slot<DeleteUserResponse>()
-            verify { responseObserver.onNext(capture(slot)) }
-
-            val response = slot.captured
             response.status.code shouldBe StatusCode.NOT_FOUND
             response.userId shouldBe "non-existent-id"
-            verify { responseObserver.onCompleted() }
         }
     }
 })
