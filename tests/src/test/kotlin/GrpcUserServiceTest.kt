@@ -13,7 +13,7 @@ import user.UserService
 class GrpcUserServiceTest : FunSpec({
 
     val mockUserService = mockk<UserService>()
-    val grpcAdapter = GrpcUserServiceAdapterKt(mockUserService)
+    val grpcAdapter = GrpcUserServiceAdapter(mockUserService)
 
     context("createUser") {
         test("should create a user and return success status") {

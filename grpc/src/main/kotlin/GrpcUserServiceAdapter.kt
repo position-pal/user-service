@@ -10,87 +10,56 @@ import UserOuterClass.GetUserResponse
 import UserOuterClass.StatusCode
 import UserOuterClass.UpdateUserRequest
 import UserOuterClass.UpdateUserResponse
-import UserServiceGrpc.UserServiceImplBase
-import io.grpc.stub.StreamObserver
+import UserOuterClass.User
+import UserServiceGrpcKt.UserServiceCoroutineImplBase
 import user.UserService
 
 /**
- * Adapter class for gRPC user.UserService, implementing the UserServiceImplBase.
- *
- * @property userService the service used for managing User entities
+ * Adapter class for gRPC Group Service.
+ * This class is responsible for adapting the gRPC service methods to the internal service methods.
  */
-class GrpcUserServiceAdapter(private val userService: UserService) : UserServiceImplBase() {
-
-    /**
-     * Creates a new user.
-     * @param request the gRPC request containing user details
-     * @param responseObserver the gRPC response observer
-     */
-    override fun createUser(request: CreateUserRequest?, responseObserver: StreamObserver<CreateUserResponse>?) {
-        val user = request?.let { mapFromGrpcUser(it.user) }
-
-        val createdUser = user?.let { userService.createUser(it) }
-        val response = CreateUserResponse.newBuilder()
-            .setUser(createdUser?.let { mapToGrpcUser(it) })
+class GrpcUserServiceAdapter(private val userService: UserService) : UserServiceCoroutineImplBase() {
+    override suspend fun createUser(request: CreateUserRequest): CreateUserResponse {
+        val user = mapFromGrpcUser(request.user)
+        val createdUser = userService.createUser(user)
+        return CreateUserResponse.newBuilder()
+            .setUser(mapToGrpcUser(createdUser))
             .setStatus(createStatus(StatusCode.OK, "User created successfully"))
             .build()
-        responseObserver?.onNext(response)
-        responseObserver?.onCompleted()
     }
 
-    /**
-     * Retrieves a user by their ID.
-     * @param request the gRPC request containing the user ID
-     * @param responseObserver the gRPC response observer
-     */
-    override fun getUser(request: GetUserRequest?, responseObserver: StreamObserver<GetUserResponse>?) {
-        val user = request?.let { userService.getUser(it.userId) }
+    override suspend fun getUser(request: GetUserRequest): GetUserResponse {
+        val user = userService.getUser(request.userId)
         val status = user?.let {
-            createStatus(StatusCode.OK, "User updated successfully")
+            createStatus(StatusCode.OK, "User retrieved successfully")
         } ?: createStatus(StatusCode.NOT_FOUND, "User not found")
-        val response = GetUserResponse.newBuilder()
-            .setUser(user?.let { mapToGrpcUser(it) } ?: UserOuterClass.User.getDefaultInstance())
+        return GetUserResponse.newBuilder()
+            .setUser(user?.let { mapToGrpcUser(it) } ?: User.getDefaultInstance())
             .setStatus(status)
             .build()
-        responseObserver?.onNext(response)
-        responseObserver?.onCompleted()
     }
 
-    /**
-     * Updates an existing user.
-     * @param request the gRPC request containing user details
-     * @param responseObserver the gRPC response observer
-     */
-    override fun updateUser(request: UpdateUserRequest?, responseObserver: StreamObserver<UpdateUserResponse>?) {
-        val updatedUser = request?.let { mapFromGrpcUser(it.user) }?.let { userService.updateUser(request.userId, it) }
+    override suspend fun updateUser(request: UpdateUserRequest): UpdateUserResponse {
+        val updatedUser = userService.updateUser(request.userId, mapFromGrpcUser(request.user))
         val status = updatedUser?.let {
             createStatus(StatusCode.OK, "User updated successfully")
         } ?: createStatus(StatusCode.NOT_FOUND, "User not found")
-        val response = UpdateUserResponse.newBuilder()
-            .setUser(updatedUser?.let { mapToGrpcUser(it) } ?: UserOuterClass.User.getDefaultInstance())
+        return UpdateUserResponse.newBuilder()
+            .setUser(updatedUser?.let { mapToGrpcUser(it) } ?: User.getDefaultInstance())
             .setStatus(status)
             .build()
-        responseObserver?.onNext(response)
-        responseObserver?.onCompleted()
     }
 
-    /**
-     * Deletes a user by their ID.
-     * @param request the gRPC request containing the user ID
-     * @param responseObserver the gRPC response observer
-     */
-    override fun deleteUser(request: DeleteUserRequest?, responseObserver: StreamObserver<DeleteUserResponse>?) {
-        val success = request?.let { userService.deleteUser(it.userId) } ?: false
+    override suspend fun deleteUser(request: DeleteUserRequest): DeleteUserResponse {
+        val success = userService.deleteUser(request.userId)
         val status = if (success) {
             createStatus(StatusCode.OK, "User deleted successfully")
         } else {
             createStatus(StatusCode.NOT_FOUND, "User not found")
         }
-        val response = DeleteUserResponse.newBuilder()
-            .setUserId(request?.userId.orEmpty())
+        return DeleteUserResponse.newBuilder()
+            .setUserId(request.userId)
             .setStatus(status)
             .build()
-        responseObserver?.onNext(response)
-        responseObserver?.onCompleted()
     }
 }

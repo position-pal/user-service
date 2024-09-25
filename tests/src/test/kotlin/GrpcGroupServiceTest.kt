@@ -15,7 +15,7 @@ import kotlinx.coroutines.runBlocking
 class GrpcGroupServiceTest : FunSpec({
 
     val mockGroupService = mockk<GroupService>()
-    val grpcAdapter = GrpcGroupServiceAdapterKt(mockGroupService)
+    val grpcAdapter = GrpcGroupServiceAdapter(mockGroupService)
 
     context("createGroup") {
         test("should create a group and return success status") {
