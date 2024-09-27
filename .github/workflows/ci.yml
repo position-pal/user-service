@@ -14,7 +14,7 @@ on:
 
 jobs:
   dispatcher:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: >- # Prevents running the workflow twice on PR made by a branch of the same repository
       github.event_name != 'pull_request'
       || github.event.pull_request.head.repo.full_name != github.repository
@@ -56,7 +56,7 @@ jobs:
           && !contains(join(needs.*.result, ','), 'skipped')
         )
       )
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Verify no failures occurred in needed jobs
         # if there are failures, false is executed and the job fails.
