@@ -48,15 +48,17 @@ subprojects {
         useJUnitPlatform()
     }
 
+    val generatedFilesFolder = "build${File.separator}generated"
+
     tasks.withType<SourceTask>()
         .matching { it is VerificationTask }
         .configureEach {
-            exclude { "generated" in it.file.absolutePath }
+            exclude { generatedFilesFolder in it.file.absolutePath }
         }
 
     ktlint {
         filter {
-            exclude { "build${File.separator}generated" in it.file.absolutePath }
+            exclude { generatedFilesFolder in it.file.absolutePath }
         }
     }
 }
