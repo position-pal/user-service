@@ -22,9 +22,7 @@ subprojects {
     with(rootProject.libs.plugins) {
         apply(plugin = "java-library")
         apply(plugin = kotlin.jvm.get().pluginId)
-        if (name != "presentation") {
-            apply(plugin = kotlin.qa.get().pluginId)
-        }
+        apply(plugin = kotlin.qa.get().pluginId)
         apply(plugin = kotlin.dokka.get().pluginId)
     }
 
@@ -48,5 +46,17 @@ subprojects {
             exceptionFormat = TestExceptionFormat.FULL
         }
         useJUnitPlatform()
+    }
+
+    tasks.withType<SourceTask>()
+        .matching { it is VerificationTask }
+        .configureEach {
+            exclude { "generated" in it.file.absolutePath }
+        }
+
+    ktlint {
+        filter {
+            exclude { "build${File.separator}generated" in it.file.absolutePath }
+        }
     }
 }
