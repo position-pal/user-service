@@ -56,3 +56,6 @@ gradle-app.setting
 
 ### Utilities ###
 .DS_Store
+
+### Secrets ###
+.env

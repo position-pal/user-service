@@ -36,7 +36,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = getDefaultUser().id,
             )
 
             coEvery { mockGroupService.createGroup(any()) } returns createdGroup
@@ -54,7 +54,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = getDefaultUser().id,
             )
             coEvery { mockGroupService.getGroup("123") } returns retrievedGroup
 
@@ -84,7 +84,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Updated Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = getDefaultUser().id,
             )
 
             coEvery { mockGroupService.updateGroup("123", any()) } returns updatedGroup
@@ -144,7 +144,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = listOf("user1"),
-                createdBy = getDefaultUser(),
+                createdBy = getDefaultUser().id,
             )
             coEvery { mockGroupService.addMember("123", "user1") } returns updatedGroup
 
@@ -172,7 +172,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = getDefaultUser().id,
             )
             coEvery { mockGroupService.removeMember("123", "user1") } returns updatedGroup
 

@@ -9,6 +9,17 @@ class UserServiceTest : FunSpec({
 
     val userRepository: UserRepository = InMemoryUserRepository()
     val userService: UserService = UserServiceImpl(userRepository)
+    val createdUserIds = mutableListOf<String>()
+
+    beforeEach {
+        createdUserIds.clear()
+    }
+
+    afterEach {
+        createdUserIds.forEach { userId ->
+            userRepository.deleteById(userId)
+        }
+    }
 
     context("createUser") {
         test("createUser should add a user and return the created user") {
@@ -22,6 +33,7 @@ class UserServiceTest : FunSpec({
             )
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
 
             createdUser.id shouldNotBe ""
             createdUser.name shouldBe "John"
@@ -32,7 +44,7 @@ class UserServiceTest : FunSpec({
     context("getUser") {
         test("getUser should return a user if it exists") {
             val user = User(
-                id = "",
+                id = "test-123",
                 name = "Jane",
                 surname = "Doe",
                 email = "jane.doe@example.com",
@@ -41,6 +53,7 @@ class UserServiceTest : FunSpec({
             )
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
             val retrievedUser = userService.getUser(createdUser.id)
 
             retrievedUser shouldNotBe null
@@ -68,6 +81,7 @@ class UserServiceTest : FunSpec({
             )
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
             val updatedUser = createdUser.copy(name = "Michael")
 
             val result = userService.updateUser(createdUser.id, updatedUser)
@@ -106,6 +120,7 @@ class UserServiceTest : FunSpec({
             )
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
             val deleteResult = userService.deleteUser(createdUser.id)
 
             deleteResult shouldBe true

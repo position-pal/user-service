@@ -48,7 +48,7 @@ object Converter {
             .setId(group.id)
             .setName(group.name)
             .addAllMembers(group.members)
-            .setCreatedBy(mapToGrpcUser(group.createdBy))
+            .setCreatedBy(group.createdBy)
             .build()
     }
 
@@ -63,7 +63,7 @@ object Converter {
             id = grpcGroup.id,
             name = grpcGroup.name,
             members = grpcGroup.membersList,
-            createdBy = mapFromGrpcUser(grpcGroup.createdBy),
+            createdBy = grpcGroup.createdBy,
         )
     }
 }

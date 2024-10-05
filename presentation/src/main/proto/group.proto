@@ -15,7 +15,7 @@ message Group {
   string id = 1;
   string name = 2;
   repeated string members = 3;
-  User createdBy = 4;
+  string createdBy = 4;
 }
 
 message CreateGroupRequest {

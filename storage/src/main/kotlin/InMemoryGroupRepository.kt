@@ -48,4 +48,32 @@ class InMemoryGroupRepository : GroupRepository {
      * @return a list of all groups
      */
     override fun findAll(): List<Group> = groups.values.toList()
+
+    /**
+     * Adds a member to a group.
+     * @param groupId the ID of the group
+     * @param userId the ID of the user to add
+     * @return the updated group, or null if the group does not exist
+     */
+    override fun addMember(groupId: String, userId: String): Group? {
+        return groups[groupId]?.let { group ->
+            val updatedGroup = group.copy(members = group.members + userId)
+            groups[groupId] = updatedGroup
+            updatedGroup
+        }
+    }
+
+    /**
+     * Removes a member from a group.
+     * @param groupId the ID of the group
+     * @param userId the ID of the user to remove
+     * @return the updated group, or null if the group does not exist
+     */
+    override fun removeMember(groupId: String, userId: String): Group? {
+        return groups[groupId]?.let { group ->
+            val updatedGroup = group.copy(members = group.members - userId)
+            groups[groupId] = updatedGroup
+            updatedGroup
+        }
+    }
 }

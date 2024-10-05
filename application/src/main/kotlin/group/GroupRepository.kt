@@ -40,4 +40,20 @@ interface GroupRepository {
      * @return a list of all groups
      */
     fun findAll(): List<Group>
+
+    /**
+     * Adds a member to a group.
+     * @param groupId the ID of the group
+     * @param userId the ID of the user to add
+     * @return the updated group, or null if the group does not exist
+     */
+    fun addMember(groupId: String, userId: String): Group?
+
+    /**
+     * Removes a member from a group.
+     * @param groupId the ID of the group
+     * @param userId the ID of the user to remove
+     * @return the updated group, or null if the group does not exist
+     */
+    fun removeMember(groupId: String, userId: String): Group?
 }
