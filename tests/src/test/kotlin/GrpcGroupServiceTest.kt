@@ -1,3 +1,4 @@
+import Converter.mapToGrpcUser
 import GroupOuterClass.AddMemberRequest
 import GroupOuterClass.CreateGroupRequest
 import GroupOuterClass.DeleteGroupRequest
@@ -14,12 +15,12 @@ import kotlinx.coroutines.runBlocking
 
 private fun getDefaultUser(): User {
     return User(
-        id = "999",
+        id = "default-uuid",
         name = "Admin",
         surname = "User",
-        email = "",
-        password = "",
-        role = "",
+        email = "default@email.it",
+        password = "default-password",
+        role = "test-user",
     )
 }
 
@@ -36,7 +37,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser().id,
+                createdBy = getDefaultUser(),
             )
 
             coEvery { mockGroupService.createGroup(any()) } returns createdGroup
@@ -54,7 +55,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser().id,
+                createdBy = getDefaultUser(),
             )
             coEvery { mockGroupService.getGroup("123") } returns retrievedGroup
 
@@ -84,7 +85,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Updated Group",
                 members = emptyList(),
-                createdBy = getDefaultUser().id,
+                createdBy = getDefaultUser(),
             )
 
             coEvery { mockGroupService.updateGroup("123", any()) } returns updatedGroup
@@ -102,7 +103,10 @@ class GrpcGroupServiceTest : FunSpec({
                 .setId("non-existent-id")
                 .setName("NonExistent Group")
                 .build()
-            val request = UpdateGroupRequest.newBuilder().setGroupId("non-existent-id").setGroup(grpcGroup).build()
+            val request = UpdateGroupRequest.newBuilder()
+                .setGroupId("non-existent-id")
+                .setGroup(grpcGroup)
+                .build()
             val response = runBlocking { grpcAdapter.updateGroup(request) }
 
             response.status.code shouldBe StatusCode.NOT_FOUND
@@ -143,22 +147,28 @@ class GrpcGroupServiceTest : FunSpec({
             val updatedGroup = Group(
                 id = "123",
                 name = "Test Group",
-                members = listOf("user1"),
-                createdBy = getDefaultUser().id,
+                members = listOf(getDefaultUser()),
+                createdBy = getDefaultUser(),
             )
-            coEvery { mockGroupService.addMember("123", "user1") } returns updatedGroup
+            coEvery { mockGroupService.addMember("123", getDefaultUser()) } returns updatedGroup
 
-            val request = AddMemberRequest.newBuilder().setGroupId("123").setUserId("user1").build()
+            val request = AddMemberRequest.newBuilder()
+                .setGroupId("123")
+                .setUser(mapToGrpcUser(getDefaultUser()))
+                .build()
             val response = runBlocking { grpcAdapter.addMember(request) }
 
             response.status.code shouldBe StatusCode.OK
-            response.group.membersList shouldBe listOf("user1")
+            response.group.membersList shouldBe listOf(mapToGrpcUser(getDefaultUser()))
         }
 
         test("should return NOT_FOUND if group does not exist") {
-            coEvery { mockGroupService.addMember("non-existent-id", "user1") } returns null
+            coEvery { mockGroupService.addMember("non-existent-id", getDefaultUser()) } returns null
 
-            val request = AddMemberRequest.newBuilder().setGroupId("non-existent-id").setUserId("user1").build()
+            val request = AddMemberRequest.newBuilder()
+                .setGroupId("non-existent-id")
+                .setUser(mapToGrpcUser(getDefaultUser()))
+                .build()
             val response = runBlocking { grpcAdapter.addMember(request) }
 
             response.status.code shouldBe StatusCode.NOT_FOUND
@@ -172,11 +182,14 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser().id,
+                createdBy = getDefaultUser(),
             )
-            coEvery { mockGroupService.removeMember("123", "user1") } returns updatedGroup
+            coEvery { mockGroupService.removeMember("123", getDefaultUser()) } returns updatedGroup
 
-            val request = RemoveMemberRequest.newBuilder().setGroupId("123").setUserId("user1").build()
+            val request = RemoveMemberRequest.newBuilder()
+                .setGroupId("123")
+                .setUser(mapToGrpcUser(getDefaultUser()))
+                .build()
             val response = runBlocking { grpcAdapter.removeMember(request) }
 
             response.status.code shouldBe StatusCode.OK
@@ -184,9 +197,12 @@ class GrpcGroupServiceTest : FunSpec({
         }
 
         test("should return NOT_FOUND if group does not exist") {
-            coEvery { mockGroupService.removeMember("non-existent-id", "user1") } returns null
+            coEvery { mockGroupService.removeMember("non-existent-id", getDefaultUser()) } returns null
 
-            val request = RemoveMemberRequest.newBuilder().setGroupId("non-existent-id").setUserId("user1").build()
+            val request = RemoveMemberRequest.newBuilder()
+                .setGroupId("non-existent-id")
+                .setUser(mapToGrpcUser(getDefaultUser()))
+                .build()
             val response = runBlocking { grpcAdapter.removeMember(request) }
 
             response.status.code shouldBe StatusCode.NOT_FOUND

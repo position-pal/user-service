@@ -13,8 +13,8 @@ import org.ktorm.schema.varchar
 data class Group(
     val id: String,
     val name: String,
-    val members: List<String>,
-    val createdBy: String,
+    val members: List<User>,
+    val createdBy: User,
 )
 
 /**
@@ -40,6 +40,6 @@ object Groups : BaseTable<Group>("groups") {
         id = row[id].orEmpty(),
         name = row[name].orEmpty(),
         members = emptyList(), // todo implement this logic
-        createdBy = row[createdBy].orEmpty(),
+        createdBy = User(row[createdBy].orEmpty(), "", "", "", "", ""), // todo implement this logic
     )
 }

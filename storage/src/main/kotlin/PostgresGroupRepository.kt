@@ -1,10 +1,15 @@
 import DBConnection.groups
+import DBConnection.users
 import group.GroupRepository
 import org.ktorm.database.Database
 import org.ktorm.dsl.delete
 import org.ktorm.dsl.eq
+import org.ktorm.dsl.from
+import org.ktorm.dsl.inList
 import org.ktorm.dsl.insert
+import org.ktorm.dsl.select
 import org.ktorm.dsl.update
+import org.ktorm.dsl.where
 import org.ktorm.entity.filter
 import org.ktorm.entity.firstOrNull
 import org.ktorm.entity.toList
@@ -12,23 +17,35 @@ import org.ktorm.entity.toList
 /**
  * Implementation of the GroupRepository interface using PostgreSQL as the database.
  */
-class PostgresGroupRepository : GroupRepository {
-
-    private val db: Database = DBConnection.getDatabaseObject()
+class PostgresGroupRepository(private val db: Database = DBConnection.getDatabaseObject()) : GroupRepository {
 
     /**
      * Saves the membership information for a group.
      *
      * @param groupId the unique identifier of the group
-     * @param userIds the list of user IDs to be added to the group
+     * @param users the list of user to be added to the group
      */
-    private fun saveMembership(groupId: String, userIds: List<String>) {
-        for (userId in userIds) {
+    private fun saveMembership(groupId: String, users: List<User>) {
+        for (user in users) {
             db.insert(Memberships) {
                 set(it.groupId, groupId)
-                set(it.userId, userId)
+                set(it.userId, user.id)
             }
         }
+    }
+
+    /**
+     * Gets the members of a group.
+     *
+     * @param groupId the unique identifier of the group
+     * @return a list of user entities that are members of the group
+     */
+    private fun getMembers(groupId: String): List<User> {
+        return db.users.filter {
+            it.id inList db.from(Memberships).select(Memberships.userId).where {
+                Memberships.groupId eq groupId
+            }
+        }.toList()
     }
 
     /**
@@ -42,7 +59,7 @@ class PostgresGroupRepository : GroupRepository {
         db.insert(Groups) {
             set(it.id, groupId)
             set(it.name, group.name)
-            set(it.createdBy, group.createdBy)
+            set(it.createdBy, group.createdBy.id)
         }
         saveMembership(groupId, group.members)
         return group.copy(id = groupId)
@@ -55,7 +72,9 @@ class PostgresGroupRepository : GroupRepository {
      * @return the group entity if found, otherwise null
      */
     override fun findById(groupId: String): Group? {
-        return db.groups.filter { it.id eq groupId }.firstOrNull()
+        val group = db.groups.filter { it.id eq groupId }.firstOrNull() ?: return null
+        val members = getMembers(groupId)
+        return group.copy(members = members)
     }
 
     /**
@@ -67,10 +86,12 @@ class PostgresGroupRepository : GroupRepository {
     override fun update(group: Group): Group? {
         val affectedRows = db.update(Groups) {
             set(it.name, group.name)
-            set(it.createdBy, group.createdBy)
+            set(it.createdBy, group.createdBy.id)
             where { it.id eq group.id }
         }
-        // todo update memberships
+        // Update memberships
+        db.delete(Memberships) { it.groupId eq group.id }
+        saveMembership(group.id, group.members)
         return if (affectedRows == 1) group else null
     }
 
@@ -98,13 +119,13 @@ class PostgresGroupRepository : GroupRepository {
      * Adds a member to a group.
      *
      * @param groupId the unique identifier of the group
-     * @param userId the unique identifier of the user to be added
+     * @param user the user to be added
      * @return the updated group entity if the member was added, otherwise null
      */
-    override fun addMember(groupId: String, userId: String): Group? {
+    override fun addMember(groupId: String, user: User): Group? {
         db.insert(Memberships) {
             set(it.groupId, groupId)
-            set(it.userId, userId)
+            set(it.userId, user.id)
         }
         return findById(groupId)
     }
@@ -113,13 +134,13 @@ class PostgresGroupRepository : GroupRepository {
      * Removes a member from a group.
      *
      * @param groupId the unique identifier of the group
-     * @param userId the unique identifier of the user to be removed
+     * @param user the user to be removed
      * @return the updated group entity if the member was removed, otherwise null
      */
-    override fun removeMember(groupId: String, userId: String): Group? {
+    override fun removeMember(groupId: String, user: User): Group? {
         db.delete(Memberships) {
             it.groupId eq groupId
-            it.userId eq userId
+            it.userId eq user.id
         }
         return findById(groupId)
     }

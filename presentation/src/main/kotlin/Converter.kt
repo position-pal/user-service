@@ -47,8 +47,8 @@ object Converter {
         return GroupOuterClass.Group.newBuilder()
             .setId(group.id)
             .setName(group.name)
-            .addAllMembers(group.members)
-            .setCreatedBy(group.createdBy)
+            .addAllMembers(group.members.map { mapToGrpcUser(it) })
+            .setCreatedBy(mapToGrpcUser(group.createdBy))
             .build()
     }
 
@@ -62,8 +62,8 @@ object Converter {
         return Group(
             id = grpcGroup.id,
             name = grpcGroup.name,
-            members = grpcGroup.membersList,
-            createdBy = grpcGroup.createdBy,
-        )
+            members = grpcGroup.membersList.map { mapFromGrpcUser(it) },
+            createdBy = mapFromGrpcUser(grpcGroup.createdBy),
+            )
     }
 }

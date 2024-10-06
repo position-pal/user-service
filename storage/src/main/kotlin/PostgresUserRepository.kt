@@ -1,4 +1,5 @@
 import DBConnection.users
+import org.ktorm.database.Database
 import org.ktorm.dsl.delete
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.insert
@@ -11,9 +12,7 @@ import user.UserRepository
 /**
  * Implementation of the UserRepository interface using PostgreSQL as the database.
  */
-class PostgresUserRepository : UserRepository {
-
-    private val db = DBConnection.getDatabaseObject()
+class PostgresUserRepository(private val db: Database = DBConnection.getDatabaseObject()) : UserRepository {
 
     /**
      * Saves a user to the database.
