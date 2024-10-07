@@ -31,9 +31,6 @@ tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 
-// tasks.named("cpdKotlinCheck") {
-//     dependsOn(tasks.named("generateProto"))
-// }
 
 protobuf {
     protoc {
