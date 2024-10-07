@@ -30,4 +30,3 @@ gitHooks {
     createHooks(overwriteExisting = true)
 }
 include("domain")
-include("commons")

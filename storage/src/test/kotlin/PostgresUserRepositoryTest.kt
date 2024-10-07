@@ -11,6 +11,11 @@ class PostgresUserRepositoryTest : FunSpec({
     val userRepository: UserRepository = PostgresUserRepository()
     val userService: UserService = UserServiceImpl(userRepository)
 
+    beforeTest {
+        val allUsers = userRepository.findAll()
+        allUsers.forEach { user -> userRepository.deleteById(user.id) }
+    }
+
     context("saveUserSuccessfully") {
         test("should save a user and return the saved user") {
             val user = createTestUser(email = "email1")
@@ -98,7 +103,7 @@ class PostgresUserRepositoryTest : FunSpec({
             }
 
             val allUsers = userRepository.findAll()
-            allUsers.size shouldBe 5
+            allUsers.size shouldBe 2
         }
     }
 })

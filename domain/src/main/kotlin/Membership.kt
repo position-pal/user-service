@@ -20,8 +20,8 @@ data class Membership(
  * @property groupId the unique identifier of the group
  */
 object Memberships : BaseTable<Membership>("membership") {
-    val userId = varchar("userid").primaryKey() // Column for user ID
-    val groupId = varchar("groupid").primaryKey() // Column for group ID
+    val userId = varchar("user_id").primaryKey() // Column for user ID
+    val groupId = varchar("group_id").primaryKey() // Column for group ID
 
     /**
      * Creates a Membership entity from a database row.

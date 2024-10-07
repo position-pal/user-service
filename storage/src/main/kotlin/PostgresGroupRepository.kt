@@ -13,6 +13,7 @@ import org.ktorm.dsl.where
 import org.ktorm.entity.filter
 import org.ktorm.entity.firstOrNull
 import org.ktorm.entity.toList
+import java.sql.SQLException
 
 /**
  * Implementation of the GroupRepository interface using PostgreSQL as the database.
@@ -123,9 +124,14 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @return the updated group entity if the member was added, otherwise null
      */
     override fun addMember(groupId: String, user: User): Group? {
-        db.insert(Memberships) {
-            set(it.groupId, groupId)
-            set(it.userId, user.id)
+        try {
+            db.insert(Memberships) {
+                set(it.groupId, groupId)
+                set(it.userId, user.id)
+            }
+        } catch (e: SQLException) {
+            println("Error adding member: ${e.message}")
+            return null
         }
         return findById(groupId)
     }
@@ -138,9 +144,14 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @return the updated group entity if the member was removed, otherwise null
      */
     override fun removeMember(groupId: String, user: User): Group? {
-        db.delete(Memberships) {
-            it.groupId eq groupId
-            it.userId eq user.id
+        try {
+            db.delete(Memberships) {
+                it.groupId eq groupId
+                it.userId eq user.id
+            }
+        } catch (e: SQLException) {
+            println("Error removing member: ${e.message}")
+            return null
         }
         return findById(groupId)
     }
