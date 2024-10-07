@@ -64,6 +64,6 @@ object Converter {
             name = grpcGroup.name,
             members = grpcGroup.membersList.map { mapFromGrpcUser(it) },
             createdBy = mapFromGrpcUser(grpcGroup.createdBy),
-            )
+        )
     }
 }

@@ -1,3 +1,3 @@
 dependencies {
-    implementation(libs.ktorm.core)
+    implementation("org.ktorm:ktorm-core:3.5.0")
 }

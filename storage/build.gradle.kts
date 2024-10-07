@@ -9,13 +9,11 @@ application {
 
 dependencies {
     api(project(":application"))
-    with(libs) {
-        implementation(kotlin.stdlib)
-        implementation(dotenv)
-        implementation(ktorm.core)
-        implementation(ktorm.postgres)
-        implementation(postgresql)
-    }
+    implementation(libs.kotlin.stdlib)
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    implementation("org.ktorm:ktorm-core:3.5.0")
+    implementation("org.ktorm:ktorm-support-postgresql:3.5.0")
+    implementation("org.postgresql:postgresql:42.7.2")
 }
 
 tasks.withType<Test> {

@@ -5,6 +5,6 @@ dependencies {
         implementation(javax.annotation.api)
         implementation(grpc.protobuf)
         implementation(protobuf.kotlin)
-        testImplementation(mockk)
     }
+    testImplementation("io.mockk:mockk:1.12.0")
 }
