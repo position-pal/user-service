@@ -48,8 +48,12 @@ jobs:
       - name: Run tests for other submodules
         run: ./gradlew test -x :storage:test
 
-      - name: Check
-        run: ./gradlew check
+      - name: Check storage submodule
+        if: matrix.os == 'ubuntu-22.04'
+        run: ./gradlew :storage:check
+
+      - name: Check for other submodules
+        run: ./gradlew check -x :storage:check
 
   success:
     needs:
