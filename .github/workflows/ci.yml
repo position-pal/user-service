@@ -40,8 +40,14 @@ jobs:
           java-version: ${{ matrix.jvm-version }}
       - name: Assemble main and test classes
         run: ./gradlew classes testClasses
-      - name: Test
-        run: ./gradlew test
+
+      - name: Run tests for storage submodule
+        if: matrix.os == 'ubuntu-22.04'
+        run: ./gradlew :storage:test
+
+      - name: Run tests for other submodules
+        run: ./gradlew test -x :storage:test
+
       - name: Check
         run: ./gradlew check
 
