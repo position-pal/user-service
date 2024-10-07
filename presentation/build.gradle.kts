@@ -1,15 +1,5 @@
-import de.aaschmid.gradle.plugins.cpd.Cpd
-import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 plugins {
     alias(libs.plugins.protobuf)
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -22,15 +12,9 @@ dependencies {
     }
 }
 
-
-tasks.withType<Test>().configureEach {
-    testLogging {
-        events(*TestLogEvent.values())
-        exceptionFormat = TestExceptionFormat.FULL
-    }
-    useJUnitPlatform()
+tasks.named("cpdKotlinCheck") {
+    dependsOn(tasks.named("generateProto"))
 }
-
 
 protobuf {
     protoc {

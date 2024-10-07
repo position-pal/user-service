@@ -22,9 +22,7 @@ subprojects {
     with(rootProject.libs.plugins) {
         apply(plugin = "java-library")
         apply(plugin = kotlin.jvm.get().pluginId)
-        if (name != "presentation") {
-            apply(plugin = kotlin.qa.get().pluginId)
-        }
+        apply(plugin = kotlin.qa.get().pluginId)
         apply(plugin = kotlin.dokka.get().pluginId)
     }
 
@@ -48,5 +46,19 @@ subprojects {
             exceptionFormat = TestExceptionFormat.FULL
         }
         useJUnitPlatform()
+    }
+
+    val generatedFilesFolder = "build${File.separator}generated"
+
+    tasks.withType<SourceTask>()
+        .matching { it is VerificationTask }
+        .configureEach {
+            exclude { generatedFilesFolder in it.file.absolutePath }
+        }
+
+    ktlint {
+        filter {
+            exclude { generatedFilesFolder in it.file.absolutePath }
+        }
     }
 }
