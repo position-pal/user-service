@@ -11,7 +11,6 @@ include(
     "storage",
     "presentation",
     "grpc",
-    "tests",
 )
 
 develocity {
@@ -31,3 +30,4 @@ gitHooks {
     createHooks(overwriteExisting = true)
 }
 include("domain")
+include("commons")

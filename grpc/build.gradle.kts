@@ -10,4 +10,5 @@ dependencies {
         implementation(grpc.protobuf)
         implementation(protobuf.kotlin)
     }
+    testImplementation("io.mockk:mockk:1.12.0")
 }

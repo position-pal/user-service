@@ -8,39 +8,26 @@ import user.UserServiceImpl
 
 class PostgresUserRepositoryTest : FunSpec({
 
-    val userRepository: UserRepository = InMemoryUserRepository()
+    val userRepository: UserRepository = PostgresUserRepository()
     val userService: UserService = UserServiceImpl(userRepository)
-    val createdUserIds = mutableListOf<String>()
-
-    beforeEach {
-        createdUserIds.clear()
-    }
-
-    afterEach {
-        createdUserIds.forEach { userId ->
-            userRepository.deleteById(userId)
-        }
-    }
 
     context("saveUserSuccessfully") {
         test("should save a user and return the saved user") {
-            val user = createTestUser(name = "John")
+            val user = createTestUser(email = "email1")
 
             val savedUser = userService.createUser(user)
-            createdUserIds.add(savedUser.id)
 
             savedUser.id shouldNotBe ""
-            savedUser.name shouldBe "John"
+            savedUser.email shouldBe "email1"
             userRepository.findById(savedUser.id) shouldNotBe null
         }
     }
 
     context("findByIdReturnsUser") {
         test("should return a user if it exists") {
-            val user = createTestUser(name = "Jane")
+            val user = createTestUser(name = "Jane", email = "email2")
 
             val createdUser = userService.createUser(user)
-            createdUserIds.add(createdUser.id)
             val retrievedUser = userService.getUser(createdUser.id)
 
             retrievedUser shouldNotBe null
@@ -58,10 +45,9 @@ class PostgresUserRepositoryTest : FunSpec({
 
     context("updateUserSuccessfully") {
         test("should update an existing user and return the updated user") {
-            val user = createTestUser()
+            val user = createTestUser(email = "email3")
 
             val createdUser = userService.createUser(user)
-            createdUserIds.add(createdUser.id)
             val updatedUser = createdUser.copy(name = "Jack")
 
             val result = userService.updateUser(createdUser.id, updatedUser)
@@ -83,10 +69,9 @@ class PostgresUserRepositoryTest : FunSpec({
 
     context("deleteUserSuccessfully") {
         test("should delete an existing user and return true") {
-            val user = createTestUser()
+            val user = createTestUser(email = "email4")
 
             val createdUser = userService.createUser(user)
-            createdUserIds.add(createdUser.id)
             val deleteResult = userService.deleteUser(createdUser.id)
 
             deleteResult shouldBe true
@@ -104,17 +89,16 @@ class PostgresUserRepositoryTest : FunSpec({
     context("findAllUsersReturnsList") {
         test("should return a list of all users") {
             val users = listOf(
-                createTestUser(id = "1", name = "John"),
-                createTestUser(id = "2", name = "Jane"),
+                createTestUser(id = "1", name = "John", email = "test1@test.com"),
+                createTestUser(id = "2", name = "Jane", email = "test2@test.com"),
             )
 
             users.forEach { user ->
-                val createdUser = userService.createUser(user)
-                createdUserIds.add(createdUser.id)
+                userService.createUser(user)
             }
 
             val allUsers = userRepository.findAll()
-            allUsers.size shouldBe 2
+            allUsers.size shouldBe 5
         }
     }
 })
