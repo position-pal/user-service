@@ -1,6 +1,7 @@
 package group
 
 import Group
+import User
 
 /**
  * Repository interface for managing Group entities.
@@ -40,4 +41,20 @@ interface GroupRepository {
      * @return a list of all groups
      */
     fun findAll(): List<Group>
+
+    /**
+     * Adds a member to a group.
+     * @param groupId the ID of the group
+     * @param user the user to add
+     * @return the updated group, or null if the group does not exist
+     */
+    fun addMember(groupId: String, user: User): Group?
+
+    /**
+     * Removes a member from a group.
+     * @param groupId the ID of the group
+     * @param user the user to remove
+     * @return the updated group, or null if the group does not exist
+     */
+    fun removeMember(groupId: String, user: User): Group?
 }

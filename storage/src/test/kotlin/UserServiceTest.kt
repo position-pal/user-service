@@ -1,3 +1,4 @@
+import Common.createTestUser
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -9,19 +10,24 @@ class UserServiceTest : FunSpec({
 
     val userRepository: UserRepository = InMemoryUserRepository()
     val userService: UserService = UserServiceImpl(userRepository)
+    val createdUserIds = mutableListOf<String>()
 
-    context("createUser") {
-        test("createUser should add a user and return the created user") {
-            val user = User(
-                id = "",
-                name = "John",
-                surname = "Doe",
-                email = "john.doe@example.com",
-                password = "password123",
-                role = "admin",
-            )
+    beforeEach {
+        createdUserIds.clear()
+    }
+
+    afterEach {
+        createdUserIds.forEach { userId ->
+            userRepository.deleteById(userId)
+        }
+    }
+
+    context("createUserInstance") {
+        test("createUserInstance should add a new user and return it") {
+            val user = createTestUser(name = "John", surname = "Doe", email = "john.doe@example.com")
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
 
             createdUser.id shouldNotBe ""
             createdUser.name shouldBe "John"
@@ -29,18 +35,12 @@ class UserServiceTest : FunSpec({
         }
     }
 
-    context("getUser") {
-        test("getUser should return a user if it exists") {
-            val user = User(
-                id = "",
-                name = "Jane",
-                surname = "Doe",
-                email = "jane.doe@example.com",
-                password = "password123",
-                role = "user",
-            )
+    context("retrieveUser") {
+        test("retrieveUser should return the user if it exists") {
+            val user = createTestUser(id = "test-123", name = "Jane", surname = "Doe", email = "jane.doe@example.com")
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
             val retrievedUser = userService.getUser(createdUser.id)
 
             retrievedUser shouldNotBe null
@@ -48,7 +48,7 @@ class UserServiceTest : FunSpec({
             retrievedUser?.name shouldBe "Jane"
         }
 
-        test("getUser should return null if user does not exist") {
+        test("retrieveUser should return null if the user does not exist") {
             val nonExistentUserId = "non-existent-id"
             val retrievedUser = userService.getUser(nonExistentUserId)
 
@@ -56,18 +56,12 @@ class UserServiceTest : FunSpec({
         }
     }
 
-    context("updateUser") {
-        test("updateUser should update an existing user and return the updated user") {
-            val user = User(
-                id = "",
-                name = "Mike",
-                surname = "Smith",
-                email = "mike.smith@example.com",
-                password = "password123",
-                role = "user",
-            )
+    context("modifyUser") {
+        test("modifyUser should update an existing user and return the updated user") {
+            val user = createTestUser(name = "Mike", surname = "Smith", email = "mike.smith@example.com")
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
             val updatedUser = createdUser.copy(name = "Michael")
 
             val result = userService.updateUser(createdUser.id, updatedUser)
@@ -77,16 +71,9 @@ class UserServiceTest : FunSpec({
             userRepository.findById(createdUser.id)?.name shouldBe "Michael"
         }
 
-        test("updateUser should return null when trying to update a non-existent user") {
+        test("modifyUser should return null if the user does not exist") {
             val nonExistentUserId = "non-existent-id"
-            val user = User(
-                id = nonExistentUserId,
-                name = "NonExistent",
-                surname = "User",
-                email = "non.existent@example.com",
-                password = "password123",
-                role = "admin",
-            )
+            val user = createTestUser(id = nonExistentUserId, name = "NonExistent", surname = "User")
 
             val result = userService.updateUser(nonExistentUserId, user)
 
@@ -94,25 +81,19 @@ class UserServiceTest : FunSpec({
         }
     }
 
-    context("deleteUser") {
-        test("deleteUser should delete an existing user and return true") {
-            val user = User(
-                id = "",
-                name = "Eve",
-                surname = "Jones",
-                email = "eve.jones@example.com",
-                password = "password123",
-                role = "admin",
-            )
+    context("removeUser") {
+        test("removeUser should delete an existing user and return true") {
+            val user = createTestUser(name = "Eve", surname = "Jones", email = "eve.jones@example.com", role = "admin")
 
             val createdUser = userService.createUser(user)
+            createdUserIds.add(createdUser.id)
             val deleteResult = userService.deleteUser(createdUser.id)
 
             deleteResult shouldBe true
             userRepository.findById(createdUser.id) shouldBe null
         }
 
-        test("deleteUser should return false when trying to delete a non-existent user") {
+        test("removeUser should return false when trying to delete a non-existent user") {
             val nonExistentUserId = "non-existent-id"
             val deleteResult = userService.deleteUser(nonExistentUserId)
 
