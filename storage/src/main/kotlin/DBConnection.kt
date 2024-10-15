@@ -14,6 +14,7 @@ object DBConnection {
 
     private val dotenv: Dotenv = dotenv {
         directory = "../"
+        ignoreIfMissing = true
     }
 
     /**
