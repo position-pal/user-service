@@ -15,6 +15,10 @@ on:
 jobs:
   dispatcher:
     runs-on: ubuntu-24.04
+    env:
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
     if: >- # Prevents running the workflow twice on PR made by a branch of the same repository
       github.event_name != 'pull_request'
       || github.event.pull_request.head.repo.full_name != github.repository
@@ -42,10 +46,6 @@ jobs:
         run: ./gradlew classes testClasses
 
       - name: Run tests for storage submodule
-        env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         if: contains(matrix.os, 'ubuntu')
         run: ./gradlew :storage:test
 
@@ -53,7 +53,7 @@ jobs:
         run: ./gradlew test -x :storage:test
 
       - name: Check storage submodule
-        if: matrix.os == 'ubuntu-22.04'
+        if: contains(matrix.os, 'ubuntu')
         run: ./gradlew :storage:check
 
       - name: Check for other submodules
