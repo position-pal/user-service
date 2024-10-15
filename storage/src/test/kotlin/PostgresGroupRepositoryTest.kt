@@ -10,8 +10,8 @@ import user.UserService
 import user.UserServiceImpl
 
 class PostgresGroupRepositoryTest : FunSpec({
-
-    val groupRepository: GroupRepository = PostgresGroupRepository()
+    val testDB = DBConnection.getDatabaseObject("admin", "admin", "users_and_groups")
+    val groupRepository: GroupRepository = PostgresGroupRepository(testDB)
     val groupService: GroupService = GroupServiceImpl(groupRepository)
     val userService: UserService = UserServiceImpl(PostgresUserRepository())
 

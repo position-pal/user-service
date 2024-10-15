@@ -7,11 +7,10 @@ import java.sql.SQLException
 /**
  * Singleton object for managing the database connection.
  */
-object DBConnection {
 
+object DBConnection {
     private const val HOST = "localhost"
     private const val PORT = 5432
-    private const val TABLE = "users_and_groups"
 
     private val dotenv: Dotenv = dotenv {
         directory = "../"
@@ -33,18 +32,27 @@ object DBConnection {
     val Database.memberships get() = this.sequenceOf(Memberships)
 
     /**
-     * Function to get the database object.
+     * Gets a database object for connecting to the PostgreSQL database.
      *
-     * @return the connected Database object
-     * @throws DBConnectionException if there is an error while connecting to the database
+     * @param username the username for the database
+     * @param password the password for the database
+     * @param dbName the name of the database
+     * @return a database object for connecting to the PostgreSQL database
      */
-    fun getDatabaseObject(): Database {
+    fun getDatabaseObject(
+        username: String? = null,
+        password: String? = null,
+        dbName: String? = null,
+    ): Database {
+        val user = username ?: dotenv.get("POSTGRES_USER")
+        val pass = password ?: dotenv.get("POSTGRES_PASSWORD")
+        val db = dbName ?: dotenv.get("POSTGRES_DB")
         try {
             return Database.connect(
-                url = "jdbc:postgresql://$HOST:$PORT/$TABLE",
+                url = "jdbc:postgresql://$HOST:$PORT/$db",
                 driver = "org.postgresql.Driver",
-                user = dotenv.get("POSTGRES_USER"),
-                password = dotenv.get("POSTGRES_PASSWORD"),
+                user = user,
+                password = pass,
             )
         } catch (e: SQLException) {
             throw SQLException("Error while connecting to the database", e)
