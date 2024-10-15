@@ -49,9 +49,8 @@ class GroupServiceImpl(private val groupRepository: GroupRepository) : GroupServ
      * @param userId the ID of the user to add
      * @return the updated group, or null if the group does not exist
      */
-    override fun addMember(groupId: String, user: User): Group? {
-        return groupRepository.addMember(groupId, user)
-    }
+    override fun addMember(groupId: String, user: User): Group? =
+        groupRepository.addMember(groupId, user)
 
     /**
      * Removes a member from a group.
@@ -59,7 +58,6 @@ class GroupServiceImpl(private val groupRepository: GroupRepository) : GroupServ
      * @param userId the ID of the user to remove
      * @return the updated group, or null if the group does not exist
      */
-    override fun removeMember(groupId: String, user: User): Group? {
-        return groupRepository.removeMember(groupId, user)
-    }
+    override fun removeMember(groupId: String, user: User): Group? =
+        groupRepository.removeMember(groupId, user)
 }

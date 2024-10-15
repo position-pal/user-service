@@ -12,7 +12,6 @@ object StatusUtility {
      * @param message The status message to set.
      * @return A Status object containing the provided code and message.
      */
-    fun createStatus(code: StatusCode, message: String): Status {
-        return Status.newBuilder().setCode(code).setMessage(message).build()
-    }
+    fun createStatus(code: StatusCode, message: String): Status =
+        Status.newBuilder().setCode(code).setMessage(message).build()
 }

@@ -17,7 +17,9 @@ class PostgresGroupRepositoryTest : FunSpec({
 
     context("saveGroupSuccessfully") {
         test("should save a group and return the saved group") {
-            val group = createTestGroup(name = "Group1")
+            val creator = createTestUser()
+            userService.createUser(creator)
+            val group = createTestGroup(name = "Group1", createdBy = creator)
 
             val savedGroup = groupService.createGroup(group)
 
@@ -29,7 +31,9 @@ class PostgresGroupRepositoryTest : FunSpec({
 
     context("findByIdReturnsGroup") {
         test("should return a group if it exists") {
-            val group = createTestGroup(name = "Group2")
+            val creator = createTestUser()
+            userService.createUser(creator)
+            val group = createTestGroup(name = "Group2", createdBy = creator)
 
             val createdGroup = groupService.createGroup(group)
             val retrievedGroup = groupService.getGroup(createdGroup.id)
@@ -49,7 +53,9 @@ class PostgresGroupRepositoryTest : FunSpec({
 
     context("updateGroupSuccessfully") {
         test("should update an existing group and return the updated group") {
-            val group = createTestGroup(name = "Group3")
+            val creator = createTestUser()
+            userService.createUser(creator)
+            val group = createTestGroup(name = "Group3", createdBy = creator)
 
             val createdGroup = groupService.createGroup(group)
             val updatedGroup = createdGroup.copy(name = "UpdatedGroup3")
@@ -73,7 +79,9 @@ class PostgresGroupRepositoryTest : FunSpec({
 
     context("deleteGroupSuccessfully") {
         test("should delete an existing group and return true") {
-            val group = createTestGroup(name = "Group4")
+            val creator = createTestUser()
+            userService.createUser(creator)
+            val group = createTestGroup(name = "Group4", createdBy = creator)
 
             val createdGroup = groupService.createGroup(group)
             val deleteResult = groupService.deleteGroup(createdGroup.id)
@@ -92,9 +100,11 @@ class PostgresGroupRepositoryTest : FunSpec({
 
     context("findAllGroupsReturnsList") {
         test("should return a list of all groups") {
+            val creator = createTestUser()
+            userService.createUser(creator)
             val groups = listOf(
-                createTestGroup(id = "1", name = "Group1"),
-                createTestGroup(id = "2", name = "Group2"),
+                createTestGroup(id = "1", name = "Group1", createdBy = creator),
+                createTestGroup(id = "2", name = "Group2", createdBy = creator),
             )
 
             groups.forEach { group ->
@@ -110,7 +120,7 @@ class PostgresGroupRepositoryTest : FunSpec({
         val user = createTestUser(id = "test-id-to-add", name = "Johnny", email = "add-me@mail.com")
         userService.createUser(user)
         test("should add a member to an existing group and return the updated group") {
-            val group = createTestGroup(name = "Group5")
+            val group = createTestGroup(name = "Group5", createdBy = user)
             val createdGroup = groupService.createGroup(group)
 
             val updatedGroup = groupService.addMember(createdGroup.id, user)
@@ -133,7 +143,7 @@ class PostgresGroupRepositoryTest : FunSpec({
         userService.createUser(user)
 
         test("should remove a member from an existing group and return the updated group") {
-            val group = createTestGroup(name = "Group6")
+            val group = createTestGroup(name = "Group6", createdBy = user)
             val createdGroup = groupService.createGroup(group)
             groupService.addMember(createdGroup.id, user)
 

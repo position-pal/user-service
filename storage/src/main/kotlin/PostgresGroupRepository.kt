@@ -13,7 +13,6 @@ import org.ktorm.dsl.where
 import org.ktorm.entity.filter
 import org.ktorm.entity.firstOrNull
 import org.ktorm.entity.toList
-import java.sql.SQLException
 
 /**
  * Implementation of the GroupRepository interface using PostgreSQL as the database.
@@ -41,13 +40,12 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @param groupId the unique identifier of the group
      * @return a list of user entities that are members of the group
      */
-    private fun getMembers(groupId: String): List<User> {
-        return db.users.filter {
+    private fun getMembers(groupId: String): List<User> =
+        db.users.filter {
             it.id inList db.from(Memberships).select(Memberships.userId).where {
                 Memberships.groupId eq groupId
             }
         }.toList()
-    }
 
     /**
      * Saves a group to the database.
@@ -75,7 +73,9 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
     override fun findById(groupId: String): Group? {
         val group = db.groups.filter { it.id eq groupId }.firstOrNull() ?: return null
         val members = getMembers(groupId)
-        return group.copy(members = members)
+        val createdBy = db.users.filter { it.id eq group.createdBy.id }
+            .firstOrNull() ?: throw IllegalArgumentException("CreatedBy user not found")
+        return group.copy(members = members, createdBy = createdBy)
     }
 
     /**
@@ -113,7 +113,12 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @return a list of all group entities
      */
     override fun findAll(): List<Group> {
-        return db.groups.toList()
+        val groups = db.groups.toList()
+        return groups.map { group ->
+            val members = getMembers(group.id)
+            group.copy(members = members)
+                .copy(createdBy = db.users.filter { it.id eq group.createdBy.id }.firstOrNull() ?: return emptyList())
+        }
     }
 
     /**
@@ -124,16 +129,14 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @return the updated group entity if the member was added, otherwise null
      */
     override fun addMember(groupId: String, user: User): Group? {
-        try {
+        return runCatching {
             db.insert(Memberships) {
                 set(it.groupId, groupId)
                 set(it.userId, user.id)
             }
-        } catch (e: SQLException) {
+        }.onFailure { e ->
             println("Error adding member: ${e.message}")
-            return null
-        }
-        return findById(groupId)
+        }.getOrNull()?.let { findById(groupId) }
     }
 
     /**
@@ -144,15 +147,13 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @return the updated group entity if the member was removed, otherwise null
      */
     override fun removeMember(groupId: String, user: User): Group? {
-        try {
+        return runCatching {
             db.delete(Memberships) {
                 it.groupId eq groupId
                 it.userId eq user.id
             }
-        } catch (e: SQLException) {
+        }.onFailure { e ->
             println("Error removing member: ${e.message}")
-            return null
-        }
-        return findById(groupId)
+        }.getOrNull()?.let { findById(groupId) }
     }
 }

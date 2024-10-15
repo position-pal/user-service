@@ -48,15 +48,15 @@ object DBConnection {
         val user = username ?: dotenv.get("POSTGRES_USER")
         val pass = password ?: dotenv.get("POSTGRES_PASSWORD")
         val db = dbName ?: dotenv.get("POSTGRES_DB")
-        try {
-            return Database.connect(
+        return runCatching {
+            Database.connect(
                 url = "jdbc:postgresql://$HOST:$PORT/$db",
                 driver = "org.postgresql.Driver",
                 user = user,
                 password = pass,
             )
-        } catch (e: SQLException) {
+        }.onFailure { e ->
             throw SQLException("Error while connecting to the database", e)
-        }
+        }.getOrThrow()
     }
 }

@@ -39,9 +39,7 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      * @param userId the unique identifier of the user
      * @return the user entity if found, otherwise null
      */
-    override fun findById(userId: String): User? {
-        return db.users.filter { it.id eq userId }.firstOrNull()
-    }
+    override fun findById(userId: String): User? = db.users.filter { it.id eq userId }.firstOrNull()
 
     /**
      * Updates a user in the database.
@@ -79,7 +77,5 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      *
      * @return a list of all user entities
      */
-    override fun findAll(): List<User> {
-        return db.users.toList()
-    }
+    override fun findAll(): List<User> = db.users.toList()
 }

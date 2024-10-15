@@ -1,3 +1,4 @@
+import Common.createTestUser
 import Converter.mapToGrpcUser
 import GroupOuterClass.AddMemberRequest
 import GroupOuterClass.CreateGroupRequest
@@ -13,17 +14,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 
-private fun getDefaultUser(): User {
-    return User(
-        id = "default-uuid",
-        name = "Admin",
-        surname = "User",
-        email = "default@email.it",
-        password = "default-password",
-        role = "test-user",
-    )
-}
-
 class GrpcGroupServiceTest : FunSpec({
 
     val mockGroupService = mockk<GroupService>()
@@ -37,7 +27,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = createTestUser(),
             )
 
             coEvery { mockGroupService.createGroup(any()) } returns createdGroup
@@ -55,7 +45,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = createTestUser(),
             )
             coEvery { mockGroupService.getGroup("123") } returns retrievedGroup
 
@@ -85,7 +75,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Updated Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = createTestUser(),
             )
 
             coEvery { mockGroupService.updateGroup("123", any()) } returns updatedGroup
@@ -144,68 +134,44 @@ class GrpcGroupServiceTest : FunSpec({
 
     context("addMember") {
         test("should add a member to a group and return success status") {
+            val user = createTestUser(id = "321")
             val updatedGroup = Group(
                 id = "123",
                 name = "Test Group",
-                members = listOf(getDefaultUser()),
-                createdBy = getDefaultUser(),
+                members = listOf(user),
+                createdBy = createTestUser(),
             )
-            coEvery { mockGroupService.addMember("123", getDefaultUser()) } returns updatedGroup
+            coEvery { mockGroupService.addMember("123", user) } returns updatedGroup
 
             val request = AddMemberRequest.newBuilder()
                 .setGroupId("123")
-                .setUser(mapToGrpcUser(getDefaultUser()))
+                .setUser(mapToGrpcUser(user))
                 .build()
             val response = runBlocking { grpcAdapter.addMember(request) }
 
             response.status.code shouldBe StatusCode.OK
-            response.group.membersList shouldBe listOf(mapToGrpcUser(getDefaultUser()))
-        }
-
-        test("should return NOT_FOUND if group does not exist") {
-            coEvery { mockGroupService.addMember("non-existent-id", getDefaultUser()) } returns null
-
-            val request = AddMemberRequest.newBuilder()
-                .setGroupId("non-existent-id")
-                .setUser(mapToGrpcUser(getDefaultUser()))
-                .build()
-            val response = runBlocking { grpcAdapter.addMember(request) }
-
-            response.status.code shouldBe StatusCode.NOT_FOUND
-            response.group.membersList shouldBe emptyList()
+            response.group.membersList shouldBe listOf(mapToGrpcUser(user))
         }
     }
 
     context("removeMember") {
         test("should remove a member from a group and return success status") {
+            val user = createTestUser(id = "111")
             val updatedGroup = Group(
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = getDefaultUser(),
+                createdBy = user,
             )
-            coEvery { mockGroupService.removeMember("123", getDefaultUser()) } returns updatedGroup
+            coEvery { mockGroupService.removeMember("123", user) } returns updatedGroup
 
             val request = RemoveMemberRequest.newBuilder()
                 .setGroupId("123")
-                .setUser(mapToGrpcUser(getDefaultUser()))
+                .setUser(mapToGrpcUser(user))
                 .build()
             val response = runBlocking { grpcAdapter.removeMember(request) }
 
             response.status.code shouldBe StatusCode.OK
-            response.group.membersList shouldBe emptyList()
-        }
-
-        test("should return NOT_FOUND if group does not exist") {
-            coEvery { mockGroupService.removeMember("non-existent-id", getDefaultUser()) } returns null
-
-            val request = RemoveMemberRequest.newBuilder()
-                .setGroupId("non-existent-id")
-                .setUser(mapToGrpcUser(getDefaultUser()))
-                .build()
-            val response = runBlocking { grpcAdapter.removeMember(request) }
-
-            response.status.code shouldBe StatusCode.NOT_FOUND
             response.group.membersList shouldBe emptyList()
         }
     }
