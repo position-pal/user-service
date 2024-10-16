@@ -6,18 +6,16 @@ on:
 
 jobs:
   build:
-    needs:
-      - dispatcher
-    env:
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
     strategy:
       matrix:
         os: [ubuntu-22.04, macos-14, windows-2022]
         jvm-version: [ 11, 17, 21 ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
+    env:
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
