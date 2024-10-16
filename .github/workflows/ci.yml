@@ -1,26 +1,10 @@
 name: Build, Test and Check
 
 on:
-  push:
-    paths-ignore:
-      - 'README.md'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
-      - '.gitignore'
-      - '.mergify.yml'
-      - 'renovate.json'
-  pull_request:
+  workflow_call:
   workflow_dispatch:
 
 jobs:
-  dispatcher:
-    runs-on: ubuntu-24.04
-    if: >- # Prevents running the workflow twice on PR made by a branch of the same repository
-      github.event_name != 'pull_request'
-      || github.event.pull_request.head.repo.full_name != github.repository
-    steps:
-      - run: 'true'
-
   build:
     needs:
       - dispatcher
