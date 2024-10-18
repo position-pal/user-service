@@ -3,7 +3,7 @@ package auth
 /**
  * Interface representing the repository for authentication operations.
  */
-interface AuthRepository {
+fun interface AuthRepository {
     /**
      * Checks the credentials of a user.
      *
