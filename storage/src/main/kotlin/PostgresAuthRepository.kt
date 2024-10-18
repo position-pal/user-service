@@ -19,10 +19,9 @@ class PostgresAuthRepository(private val db: Database = DBConnection.getDatabase
      * @param password The password of the user.
      * @return `true` if the credentials are valid, `false` otherwise.
      */
-    override fun checkCredentials(email: String, password: String): Boolean {
-        return db.users
+    override fun checkCredentials(email: String, password: String): Boolean =
+        db.users
             .filter { it.email eq email }
             .filter { it.password eq password }
             .count() > 0
-    }
 }

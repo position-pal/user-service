@@ -51,8 +51,8 @@ class AuthServiceImpl(
      * @param token The JWT token to verify.
      * @return `true` if the token is valid, `false` otherwise.
      */
-    override fun authorize(token: String): Boolean {
-        return try {
+    override fun authorize(token: String): Boolean =
+        try {
             val verifier = JWT.require(algorithm)
                 .withIssuer(issuer)
                 .withAudience(audience)
@@ -62,5 +62,4 @@ class AuthServiceImpl(
         } catch (_: JWTVerificationException) {
             false
         }
-    }
 }
