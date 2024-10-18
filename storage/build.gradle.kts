@@ -2,10 +2,6 @@ plugins {
     application
 }
 
-application {
-    mainClass = "MainKt"
-}
-
 dependencies {
     api(project(":application"))
     with(libs) {

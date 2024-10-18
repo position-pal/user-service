@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "user.proto";
+
+service AuthService {
+    rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse);
+    rpc Authorize(AuthorizeRequest) returns (AuthorizeResponse);
+}
+
+message AuthenticateRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message AuthenticateResponse {
+    string token = 1;
+    Status status = 2;
+}
+
+message AuthorizeRequest {
+    string token = 1;
+}
+
+message AuthorizeResponse {
+    bool authorized = 1;
+    Status status = 2;
+}
