@@ -1,0 +1,52 @@
+import Auth.AuthenticateRequest
+import Auth.AuthenticateResponse
+import Auth.AuthorizeRequest
+import Auth.AuthorizeResponse
+import StatusUtility.createStatus
+import UserOuterClass.StatusCode
+import auth.AuthService
+
+/**
+ * Adapter class for gRPC authentication service.
+ *
+ * @property authService The authentication service to be used.
+ */
+class GrpcAuthServiceAdapter(private val authService: AuthService) {
+
+    /**
+     * Authenticates a user based on the provided request.
+     *
+     * @param request The authentication request containing username and password.
+     * @return The authentication response containing the JWT token.
+     */
+    fun authenticate(request: AuthenticateRequest): AuthenticateResponse {
+        val token = authService.authenticate(request.username, request.password)
+
+        return AuthenticateResponse.newBuilder()
+            .setToken(token)
+            .build()
+    }
+
+    /**
+     * Authorizes a user based on the provided request.
+     *
+     * @param request The authorization request containing the JWT token.
+     * @return The authorization response indicating whether the user is authorized.
+     */
+    fun authorize(request: AuthorizeRequest): AuthorizeResponse {
+        val token = request.token
+
+        val isAuthorized = authService.authorize(token)
+
+        return AuthorizeResponse.newBuilder()
+            .setAuthorized(isAuthorized)
+            .setStatus(
+                if (isAuthorized) {
+                    createStatus(StatusCode.OK, "OK")
+                } else {
+                    createStatus(StatusCode.WRONG_CREDENTIALS, "Unauthorized")
+                },
+            )
+            .build()
+    }
+}
