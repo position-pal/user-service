@@ -22,6 +22,7 @@ class AuthServiceImpl(
     private val secret: String,
     private val issuer: String,
     private val audience: String,
+    private val expirationTime: Int = EXPIRATION_TIME,
 ) : AuthService {
 
     private val algorithm = Algorithm.HMAC256(secret)
@@ -41,7 +42,7 @@ class AuthServiceImpl(
             .withIssuer(issuer)
             .withAudience(audience)
             .withClaim("email", email)
-            .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME)) // Token expires in 1 minute
+            .withExpiresAt(Date(System.currentTimeMillis() + expirationTime)) // Token expires in 1 minute
             .sign(algorithm)
     }
 
