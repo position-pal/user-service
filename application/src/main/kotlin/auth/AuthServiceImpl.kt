@@ -1,4 +1,7 @@
 package auth
+import Audience
+import Issuer
+import Secret
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTVerificationException
@@ -19,13 +22,13 @@ const val EXPIRATION_TIME: Int = 60000
  */
 class AuthServiceImpl(
     private val authRepository: AuthRepository,
-    private val secret: String,
-    private val issuer: String,
-    private val audience: String,
+    private val secret: Secret,
+    private val issuer: Issuer,
+    private val audience: Audience,
     private val expirationTime: Int = EXPIRATION_TIME,
 ) : AuthService {
 
-    private val algorithm = Algorithm.HMAC256(secret)
+    private val algorithm = Algorithm.HMAC256(secret.value)
 
     /**
      * Authenticates a user by their email and password.
@@ -39,8 +42,8 @@ class AuthServiceImpl(
             return null
         }
         return JWT.create()
-            .withIssuer(issuer)
-            .withAudience(audience)
+            .withIssuer(issuer.value)
+            .withAudience(audience.value)
             .withClaim("email", email)
             .withExpiresAt(Date(System.currentTimeMillis() + expirationTime)) // Token expires in 1 minute
             .sign(algorithm)
@@ -55,8 +58,8 @@ class AuthServiceImpl(
     override fun authorize(token: String): Boolean =
         try {
             val verifier = JWT.require(algorithm)
-                .withIssuer(issuer)
-                .withAudience(audience)
+                .withIssuer(issuer.value)
+                .withAudience(audience.value)
                 .build()
             verifier.verify(token)
             true
