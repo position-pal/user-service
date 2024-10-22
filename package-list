@@ -1,6 +1,10 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:////PointingToDeclaration/storage/[root]/index.html
+$dokka.location:/Audience///PointingToDeclaration/domain/[root]/-audience/index.html
+$dokka.location:/Audience/Audience/#kotlin.String/PointingToDeclaration/domain/[root]/-audience/-audience.html
+$dokka.location:/Audience/toString/#/PointingToDeclaration/domain/[root]/-audience/to-string.html
+$dokka.location:/Audience/value/#/PointingToDeclaration/domain/[root]/-audience/value.html
 $dokka.location:/Common///PointingToDeclaration/domain/[root]/-common/index.html
 $dokka.location:/Common/createTestGroup/#kotlin.String#kotlin.String#kotlin.collections.List[User]#User/PointingToDeclaration/domain/[root]/-common/create-test-group.html
 $dokka.location:/Common/createTestUser/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/domain/[root]/-common/create-test-user.html
@@ -24,6 +28,10 @@ $dokka.location:/Groups///PointingToDeclaration/storage/[root]/-groups/index.ht
 $dokka.location:/Groups/createdBy/#/PointingToDeclaration/storage/[root]/-groups/created-by.html
 $dokka.location:/Groups/id/#/PointingToDeclaration/storage/[root]/-groups/id.html
 $dokka.location:/Groups/name/#/PointingToDeclaration/storage/[root]/-groups/name.html
+$dokka.location:/GrpcAuthServiceAdapter///PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/index.html
+$dokka.location:/GrpcAuthServiceAdapter/GrpcAuthServiceAdapter/#auth.AuthService/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/-grpc-auth-service-adapter.html
+$dokka.location:/GrpcAuthServiceAdapter/authenticate/#Auth.AuthenticateRequest/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/authenticate.html
+$dokka.location:/GrpcAuthServiceAdapter/authorize/#Auth.AuthorizeRequest/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/authorize.html
 $dokka.location:/GrpcGroupServiceAdapter///PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/index.html
 $dokka.location:/GrpcGroupServiceAdapter/GrpcGroupServiceAdapter/#group.GroupService/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/-grpc-group-service-adapter.html
 $dokka.location:/GrpcGroupServiceAdapter/addMember/#GroupOuterClass.AddMemberRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/add-member.html
@@ -54,6 +62,10 @@ $dokka.location:/InMemoryUserRepository/findAll/#/PointingToDeclaration/storage
 $dokka.location:/InMemoryUserRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-user-repository/find-by-id.html
 $dokka.location:/InMemoryUserRepository/save/#User/PointingToDeclaration/storage/[root]/-in-memory-user-repository/save.html
 $dokka.location:/InMemoryUserRepository/update/#User/PointingToDeclaration/storage/[root]/-in-memory-user-repository/update.html
+$dokka.location:/Issuer///PointingToDeclaration/domain/[root]/-issuer/index.html
+$dokka.location:/Issuer/Issuer/#kotlin.String/PointingToDeclaration/domain/[root]/-issuer/-issuer.html
+$dokka.location:/Issuer/toString/#/PointingToDeclaration/domain/[root]/-issuer/to-string.html
+$dokka.location:/Issuer/value/#/PointingToDeclaration/domain/[root]/-issuer/value.html
 $dokka.location:/Membership///PointingToDeclaration/domain/[root]/-membership/index.html
 $dokka.location:/Membership/Membership/#kotlin.String#kotlin.String/PointingToDeclaration/domain/[root]/-membership/-membership.html
 $dokka.location:/Membership/groupId/#/PointingToDeclaration/domain/[root]/-membership/group-id.html
@@ -61,6 +73,9 @@ $dokka.location:/Membership/userId/#/PointingToDeclaration/domain/[root]/-membe
 $dokka.location:/Memberships///PointingToDeclaration/storage/[root]/-memberships/index.html
 $dokka.location:/Memberships/groupId/#/PointingToDeclaration/storage/[root]/-memberships/group-id.html
 $dokka.location:/Memberships/userId/#/PointingToDeclaration/storage/[root]/-memberships/user-id.html
+$dokka.location:/PostgresAuthRepository///PointingToDeclaration/storage/[root]/-postgres-auth-repository/index.html
+$dokka.location:/PostgresAuthRepository/PostgresAuthRepository/#org.ktorm.database.Database/PointingToDeclaration/storage/[root]/-postgres-auth-repository/-postgres-auth-repository.html
+$dokka.location:/PostgresAuthRepository/checkCredentials/#kotlin.String#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-auth-repository/check-credentials.html
 $dokka.location:/PostgresGroupRepository///PointingToDeclaration/storage/[root]/-postgres-group-repository/index.html
 $dokka.location:/PostgresGroupRepository/PostgresGroupRepository/#org.ktorm.database.Database/PointingToDeclaration/storage/[root]/-postgres-group-repository/-postgres-group-repository.html
 $dokka.location:/PostgresGroupRepository/addMember/#kotlin.String#User/PointingToDeclaration/storage/[root]/-postgres-group-repository/add-member.html
@@ -77,6 +92,10 @@ $dokka.location:/PostgresUserRepository/findAll/#/PointingToDeclaration/storage
 $dokka.location:/PostgresUserRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-user-repository/find-by-id.html
 $dokka.location:/PostgresUserRepository/save/#User/PointingToDeclaration/storage/[root]/-postgres-user-repository/save.html
 $dokka.location:/PostgresUserRepository/update/#User/PointingToDeclaration/storage/[root]/-postgres-user-repository/update.html
+$dokka.location:/Secret///PointingToDeclaration/domain/[root]/-secret/index.html
+$dokka.location:/Secret/Secret/#kotlin.String/PointingToDeclaration/domain/[root]/-secret/-secret.html
+$dokka.location:/Secret/toString/#/PointingToDeclaration/domain/[root]/-secret/to-string.html
+$dokka.location:/Secret/value/#/PointingToDeclaration/domain/[root]/-secret/value.html
 $dokka.location:/StatusUtility///PointingToDeclaration/grpc/[root]/-status-utility/index.html
 $dokka.location:/StatusUtility/createStatus/#UserOuterClass.StatusCode#kotlin.String/PointingToDeclaration/grpc/[root]/-status-utility/create-status.html
 $dokka.location:/User///PointingToDeclaration/domain/[root]/-user/index.html
@@ -95,5 +114,6 @@ $dokka.location:/Users/password/#/PointingToDeclaration/storage/[root]/-users/p
 $dokka.location:/Users/role/#/PointingToDeclaration/storage/[root]/-users/role.html
 $dokka.location:/Users/surname/#/PointingToDeclaration/storage/[root]/-users/surname.html
 module:application
+auth
 group
 user
