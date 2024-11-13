@@ -10,11 +10,7 @@ repositories {
 }
 
 dependencies {
-    api(project(":domain"))
-    with(libs) {
-        implementation(ktor.auth)
-        implementation(ktor.auth.jwt)
-        implementation(avro)
-    }
+    api(project(":application"))
+    implementation("com.rabbitmq:amqp-client:5.17.1")
     implementation("io.github.positionpal:kernel-presentation:0.5.0")
 }

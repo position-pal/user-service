@@ -1,14 +1,18 @@
 package group
 
 import Group
+import MessageAdapter
 import User
+import com.positionpal.GroupCreated
+import io.github.positionpal.AvroSerializer
+import io.github.positionpal.EventSerializer
 
 /**
  * Implementation of the group.GroupService interface.
  *
  * @property groupRepository the repository used for managing Group entities
  */
-class GroupServiceImpl(private val groupRepository: GroupRepository) : GroupService {
+class GroupServiceImpl(private val groupRepository: GroupRepository, private val messageAdapter: MessageAdapter, private val serializer: EventSerializer) : GroupService {
 
     /**
      * Creates a new group.
@@ -16,6 +20,7 @@ class GroupServiceImpl(private val groupRepository: GroupRepository) : GroupServ
      * @return the created group
      */
     override fun createGroup(group: Group): Group = groupRepository.save(group)
+
 
     /**
      * Retrieves a group by its ID.

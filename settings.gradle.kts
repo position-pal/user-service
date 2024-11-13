@@ -11,6 +11,7 @@ include(
     "storage",
     "presentation",
     "grpc",
+    "rabbitmq"
 )
 
 develocity {
@@ -29,4 +30,4 @@ gitHooks {
     }
     createHooks(overwriteExisting = true)
 }
-include("domain")
+
