@@ -1,6 +1,5 @@
 package user
 
-import MessageAdapter
 import User
 
 /**

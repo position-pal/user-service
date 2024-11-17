@@ -12,6 +12,7 @@ postgresql = "42.7.4"
 dotenv = "6.4.2"
 ktor = "3.0.0"
 avro = "1.12.0"
+shared-kernel = "0.9.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
@@ -37,6 +38,8 @@ dotenv = { module = "io.github.cdimascio:dotenv-kotlin", version.ref = "dotenv" 
 ktor-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
 ktor-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
 avro = { module = "org.apache.avro:avro", version.ref = "avro" }
+"kernel-presentation" = { module = "io.github.positionpal:kernel-presentation", version.ref = "shared-kernel" }
+"kernel-domain" = { module = "io.github.positionpal:kernel-domain", version.ref = "shared-kernel" }
 
 [bundles]
 kotlin-testing = [ "kotest-junit5-jvm", "kotest-assertions-core-jvm", "mockito-core" ]

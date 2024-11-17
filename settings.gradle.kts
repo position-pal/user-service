@@ -11,7 +11,7 @@ include(
     "storage",
     "presentation",
     "grpc",
-    "rabbitmq"
+    "rabbitmq",
 )
 
 develocity {
@@ -30,4 +30,3 @@ gitHooks {
     }
     createHooks(overwriteExisting = true)
 }
-

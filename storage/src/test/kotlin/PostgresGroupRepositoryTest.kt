@@ -6,14 +6,21 @@ import group.GroupServiceImpl
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.mockk.every
+import io.mockk.mockk
 import user.UserService
 import user.UserServiceImpl
 
 class PostgresGroupRepositoryTest : FunSpec({
     val testDB = DBConnection.getDatabaseObject("admin", "admin", "users_and_groups")
     val groupRepository: GroupRepository = PostgresGroupRepository(testDB)
-    val groupService: GroupService = GroupServiceImpl(groupRepository)
+    val messageAdapter = mockk<MessageAdapter>()
+    val groupService: GroupService = GroupServiceImpl(groupRepository, messageAdapter)
     val userService: UserService = UserServiceImpl(PostgresUserRepository())
+
+    beforeEach {
+        every { messageAdapter.postEvent(any(), any()) } returns Unit
+    }
 
     context("saveGroupSuccessfully") {
         test("should save a group and return the saved group") {

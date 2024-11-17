@@ -2,12 +2,15 @@ import group.GroupServiceImpl
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.mockk.every
+import io.mockk.mockk
 
 class GroupServiceTest : FunSpec({
 
     val userRepository = InMemoryUserRepository()
     val groupRepository = InMemoryGroupRepository()
-    val groupService = GroupServiceImpl(groupRepository)
+    val messageAdapter = mockk<MessageAdapter>()
+    val groupService = GroupServiceImpl(groupRepository, messageAdapter)
     val createdGroupIds = mutableListOf<String>()
     val createdUserIds = mutableListOf<String>()
 
@@ -16,6 +19,7 @@ class GroupServiceTest : FunSpec({
     beforeEach {
         createdGroupIds.clear()
         createdUserIds.clear()
+        every { messageAdapter.postEvent(any(), any()) } returns Unit
     }
 
     afterEach {
