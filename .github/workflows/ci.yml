@@ -31,17 +31,25 @@ jobs:
 
       - name: Run tests for storage submodule
         if: contains(matrix.os, 'ubuntu')
-        run: ./gradlew :storage:test :rabbitmq:test
+        run: |
+            ./gradlew :storage:test 
+            ./gradlew :rabbitmq:test
 
       - name: Run tests for other submodules
-        run: ./gradlew test -x :storage:test :rabbitmq:test
+        run: |
+            ./gradlew test -x :storage:test
+            ./gradlew test -x :rabbitmq:test
 
       - name: Check storage submodule
         if: contains(matrix.os, 'ubuntu')
-        run: ./gradlew :storage:check :rabbitmq:check
+        run: |
+          ./gradlew :storage:check 
+          ./gradlew :rabbitmq:check
 
       - name: Check for other submodules
-        run: ./gradlew check -x :storage:check :rabbitmq:check
+        run: |
+          ./gradlew test -x :storage:check
+          ./gradlew test -x :rabbitmq:check
 
   success:
     needs:
