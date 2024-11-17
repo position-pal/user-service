@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew :storage:check :rabbitmq:check
 
       - name: Check for other submodules
-        run: ./gradlew test -x :storage:check -x :rabbitmq:check
+        run: ./gradlew check -x :storage:check -x :rabbitmq:check
 
   success:
     needs:
