@@ -42,7 +42,7 @@ class GroupServiceImpl(
     /**
      * Retrieves a group by its ID.
      * @param groupId the ID of the group to retrieve
-     * @return the group with the given ID, or null if no group found
+     * @return the group with the given ID, or null if nox group found
      */
     override fun getGroup(groupId: String): Group? = groupRepository.findById(groupId)
 

@@ -66,10 +66,6 @@ class RabbitMQMessageAdapter(
                 serializer.serializeGroupCreated(event as GroupCreated?)
             MessageType.GROUP_DELETED ->
                 serializer.serializeGroupDeleted(event as GroupDeleted?)
-            MessageType.USER_CREATED ->
-                throw IllegalArgumentException("User created event not supported")
-            MessageType.USER_DELETED ->
-                throw IllegalArgumentException("User deleted event not supported")
             MessageType.MEMBER_ADDED ->
                 serializer.serializeAddedMemberToGroup(event as AddedMemberToGroup?)
             MessageType.MEMBER_REMOVED ->
