@@ -3,14 +3,14 @@ kotlin = "2.0.21"
 kotest = "5.9.1"
 mockito = "5.14.2"
 proto = "4.28.3"
-grpc = "1.68.0"
+grpc = "1.68.1"
 grpc-kotlin = "1.4.1"
 protobuf = "0.9.4"
 ktorm = "4.1.1"
 mockk = "1.13.13"
 postgresql = "42.7.4"
 dotenv = "6.4.2"
-ktor = "3.0.0"
+ktor = "3.0.1"
 avro = "1.12.0"
 shared-kernel = "0.9.0"
 
@@ -46,7 +46,7 @@ kotlin-testing = [ "kotest-junit5-jvm", "kotest-assertions-core-jvm", "mockito-c
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-qa = "org.danilopianini.gradle-kotlin-qa:0.68.0"
+kotlin-qa = "org.danilopianini.gradle-kotlin-qa:0.69.0"
 kotlin-dokka = { id = "org.jetbrains.dokka", version = "1.9.20" }
 git-semantic-versioning = "org.danilopianini.git-sensitive-semantic-versioning:3.1.7"
 protobuf = {id = "com.google.protobuf", version.ref = "protobuf"}
