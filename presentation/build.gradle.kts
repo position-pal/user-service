@@ -9,6 +9,8 @@ dependencies {
         implementation(grpc.protobuf)
         implementation(protobuf.kotlin)
         implementation(javax.annotation.api)
+        implementation(avro)
+        api(kernel.presentation)
     }
 }
 

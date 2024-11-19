@@ -11,6 +11,8 @@ mockk = "1.13.13"
 postgresql = "42.7.4"
 dotenv = "6.4.2"
 ktor = "3.0.1"
+avro = "1.12.0"
+shared-kernel = "0.9.1"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
@@ -35,6 +37,10 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 dotenv = { module = "io.github.cdimascio:dotenv-kotlin", version.ref = "dotenv" }
 ktor-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
 ktor-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
+avro = { module = "org.apache.avro:avro", version.ref = "avro" }
+kernel-presentation = { module = "io.github.positionpal:kernel-presentation", version.ref = "shared-kernel" }
+kernel-domain = { module = "io.github.positionpal:kernel-domain", version.ref = "shared-kernel" }
+rabbit-amqp = { module = "com.rabbitmq:amqp-client", version = "5.22.0" }
 
 [bundles]
 kotlin-testing = [ "kotest-junit5-jvm", "kotest-assertions-core-jvm", "mockito-core" ]

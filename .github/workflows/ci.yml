@@ -9,13 +9,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, macos-14, windows-2022]
-        jvm-version: [ 11, 17, 21 ]
+        jvm-version: [ 17, 21 ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     env:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      USERNAME: ${{ secrets.SHARED_KERNEL_USERNAME }}
+      TOKEN: ${{ secrets.SHARED_KERNEL_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -29,17 +31,17 @@ jobs:
 
       - name: Run tests for storage submodule
         if: contains(matrix.os, 'ubuntu')
-        run: ./gradlew :storage:test
+        run: ./gradlew :storage:test :rabbitmq:test
 
       - name: Run tests for other submodules
-        run: ./gradlew test -x :storage:test
+        run: ./gradlew test -x :storage:test -x :rabbitmq:test
 
       - name: Check storage submodule
         if: contains(matrix.os, 'ubuntu')
-        run: ./gradlew :storage:check
+        run: ./gradlew :storage:check :rabbitmq:check
 
       - name: Check for other submodules
-        run: ./gradlew check -x :storage:check
+        run: ./gradlew check -x :storage:check -x :rabbitmq:check
 
   success:
     needs:

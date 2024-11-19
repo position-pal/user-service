@@ -1,3 +1,30 @@
+## [0.4.0](https://github.com/position-pal/user-service/compare/0.3.0...0.4.0) (2024-11-18)
+
+### Features
+
+* implemented adapter with rabbitmq for sending updates regarding groups ([#83](https://github.com/position-pal/user-service/issues/83)) ([b685875](https://github.com/position-pal/user-service/commit/b685875241879a1ce60b03879fc252bb474230ec))
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.112 ([c00b1aa](https://github.com/position-pal/user-service/commit/c00b1aa7b7857dfd156c864e2d8899f83800ea6c))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.113 ([4aa6061](https://github.com/position-pal/user-service/commit/4aa606165a33f30fa4a126f4cdc43f76bf3bfd39))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.114 ([340b045](https://github.com/position-pal/user-service/commit/340b0455b0a41b9ec529d73d45649867b8c565a3))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.115 ([#80](https://github.com/position-pal/user-service/issues/80)) ([4ac2c09](https://github.com/position-pal/user-service/commit/4ac2c09deeee204e970c676319b418db09cf57d2))
+* **deps:** update grpc-java monorepo to v1.68.1 ([6050831](https://github.com/position-pal/user-service/commit/6050831a5fa4fbad59aeb23abdc595bacfacabac))
+* **deps:** update ktor monorepo to v3.0.1 ([256ff81](https://github.com/position-pal/user-service/commit/256ff81c79a75994e3d58934aea2282b48eee0bb))
+* **deps:** update node.js to v22 ([d0a2932](https://github.com/position-pal/user-service/commit/d0a293214abb15f6915fcdd7f557eff750188d96))
+* **deps:** update plugin kotlin-qa to v0.69.0 ([a63f097](https://github.com/position-pal/user-service/commit/a63f09726106ddab5d212784dfba1b3a9c320733))
+* **deps:** update postgres docker tag to v17.1 ([#82](https://github.com/position-pal/user-service/issues/82)) ([eed31f9](https://github.com/position-pal/user-service/commit/eed31f95361955c0ad9cc184e8143be2e74a4c2e))
+* **deps:** update postgres:17.0-alpine docker digest to 3d5a606 ([#78](https://github.com/position-pal/user-service/issues/78)) ([83c1dcd](https://github.com/position-pal/user-service/commit/83c1dcd956e9841b3efbc55f540394ba420f4af8))
+* **deps:** update postgres:17.0-alpine docker digest to 72ff2e0 ([#77](https://github.com/position-pal/user-service/issues/77)) ([8e542cf](https://github.com/position-pal/user-service/commit/8e542cfc5585efa05170a0ad29a6a330294a90fc))
+* **deps:** update proto to v4.28.3 ([39f5863](https://github.com/position-pal/user-service/commit/39f5863386c4177de813739c5730f7c889447971))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout digest to 11bd719 ([21cbb34](https://github.com/position-pal/user-service/commit/21cbb341ae5dcf37560e5c194f02b8646f1f5ae7))
+* **deps:** update actions/setup-java digest to 8df1039 ([d159726](https://github.com/position-pal/user-service/commit/d159726dc21b5706f8a76e50a028975effc73df1))
+* **deps:** update actions/setup-node action to v4.1.0 ([4bca0fa](https://github.com/position-pal/user-service/commit/4bca0faa7742e26767c61e1b2c9b27e6e87e4f8f))
+
 ## [0.3.0](https://github.com/position-pal/user-service/compare/0.2.0...0.3.0) (2024-10-22)
 
 ### Features
