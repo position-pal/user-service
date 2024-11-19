@@ -55,6 +55,7 @@ subprojects {
             implementation(kotlin.stdlib)
             implementation(kotlin.stdlib.jdk8)
             testImplementation(bundles.kotlin.testing)
+            implementation(slf4j)
         }
     }
 

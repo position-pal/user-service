@@ -2,6 +2,7 @@ import Auth.AuthenticateRequest
 import Auth.AuthenticateResponse
 import Auth.AuthorizeRequest
 import Auth.AuthorizeResponse
+import AuthServiceGrpcKt.AuthServiceCoroutineImplBase
 import StatusUtility.createStatus
 import UserOuterClass.StatusCode
 import auth.AuthService
@@ -11,7 +12,7 @@ import auth.AuthService
  *
  * @property authService The authentication service to be used.
  */
-class GrpcAuthServiceAdapter(private val authService: AuthService) {
+class GrpcAuthServiceAdapter(private val authService: AuthService) : AuthServiceCoroutineImplBase() {
 
     /**
      * Authenticates a user based on the provided request.
@@ -19,7 +20,7 @@ class GrpcAuthServiceAdapter(private val authService: AuthService) {
      * @param request The authentication request containing username and password.
      * @return The authentication response containing the JWT token.
      */
-    fun authenticate(request: AuthenticateRequest): AuthenticateResponse {
+    override suspend fun authenticate(request: AuthenticateRequest): AuthenticateResponse {
         val token = authService.authenticate(request.username, request.password)
 
         return AuthenticateResponse.newBuilder()
@@ -33,7 +34,7 @@ class GrpcAuthServiceAdapter(private val authService: AuthService) {
      * @param request The authorization request containing the JWT token.
      * @return The authorization response indicating whether the user is authorized.
      */
-    fun authorize(request: AuthorizeRequest): AuthorizeResponse {
+    override suspend fun authorize(request: AuthorizeRequest): AuthorizeResponse {
         val token = request.token
 
         val isAuthorized = authService.authorize(token)
