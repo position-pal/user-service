@@ -40,7 +40,7 @@ ktor-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" 
 avro = { module = "org.apache.avro:avro", version.ref = "avro" }
 kernel-presentation = { module = "io.github.positionpal:kernel-presentation", version.ref = "shared-kernel" }
 kernel-domain = { module = "io.github.positionpal:kernel-domain", version.ref = "shared-kernel" }
-rabbit-amqp = { module = "com.rabbitmq:amqp-client", version = "5.22.0" }
+rabbit-amqp = { module = "com.rabbitmq:amqp-client", version = "5.23.0" }
 
 [bundles]
 kotlin-testing = [ "kotest-junit5-jvm", "kotest-assertions-core-jvm", "mockito-core" ]
