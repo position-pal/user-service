@@ -1,5 +1,7 @@
 import auth.AuthServiceImpl
 import group.GroupServiceImpl
+import io.github.cdimascio.dotenv.Dotenv
+import io.github.cdimascio.dotenv.dotenv
 import io.github.positionpal.AvroSerializer
 import io.grpc.Server
 import io.grpc.ServerBuilder
@@ -11,6 +13,14 @@ import user.UserServiceImpl
 const val PORT = 8080
 
 /**
+ * Dotenv config.
+ */
+private val dotenv: Dotenv = dotenv {
+    directory = "../"
+    ignoreIfMissing = true
+}
+
+/**
  * The main entry point of the application.
  * This function sets up and starts the gRPC server with the necessary service adapters.
  */
@@ -19,11 +29,10 @@ fun main() {
     val messageAdapter = RabbitMQMessageAdapter(serializer = AvroSerializer())
 
     // Initialize the authentication service adapter with the necessary dependencies
-    // TODO: Replace the placeholder secret with the actual secret
     val authAdapter = GrpcAuthServiceAdapter(
         AuthServiceImpl(
             PostgresAuthRepository(),
-            Secret("secretsGoHere"),
+            Secret(dotenv.get("JWT_SECRET")),
             Issuer("io.github.positionpal"),
             Audience("positionpal.io"),
         ),

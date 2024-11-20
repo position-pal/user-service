@@ -7,9 +7,12 @@ application {
 }
 
 dependencies {
-    implementation(libs.grpc.stub)
-    implementation(libs.grpc.netty.shaded)
-    implementation(libs.ktorm.core)
+    with(libs) {
+        implementation(grpc.stub)
+        implementation(grpc.netty.shaded)
+        implementation(ktorm.core)
+        implementation(dotenv)
+    }
     api(project(":storage"))
     api(project(":grpc"))
     api(project(":rabbitmq"))
