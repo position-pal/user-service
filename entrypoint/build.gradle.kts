@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-    mainClass.set("MainKt") // Sostituisci con la tua classe principale
+    mainClass.set("MainKt")
 }
 
 dependencies {
