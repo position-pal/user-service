@@ -12,6 +12,7 @@ dependencies {
         implementation(grpc.netty.shaded)
         implementation(ktorm.core)
         implementation(dotenv)
+        implementation(rabbit.amqp)
     }
     api(project(":storage"))
     api(project(":grpc"))
