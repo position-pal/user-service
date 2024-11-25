@@ -15,6 +15,11 @@ import UserServiceGrpcKt.UserServiceCoroutineImplBase
 import user.UserService
 
 /**
+ * Constant message used when a user is not found.
+ */
+const val USER_NOT_FOUND_MESSAGE = "User not found"
+
+/**
  * Adapter class for gRPC Group Service.
  * This class is responsible for adapting the gRPC service methods to the internal service methods.
  */
@@ -32,7 +37,7 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
         val user = userService.getUser(request.userId)
         val status = user?.let {
             createStatus(StatusCode.OK, "User retrieved successfully")
-        } ?: createStatus(StatusCode.NOT_FOUND, "User not found")
+        } ?: createStatus(StatusCode.NOT_FOUND, USER_NOT_FOUND_MESSAGE)
         return GetUserResponse.newBuilder()
             .setUser(user?.let { mapToGrpcUser(it) } ?: User.getDefaultInstance())
             .setStatus(status)
@@ -43,7 +48,7 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
         val updatedUser = userService.updateUser(request.userId, mapFromGrpcUser(request.user))
         val status = updatedUser?.let {
             createStatus(StatusCode.OK, "User updated successfully")
-        } ?: createStatus(StatusCode.NOT_FOUND, "User not found")
+        } ?: createStatus(StatusCode.NOT_FOUND, USER_NOT_FOUND_MESSAGE)
         return UpdateUserResponse.newBuilder()
             .setUser(updatedUser?.let { mapToGrpcUser(it) } ?: User.getDefaultInstance())
             .setStatus(status)
@@ -55,7 +60,7 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
         val status = if (success) {
             createStatus(StatusCode.OK, "User deleted successfully")
         } else {
-            createStatus(StatusCode.NOT_FOUND, "User not found")
+            createStatus(StatusCode.NOT_FOUND, USER_NOT_FOUND_MESSAGE)
         }
         return DeleteUserResponse.newBuilder()
             .setUserId(request.userId)

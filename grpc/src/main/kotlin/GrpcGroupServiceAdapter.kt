@@ -20,6 +20,11 @@ import UserOuterClass.StatusCode
 import group.GroupService
 
 /**
+ * Constant message used when a group is not found.
+ */
+const val GROUP_NOT_FOUND_MESSAGE = "Group not found"
+
+/**
  * Adapter class for gRPC Group Service.
  * This class is responsible for adapting the gRPC service methods to the internal service methods.
  */
@@ -40,7 +45,7 @@ class GrpcGroupServiceAdapter(
         val group = groupService.getGroup(request.groupId)
         val status = group?.let {
             createStatus(StatusCode.OK, "Group retrieved successfully")
-        } ?: createStatus(StatusCode.NOT_FOUND, "Group not found")
+        } ?: createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)
         return GetGroupResponse.newBuilder()
             .setGroup(group?.let { mapToGrpcGroup(it) } ?: Group.getDefaultInstance())
             .setStatus(status)
@@ -51,7 +56,7 @@ class GrpcGroupServiceAdapter(
         val updatedGroup = groupService.updateGroup(request.groupId, mapFromGrpcGroup(request.group))
         val status = updatedGroup?.let {
             createStatus(StatusCode.OK, "Group updated successfully")
-        } ?: createStatus(StatusCode.NOT_FOUND, "Group not found")
+        } ?: createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)
         return UpdateGroupResponse.newBuilder()
             .setGroup(updatedGroup?.let { mapToGrpcGroup(it) } ?: Group.getDefaultInstance())
             .setStatus(status)
@@ -63,7 +68,7 @@ class GrpcGroupServiceAdapter(
         val status = if (success) {
             createStatus(StatusCode.OK, "Group deleted successfully")
         } else {
-            createStatus(StatusCode.NOT_FOUND, "Group not found")
+            createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)
         }
         return DeleteGroupResponse.newBuilder()
             .setGroupId(request.groupId)
@@ -75,7 +80,7 @@ class GrpcGroupServiceAdapter(
         val updatedGroup = groupService.addMember(request.groupId, mapFromGrpcUser(request.user))
         val status = updatedGroup?.let {
             createStatus(StatusCode.OK, "Member added successfully")
-        } ?: createStatus(StatusCode.NOT_FOUND, "Group not found")
+        } ?: createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)
         return AddMemberResponse.newBuilder()
             .setGroup(updatedGroup?.let { mapToGrpcGroup(it) } ?: Group.getDefaultInstance())
             .setStatus(status)
@@ -86,7 +91,7 @@ class GrpcGroupServiceAdapter(
         val updatedGroup = groupService.removeMember(request.groupId, mapFromGrpcUser(request.user))
         val status = updatedGroup?.let {
             createStatus(StatusCode.OK, "Member removed successfully")
-        } ?: createStatus(StatusCode.NOT_FOUND, "Group not found")
+        } ?: createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)
         return RemoveMemberResponse.newBuilder()
             .setGroup(updatedGroup?.let { mapToGrpcGroup(it) } ?: Group.getDefaultInstance())
             .setStatus(status)
