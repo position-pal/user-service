@@ -40,7 +40,7 @@ ktor-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" 
 avro = { module = "org.apache.avro:avro", version.ref = "avro" }
 kernel-presentation = { module = "io.github.positionpal:kernel-presentation", version.ref = "shared-kernel" }
 kernel-domain = { module = "io.github.positionpal:kernel-domain", version.ref = "shared-kernel" }
-slf4j = { module = "org.slf4j:slf4j-simple", version = "2.0.9" }
+slf4j = { module = "org.slf4j:slf4j-simple", version = "2.0.16" }
 rabbit-amqp = { module = "com.rabbitmq:amqp-client", version = "5.23.0" }
 
 [bundles]
