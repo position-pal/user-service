@@ -18,8 +18,3 @@ dependencies {
     api(project(":grpc"))
     api(project(":rabbitmq"))
 }
-
-tasks.named("run") {
-    dependsOn(":composeUp")
-    finalizedBy(":composeDown")
-}
