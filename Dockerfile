@@ -1,4 +1,4 @@
-FROM postgres:17.2-alpine@sha256:e7897baa70dae1968d23d785adb4aeb699175e0bcaae44f98a7083ecb9668b93
+FROM postgres:17.2-alpine@sha256:d37d2c160d34430877c802e5adc22824a2ad453499db9bab1a2ceb2be6c1a46f
 
 COPY ./init.sql /docker-entrypoint-initdb.d/init.sql
 
