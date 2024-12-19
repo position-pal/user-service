@@ -10,7 +10,7 @@ ktorm = "4.1.1"
 mockk = "1.13.13"
 postgresql = "42.7.4"
 dotenv = "6.5.0"
-ktor = "3.0.2"
+ktor = "3.0.3"
 avro = "1.12.0"
 shared-kernel = "0.9.1"
 
