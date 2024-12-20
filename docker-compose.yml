@@ -8,7 +8,7 @@ services:
     ports:
       - '5432:5432'
   rabbitmq:
-    image: rabbitmq:4-management@sha256:144d7825c7418938f95da9212a70de4335ebecfbbcf10e4c13ad1092d462570a
+    image: rabbitmq:4-management@sha256:4a2b95d53111fe589fb44b5152ff87253c63eb227eee21f39494f64d9d96c0b2
     container_name: rabbitmq
     ports:
       - "5672:5672"
