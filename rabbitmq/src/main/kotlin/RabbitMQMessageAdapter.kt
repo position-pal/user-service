@@ -19,12 +19,13 @@ import io.github.positionpal.RemovedMemberToGroup
  * @property serializer The serializer for events.
  */
 class RabbitMQMessageAdapter(
-    private val rabbitMQHost: String = "localhost",
-    private val rabbitMQPort: Int = 5672,
-    private val rabbitMQUsername: String = "guest",
-    private val rabbitMQPassword: String = "guest",
+    val rabbitMQHost: String = "localhost",
+    val rabbitMQPort: Int = 5672,
+    val rabbitMQUsername: String = "guest",
+    val rabbitMQPassword: String = "guest",
     private val serializer: EventSerializer,
 ) : MessageAdapter {
+
     private val factory = ConnectionFactory().apply {
         host = rabbitMQHost
         port = rabbitMQPort
