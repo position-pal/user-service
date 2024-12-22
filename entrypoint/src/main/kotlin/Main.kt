@@ -10,7 +10,7 @@ import user.UserServiceImpl
 /**
  * The port number for the gRPC server.
  */
-const val GRPC_PORT = "8080"
+const val GRPC_PORT = "5052"
 
 /**
  * The port number for RabbitMQ server.
