@@ -9,8 +9,8 @@ import java.sql.SQLException
  */
 
 object DBConnection {
-    private const val HOST = "localhost"
-    private const val PORT = 5432
+    private const val DEFAULT_HOST = "localhost"
+    private const val DEFAULT_PORT = 5432
 
     private val dotenv: Dotenv = dotenv {
         directory = "../"
@@ -48,9 +48,12 @@ object DBConnection {
         val user = username ?: dotenv.get("POSTGRES_USER")
         val pass = password ?: dotenv.get("POSTGRES_PASSWORD")
         val db = dbName ?: dotenv.get("POSTGRES_DB")
+        val host = dotenv.get("POSTGRES_HOST") ?: DEFAULT_HOST
+        val port = dotenv.get("POSTGRES_PORT") ?: DEFAULT_PORT
+
         return runCatching {
             Database.connect(
-                url = "jdbc:postgresql://$HOST:$PORT/$db",
+                url = "jdbc:postgresql://$host:$port/$db",
                 driver = "org.postgresql.Driver",
                 user = user,
                 password = pass,
