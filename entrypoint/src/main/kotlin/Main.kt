@@ -36,6 +36,7 @@ fun main() {
     val rabbitMQPassword = dotenv.get("RABBITMQ_PASSWORD") ?: "guest"
 
     // Initialize the message adapter with Avro serialization
+    println("Connecting on $rabbitMQHost:$rabbitMQPort")
     val messageAdapter = RabbitMQMessageAdapter(
         rabbitMQHost = rabbitMQHost,
         rabbitMQPort = rabbitMQPort.toInt(),
