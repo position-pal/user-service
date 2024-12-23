@@ -37,10 +37,10 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
   publish-images:
-    needs:
-      - release
+    #needs:
+     # - release
     # Trigger this job only if the semantic release bot has released a new version
-    if: ${{ needs.release.outputs.release-status == 'released' }}
+    # if: ${{ needs.release.outputs.release-status == 'released' }}
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -72,7 +72,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ needs.release.outputs.container_version }}
+
           secrets: |
             github_username=${{ secrets.USERNAME }}
             github_token=${{ secrets.TOKEN }}
