@@ -10,7 +10,7 @@ import java.util.*
 /**
  * The expiration time of the JWT token in milliseconds.
  */
-const val EXPIRATION_TIME: Int = 60000
+const val EXPIRATION_TIME: Int = 6000000
 
 /**
  * Implementation of the AuthService interface.
@@ -45,7 +45,7 @@ class AuthServiceImpl(
             .withIssuer(issuer.value)
             .withAudience(audience.value)
             .withClaim("email", email)
-            .withExpiresAt(Date(System.currentTimeMillis() + expirationTime)) // Token expires in 1 minute
+            .withExpiresAt(Date(System.currentTimeMillis() + expirationTime)) // Token expires in 1 hour
             .sign(algorithm)
     }
 

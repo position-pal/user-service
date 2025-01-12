@@ -22,9 +22,15 @@ class GrpcAuthServiceAdapter(private val authService: AuthService) : AuthService
      */
     override suspend fun authenticate(request: AuthenticateRequest): AuthenticateResponse {
         val token = authService.authenticate(request.username, request.password)
-
         return AuthenticateResponse.newBuilder()
             .setToken(token)
+            .setStatus(
+                if (token != null) {
+                    createStatus(StatusCode.OK, "OK")
+                } else {
+                    createStatus(StatusCode.WRONG_CREDENTIALS, "Unauthorized")
+                },
+            )
             .build()
     }
 
@@ -35,10 +41,8 @@ class GrpcAuthServiceAdapter(private val authService: AuthService) : AuthService
      * @return The authorization response indicating whether the user is authorized.
      */
     override suspend fun authorize(request: AuthorizeRequest): AuthorizeResponse {
-        val token = request.token
-
+        val token = request.token.removePrefix("Bearer ").trim()
         val isAuthorized = authService.authorize(token)
-
         return AuthorizeResponse.newBuilder()
             .setAuthorized(isAuthorized)
             .setStatus(
