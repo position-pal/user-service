@@ -45,7 +45,7 @@ class AuthServiceImpl(
             .withIssuer(issuer.value)
             .withAudience(audience.value)
             .withClaim("email", email)
-            .withExpiresAt(Date(System.currentTimeMillis() + expirationTime)) // Token expires in 1 hour
+            .withExpiresAt(Date(System.currentTimeMillis() + expirationTime)) // Token expires in 100 minutes
             .sign(algorithm)
     }
 
