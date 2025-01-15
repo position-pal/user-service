@@ -21,13 +21,17 @@ message Status {
   string message = 2;
 }
 
-message User {
+message UserData {
   string id = 1;
   string name = 2;
   string surname = 3;
   string email = 4;
-  string password = 5;
-  string role = 6;
+  string role = 5;
+}
+
+message User {
+  UserData userData = 1;
+  string password = 2;
 }
 
 message CreateUserRequest {
@@ -35,7 +39,7 @@ message CreateUserRequest {
 }
 
 message CreateUserResponse {
-  User user = 1;
+  UserData user = 1;
   Status status = 2;
 }
 
@@ -44,7 +48,7 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-  User user = 1;
+  UserData user = 1;
   Status status = 2;
 }
 
@@ -54,7 +58,7 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
-  User user = 1;
+  UserData user = 1;
   Status status = 2;
 }
 

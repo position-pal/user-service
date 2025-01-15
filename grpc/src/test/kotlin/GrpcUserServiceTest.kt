@@ -17,12 +17,16 @@ class GrpcUserServiceTest : FunSpec({
 
     context("createUser") {
         test("should create a user and return success status") {
-            val grpcUser = UserOuterClass.User.newBuilder()
+            val userData = UserOuterClass.UserData.newBuilder()
+                .setId("123")
                 .setName("Alice")
                 .setSurname("Wonderland")
                 .setEmail("alice@example.com")
-                .setPassword("password123")
                 .setRole("admin")
+                .build()
+            val grpcUser = UserOuterClass.User.newBuilder()
+                .setUserData(userData)
+                .setPassword("password123")
                 .build()
 
             val request = CreateUserRequest.newBuilder().setUser(grpcUser).build()
@@ -80,13 +84,16 @@ class GrpcUserServiceTest : FunSpec({
 
     context("updateUser") {
         test("should update a user and return success status") {
-            val grpcUser = UserOuterClass.User.newBuilder()
+            val userData = UserOuterClass.UserData.newBuilder()
                 .setId("123")
-                .setName("Alice")
+                .setName("Mary")
                 .setSurname("Wonderland")
                 .setEmail("alice@example.com")
-                .setPassword("newpassword")
                 .setRole("admin")
+                .build()
+            val grpcUser = UserOuterClass.User.newBuilder()
+                .setUserData(userData)
+                .setPassword("newpassword")
                 .build()
 
             val request = UpdateUserRequest.newBuilder()
@@ -96,7 +103,7 @@ class GrpcUserServiceTest : FunSpec({
 
             val updatedUser = User(
                 id = "123",
-                name = "Alice",
+                name = "Mary",
                 surname = "Wonderland",
                 email = "alice@example.com",
                 password = "newpassword",
@@ -108,19 +115,21 @@ class GrpcUserServiceTest : FunSpec({
             val response = runBlocking { grpcAdapter.updateUser(request) }
 
             response.status.code shouldBe StatusCode.OK
-            response.user.password shouldBe "newpassword"
+            response.user.name shouldBe "Mary"
         }
 
         test("should return NOT_FOUND if user does not exist") {
             coEvery { mockUserService.updateUser("non-existent-id", any()) } returns null
-
-            val grpcUser = UserOuterClass.User.newBuilder()
+            val userData = UserOuterClass.UserData.newBuilder()
                 .setId("non-existent-id")
                 .setName("NonExistent")
                 .setSurname("User")
                 .setEmail("non.existent@example.com")
-                .setPassword("password123")
                 .setRole("admin")
+                .build()
+            val grpcUser = UserOuterClass.User.newBuilder()
+                .setUserData(userData)
+                .setPassword("password123")
                 .build()
 
             val request = UpdateUserRequest.newBuilder()

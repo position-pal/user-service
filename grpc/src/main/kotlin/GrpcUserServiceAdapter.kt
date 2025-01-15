@@ -10,7 +10,7 @@ import UserOuterClass.GetUserResponse
 import UserOuterClass.StatusCode
 import UserOuterClass.UpdateUserRequest
 import UserOuterClass.UpdateUserResponse
-import UserOuterClass.User
+import UserOuterClass.UserData
 import UserServiceGrpcKt.UserServiceCoroutineImplBase
 import user.UserService
 
@@ -28,7 +28,7 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
         val user = mapFromGrpcUser(request.user)
         val createdUser = userService.createUser(user)
         return CreateUserResponse.newBuilder()
-            .setUser(mapToGrpcUser(createdUser))
+            .setUser(mapToGrpcUser(createdUser).userData)
             .setStatus(createStatus(StatusCode.OK, "User created successfully"))
             .build()
     }
@@ -39,7 +39,7 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
             createStatus(StatusCode.OK, "User retrieved successfully")
         } ?: createStatus(StatusCode.NOT_FOUND, USER_NOT_FOUND_MESSAGE)
         return GetUserResponse.newBuilder()
-            .setUser(user?.let { mapToGrpcUser(it) } ?: User.getDefaultInstance())
+            .setUser(user?.let { mapToGrpcUser(it).userData } ?: UserData.getDefaultInstance())
             .setStatus(status)
             .build()
     }
@@ -50,7 +50,7 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
             createStatus(StatusCode.OK, "User updated successfully")
         } ?: createStatus(StatusCode.NOT_FOUND, USER_NOT_FOUND_MESSAGE)
         return UpdateUserResponse.newBuilder()
-            .setUser(updatedUser?.let { mapToGrpcUser(it) } ?: User.getDefaultInstance())
+            .setUser(updatedUser?.let { mapToGrpcUser(it).userData } ?: UserData.getDefaultInstance())
             .setStatus(status)
             .build()
     }

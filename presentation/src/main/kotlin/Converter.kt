@@ -9,15 +9,16 @@ object Converter {
      * @param user the User entity to map
      * @return the mapped gRPC User
      */
-    fun mapToGrpcUser(user: User): UserOuterClass.User = UserOuterClass.User
-        .newBuilder()
-        .setId(user.id)
-        .setName(user.name)
-        .setSurname(user.surname)
-        .setEmail(user.email)
-        .setPassword(user.password)
-        .setRole(user.role)
-        .build()
+    fun mapToGrpcUser(user: User): UserOuterClass.User {
+        val userData = UserOuterClass.UserData.newBuilder()
+            .setId(user.id)
+            .setName(user.name)
+            .setSurname(user.surname)
+            .setEmail(user.email)
+            .setRole(user.role)
+            .build()
+        return UserOuterClass.User.newBuilder().setUserData(userData).setPassword(user.password).build()
+    }
 
     /**
      * Maps a gRPC User to a User entity.
@@ -26,12 +27,12 @@ object Converter {
      * @return the mapped User entity
      */
     fun mapFromGrpcUser(grpcUser: UserOuterClass.User): User = User(
-        id = grpcUser.id,
-        name = grpcUser.name,
-        surname = grpcUser.surname,
-        email = grpcUser.email,
+        id = grpcUser.userData.id,
+        name = grpcUser.userData.name,
+        surname = grpcUser.userData.surname,
+        email = grpcUser.userData.email,
         password = grpcUser.password,
-        role = grpcUser.role,
+        role = grpcUser.userData.role,
     )
 
     /**
