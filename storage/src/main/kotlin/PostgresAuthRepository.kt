@@ -2,8 +2,9 @@ import DBConnection.users
 import auth.AuthRepository
 import org.ktorm.database.Database
 import org.ktorm.dsl.eq
-import org.ktorm.entity.count
 import org.ktorm.entity.filter
+import org.ktorm.entity.firstOrNull
+import org.mindrot.jbcrypt.BCrypt
 
 /**
  * Implementation of the AuthRepository interface for PostgreSQL.
@@ -19,9 +20,11 @@ class PostgresAuthRepository(private val db: Database = DBConnection.getDatabase
      * @param password The password of the user.
      * @return `true` if the credentials are valid, `false` otherwise.
      */
-    override fun checkCredentials(email: String, password: String): Boolean =
-        db.users
+    override fun checkCredentials(email: String, password: String): Boolean {
+        val user = db.users
             .filter { it.email eq email }
-            .filter { it.password eq password }
-            .count() > 0
+            .firstOrNull()
+
+        return user != null && BCrypt.checkpw(password, user.password)
+    }
 }

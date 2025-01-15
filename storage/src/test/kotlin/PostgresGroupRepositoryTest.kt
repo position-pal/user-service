@@ -133,7 +133,7 @@ class PostgresGroupRepositoryTest : FunSpec({
             val updatedGroup = groupService.addMember(createdGroup.id, user)
 
             updatedGroup shouldNotBe null
-            updatedGroup?.members?.contains(user) shouldBe true
+            updatedGroup?.members?.any { it.id == user.id } shouldBe true
         }
 
         test("should return null when trying to add a member to a non-existent group") {

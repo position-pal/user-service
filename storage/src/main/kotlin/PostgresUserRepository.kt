@@ -7,6 +7,7 @@ import org.ktorm.dsl.update
 import org.ktorm.entity.filter
 import org.ktorm.entity.firstOrNull
 import org.ktorm.entity.toList
+import org.mindrot.jbcrypt.BCrypt
 import user.UserRepository
 
 /**
@@ -22,12 +23,14 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      */
     override fun save(user: User): User {
         val userId = user.id.ifBlank { java.util.UUID.randomUUID().toString() }
+        val hashedPassword = BCrypt.hashpw(user.password, BCrypt.gensalt())
+
         db.insert(Users) {
             set(it.id, userId)
             set(it.name, user.name)
             set(it.surname, user.surname)
             set(it.email, user.email)
-            set(it.password, user.password)
+            set(it.password, hashedPassword)
             set(it.role, user.role)
         }
         return user.copy(id = userId)

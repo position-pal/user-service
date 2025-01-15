@@ -12,6 +12,7 @@ dependencies {
         implementation(postgresql)
         implementation(kernel.domain)
         implementation(kernel.presentation)
+        implementation(jbcrypt)
     }
 }
 
