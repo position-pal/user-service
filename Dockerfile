@@ -1,25 +1,10 @@
-FROM gradle:8-jdk17@sha256:e2129390b6f0a5c139e7c70164672fa5b4ee192c8da7dcff67c3e8d8f05acded AS builder
+FROM eclipse-temurin:21@sha256:a20cfa6afdbf57ff2c4de77ae2d0e3725a6349f1936b5ad7c3d1b06f6d1b840a
 
 WORKDIR /app
 
-COPY . .
+COPY ./entrypoint/build/libs/*-all.jar app.jar
 
-RUN --mount=type=secret,id=github_username,env=USERNAME,required=true \
-    --mount=type=secret,id=github_token,env=TOKEN,required=true \
-    ./gradlew :entrypoint:shadowJar
-
-FROM openjdk:21-slim@sha256:7072053847a8a05d7f3a14ebc778a90b38c50ce7e8f199382128a53385160688
-
-WORKDIR /app
-
-COPY --from=builder app/entrypoint/build/libs/entrypoint-all.jar app.jar
-
-ENV POSTGRES_USER=admin \
-    POSTGRES_DB=users_and_groups \
-    RABBITMQ_HOST=localhost \
-    RABBITMQ_PORT=5672 \
-    RABBITMQ_USERNAME=guest
-
+# GRPC
 EXPOSE 5052
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
