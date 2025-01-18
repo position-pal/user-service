@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.qa)
     alias(libs.plugins.kotlin.dokka)
     alias(libs.plugins.git.semantic.versioning)
+    alias(libs.plugins.gradle.docker.compose)
 }
 
 allprojects {
@@ -22,23 +23,6 @@ allprojects {
             }
         }
     }
-
-    fun Task.compose(vararg args: String) {
-        doLast {
-            exec {
-                workingDir = project.rootDir
-                commandLine("docker", "compose", *args)
-            }
-        }
-    }
-
-    tasks.create("composeDown") {
-        compose("down")
-    }
-
-    tasks.create("composeUp") {
-        compose("up", "-d")
-    }
 }
 
 subprojects {
@@ -48,6 +32,7 @@ subprojects {
         apply(plugin = kotlin.jvm.get().pluginId)
         apply(plugin = kotlin.qa.get().pluginId)
         apply(plugin = kotlin.dokka.get().pluginId)
+        apply(plugin = gradle.docker.compose.get().pluginId)
     }
 
     with(rootProject.libs) {
@@ -86,4 +71,9 @@ subprojects {
             exclude { generatedFilesFolder in it.file.absolutePath }
         }
     }
+}
+
+/* Set the project version based on the git history. */
+gitSemVer {
+    assignGitSemanticVersion()
 }
