@@ -1,4 +1,5 @@
 import com.rabbitmq.client.AMQP
+import com.rabbitmq.client.BuiltinExchangeType
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.ConnectionFactory
 import io.github.positionpal.AddedMemberToGroup
@@ -36,14 +37,7 @@ class RabbitMQMessageAdapter(
     private val channel: Channel = connection.createChannel()
 
     init {
-        channel.exchangeDeclare("group_updates_exchange", "headers")
-        channel.queueDeclare("group_updates", false, false, false, null)
-
-        val args = mapOf(
-            "x-match" to "all",
-            "message_type" to "update",
-        )
-        channel.queueBind("group_updates", "group_updates_exchange", "", args)
+        channel.exchangeDeclare("group_updates_exchange", BuiltinExchangeType.HEADERS, true)
     }
 
     /**
