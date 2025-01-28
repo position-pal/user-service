@@ -1,6 +1,11 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:////PointingToDeclaration/storage/[root]/index.html
+$dokka.location://GROUP_NOT_FOUND_MESSAGE/#/PointingToDeclaration/grpc/[root]/-g-r-o-u-p_-n-o-t_-f-o-u-n-d_-m-e-s-s-a-g-e.html
+$dokka.location://GRPC_PORT/#/PointingToDeclaration/entrypoint/[root]/-g-r-p-c_-p-o-r-t.html
+$dokka.location://RABBITMQ_PORT/#/PointingToDeclaration/entrypoint/[root]/-r-a-b-b-i-t-m-q_-p-o-r-t.html
+$dokka.location://USER_NOT_FOUND_MESSAGE/#/PointingToDeclaration/grpc/[root]/-u-s-e-r_-n-o-t_-f-o-u-n-d_-m-e-s-s-a-g-e.html
+$dokka.location://main/#/PointingToDeclaration/entrypoint/[root]/main.html
 $dokka.location:/Audience///PointingToDeclaration/domain/[root]/-audience/index.html
 $dokka.location:/Audience/Audience/#kotlin.String/PointingToDeclaration/domain/[root]/-audience/-audience.html
 $dokka.location:/Audience/toString/#/PointingToDeclaration/domain/[root]/-audience/to-string.html
@@ -73,6 +78,9 @@ $dokka.location:/Membership/userId/#/PointingToDeclaration/domain/[root]/-membe
 $dokka.location:/Memberships///PointingToDeclaration/storage/[root]/-memberships/index.html
 $dokka.location:/Memberships/groupId/#/PointingToDeclaration/storage/[root]/-memberships/group-id.html
 $dokka.location:/Memberships/userId/#/PointingToDeclaration/storage/[root]/-memberships/user-id.html
+$dokka.location:/MessageAdapter///PointingToDeclaration/application/[root]/-message-adapter/index.html
+$dokka.location:/MessageAdapter/close/#/PointingToDeclaration/application/[root]/-message-adapter/close.html
+$dokka.location:/MessageAdapter/postEvent/#io.github.positionpal.MessageType#io.github.positionpal.Event/PointingToDeclaration/application/[root]/-message-adapter/post-event.html
 $dokka.location:/PostgresAuthRepository///PointingToDeclaration/storage/[root]/-postgres-auth-repository/index.html
 $dokka.location:/PostgresAuthRepository/PostgresAuthRepository/#org.ktorm.database.Database/PointingToDeclaration/storage/[root]/-postgres-auth-repository/-postgres-auth-repository.html
 $dokka.location:/PostgresAuthRepository/checkCredentials/#kotlin.String#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-auth-repository/check-credentials.html
@@ -92,6 +100,14 @@ $dokka.location:/PostgresUserRepository/findAll/#/PointingToDeclaration/storage
 $dokka.location:/PostgresUserRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-user-repository/find-by-id.html
 $dokka.location:/PostgresUserRepository/save/#User/PointingToDeclaration/storage/[root]/-postgres-user-repository/save.html
 $dokka.location:/PostgresUserRepository/update/#User/PointingToDeclaration/storage/[root]/-postgres-user-repository/update.html
+$dokka.location:/RabbitMQMessageAdapter///PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/index.html
+$dokka.location:/RabbitMQMessageAdapter/RabbitMQMessageAdapter/#kotlin.String#kotlin.Int#kotlin.String#kotlin.String#io.github.positionpal.EventSerializer/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/-rabbit-m-q-message-adapter.html
+$dokka.location:/RabbitMQMessageAdapter/close/#/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/close.html
+$dokka.location:/RabbitMQMessageAdapter/postEvent/#io.github.positionpal.MessageType#io.github.positionpal.Event/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/post-event.html
+$dokka.location:/RabbitMQMessageAdapter/rabbitMQHost/#/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/rabbit-m-q-host.html
+$dokka.location:/RabbitMQMessageAdapter/rabbitMQPassword/#/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/rabbit-m-q-password.html
+$dokka.location:/RabbitMQMessageAdapter/rabbitMQPort/#/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/rabbit-m-q-port.html
+$dokka.location:/RabbitMQMessageAdapter/rabbitMQUsername/#/PointingToDeclaration/rabbitmq/[root]/-rabbit-m-q-message-adapter/rabbit-m-q-username.html
 $dokka.location:/Secret///PointingToDeclaration/domain/[root]/-secret/index.html
 $dokka.location:/Secret/Secret/#kotlin.String/PointingToDeclaration/domain/[root]/-secret/-secret.html
 $dokka.location:/Secret/toString/#/PointingToDeclaration/domain/[root]/-secret/to-string.html

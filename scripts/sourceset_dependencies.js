@@ -1,1 +1,1 @@
-sourceset_dependencies = '{":presentation:dokkaHtmlPartial/main":[],":application:dokkaHtmlPartial/main":[],":domain:dokkaHtmlPartial/main":[],":storage:dokkaHtmlPartial/main":[],":grpc:dokkaHtmlPartial/main":[]}'
+sourceset_dependencies = '{":presentation:dokkaHtmlPartial/main":[],":application:dokkaHtmlPartial/main":[],":entrypoint:dokkaHtmlPartial/main":[],":domain:dokkaHtmlPartial/main":[],":storage:dokkaHtmlPartial/main":[],":rabbitmq:dokkaHtmlPartial/main":[],":grpc:dokkaHtmlPartial/main":[]}'
