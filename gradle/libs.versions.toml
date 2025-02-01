@@ -12,7 +12,7 @@ postgresql = "42.7.5"
 dotenv = "6.5.0"
 ktor = "3.0.3"
 avro = "1.12.0"
-shared-kernel = "0.9.1"
+shared-kernel = "0.11.1"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
