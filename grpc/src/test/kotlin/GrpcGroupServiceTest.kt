@@ -1,5 +1,5 @@
 import Common.createTestUser
-import Converter.mapToGrpcUser
+import Converter.mapToGrpcUserData
 import GroupOuterClass.AddMemberRequest
 import GroupOuterClass.CreateGroupRequest
 import GroupOuterClass.DeleteGroupRequest
@@ -27,7 +27,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = createTestUser(),
+                createdBy = createTestUser().userData,
             )
 
             coEvery { mockGroupService.createGroup(any()) } returns createdGroup
@@ -45,7 +45,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Test Group",
                 members = emptyList(),
-                createdBy = createTestUser(),
+                createdBy = createTestUser().userData,
             )
             coEvery { mockGroupService.getGroup("123") } returns retrievedGroup
 
@@ -75,7 +75,7 @@ class GrpcGroupServiceTest : FunSpec({
                 id = "123",
                 name = "Updated Group",
                 members = emptyList(),
-                createdBy = createTestUser(),
+                createdBy = createTestUser().userData,
             )
 
             coEvery { mockGroupService.updateGroup("123", any()) } returns updatedGroup
@@ -134,29 +134,29 @@ class GrpcGroupServiceTest : FunSpec({
 
     context("addMember") {
         test("should add a member to a group and return success status") {
-            val user = createTestUser(id = "321")
+            val user = createTestUser(id = "321").userData
             val updatedGroup = Group(
                 id = "123",
                 name = "Test Group",
                 members = listOf(user),
-                createdBy = createTestUser(),
+                createdBy = createTestUser().userData,
             )
             coEvery { mockGroupService.addMember("123", user) } returns updatedGroup
 
             val request = AddMemberRequest.newBuilder()
                 .setGroupId("123")
-                .setUser(mapToGrpcUser(user))
+                .setUser(mapToGrpcUserData(user))
                 .build()
             val response = runBlocking { grpcAdapter.addMember(request) }
 
             response.status.code shouldBe StatusCode.OK
-            response.group.membersList shouldBe listOf(mapToGrpcUser(user))
+            response.group.membersList shouldBe listOf(mapToGrpcUserData(user))
         }
     }
 
     context("removeMember") {
         test("should remove a member from a group and return success status") {
-            val user = createTestUser(id = "111")
+            val user = createTestUser(id = "111").userData
             val updatedGroup = Group(
                 id = "123",
                 name = "Test Group",
@@ -167,7 +167,7 @@ class GrpcGroupServiceTest : FunSpec({
 
             val request = RemoveMemberRequest.newBuilder()
                 .setGroupId("123")
-                .setUser(mapToGrpcUser(user))
+                .setUser(mapToGrpcUserData(user))
                 .build()
             val response = runBlocking { grpcAdapter.removeMember(request) }
 

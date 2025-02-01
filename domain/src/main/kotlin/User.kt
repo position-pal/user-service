@@ -1,18 +1,25 @@
 /**
  * Data class representing a User entity.
  *
- * @property id the unique identifier of the user
- * @property name the first name of the user
- * @property surname the last name of the user
- * @property email the email address of the user
+ * @property userData the user data
  * @property password the password of the user
- * @property role the role of the user in the system
  */
 data class User(
+    val userData: UserData,
+    val password: String,
+)
+
+/**
+ * Data class representing user data.
+ *
+ * @property id the unique identifier of the user
+ * @property name the name of the user
+ * @property surname the surname of the user
+ * @property email the email of the user
+ */
+data class UserData(
     val id: String,
     val name: String,
     val surname: String,
     val email: String,
-    val password: String,
-    val role: String,
 )

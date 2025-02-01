@@ -22,18 +22,17 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      * @return the saved user entity with the generated ID
      */
     override fun save(user: User): User {
-        val userId = user.id.ifBlank { java.util.UUID.randomUUID().toString() }
+        val userId = user.userData.id.ifBlank { java.util.UUID.randomUUID().toString() }
         val hashedPassword = BCrypt.hashpw(user.password, BCrypt.gensalt())
 
         db.insert(Users) {
             set(it.id, userId)
-            set(it.name, user.name)
-            set(it.surname, user.surname)
-            set(it.email, user.email)
+            set(it.name, user.userData.name)
+            set(it.surname, user.userData.surname)
+            set(it.email, user.userData.email)
             set(it.password, hashedPassword)
-            set(it.role, user.role)
         }
-        return user.copy(id = userId)
+        return user.copy(userData = user.userData.copy(id = userId))
     }
 
     /**
@@ -52,13 +51,12 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      */
     override fun update(user: User): User? {
         val affectedRows = db.update(Users) {
-            set(it.name, user.name)
-            set(it.surname, user.surname)
-            set(it.email, user.email)
+            set(it.name, user.userData.name)
+            set(it.surname, user.userData.surname)
+            set(it.email, user.userData.email)
             set(it.password, user.password)
-            set(it.role, user.role)
             where {
-                it.id eq user.id
+                it.id eq user.userData.id
             }
         }
         return if (affectedRows == 1) user else null

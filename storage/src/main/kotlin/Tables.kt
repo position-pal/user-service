@@ -10,7 +10,6 @@ import org.ktorm.schema.varchar
  * @property surname the last name of the user
  * @property email the email address of the user
  * @property password the password of the user
- * @property role the role of the user in the system
  */
 object Users : BaseTable<User>("users") {
     val id = varchar("id").primaryKey()
@@ -18,7 +17,6 @@ object Users : BaseTable<User>("users") {
     val surname = varchar("surname")
     val email = varchar("email")
     val password = varchar("password")
-    val role = varchar("role")
 
     /**
      * Creates a User entity from a database row.
@@ -28,12 +26,13 @@ object Users : BaseTable<User>("users") {
      * @return the User entity
      */
     override fun doCreateEntity(row: QueryRowSet, withReferences: Boolean) = User(
-        id = row[id].orEmpty(),
-        name = row[name].orEmpty(),
-        surname = row[surname].orEmpty(),
-        email = row[email].orEmpty(),
+        userData = UserData(
+            id = row[id].orEmpty(),
+            name = row[name].orEmpty(),
+            surname = row[surname].orEmpty(),
+            email = row[email].orEmpty(),
+        ),
         password = row[password].orEmpty(),
-        role = row[role].orEmpty(),
     )
 }
 
@@ -60,7 +59,7 @@ object Groups : BaseTable<Group>("groups") {
         id = row[id].orEmpty(),
         name = row[name].orEmpty(),
         members = emptyList(),
-        createdBy = User(id = row[createdBy].orEmpty(), name = "", surname = "", email = "", password = "", role = ""),
+        createdBy = UserData(id = row[createdBy].orEmpty(), name = "", surname = "", email = ""),
     )
 }
 

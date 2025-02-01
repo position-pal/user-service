@@ -2,12 +2,12 @@ package group
 
 import Group
 import MessageAdapter
-import User
-import io.github.positionpal.AddedMemberToGroup
-import io.github.positionpal.GroupCreated
-import io.github.positionpal.GroupDeleted
-import io.github.positionpal.MessageType
-import io.github.positionpal.RemovedMemberToGroup
+import UserData
+import io.github.positionpal.events.AddedMemberToGroup
+import io.github.positionpal.events.EventType
+import io.github.positionpal.events.GroupCreated
+import io.github.positionpal.events.GroupDeleted
+import io.github.positionpal.events.RemovedMemberToGroup
 
 /**
  * Implementation of the group.GroupService interface.
@@ -26,16 +26,15 @@ class GroupServiceImpl(
      */
     override fun createGroup(group: Group): Group {
         val event = GroupCreated.create(
-            group.id,
-            io.github.positionpal.User.create(
-                group.createdBy.id,
+            { group.id },
+            io.github.positionpal.entities.User.create(
+                { group.createdBy.id },
                 group.createdBy.name,
                 group.createdBy.surname,
                 group.createdBy.email,
-                group.createdBy.role,
             ),
         )
-        messageAdapter.postEvent(MessageType.GROUP_CREATED, event)
+        messageAdapter.postEvent(EventType.GROUP_CREATED, event)
         return groupRepository.save(group)
     }
 
@@ -64,38 +63,48 @@ class GroupServiceImpl(
      * @return true if the group was deleted, false otherwise
      */
     override fun deleteGroup(groupId: String): Boolean {
-        val event = GroupDeleted.create(groupId)
-        messageAdapter.postEvent(MessageType.GROUP_DELETED, event)
+        val event = GroupDeleted.create { groupId }
+        messageAdapter.postEvent(EventType.GROUP_DELETED, event)
         return groupRepository.deleteById(groupId)
     }
 
     /**
      * Adds a member to a group.
      * @param groupId the ID of the group
-     * @param userId the ID of the user to add
+     * @param userData the user data to add
      * @return the updated group, or null if the group does not exist
      */
-    override fun addMember(groupId: String, user: User): Group? {
+    override fun addMember(groupId: String, userData: UserData): Group? {
         val event = AddedMemberToGroup.create(
-            groupId,
-            io.github.positionpal.User.create(user.id, user.name, user.surname, user.email, user.role),
+            { groupId },
+            io.github.positionpal.entities.User.create(
+                { userData.id },
+                userData.name,
+                userData.surname,
+                userData.email,
+            ),
         )
-        messageAdapter.postEvent(MessageType.MEMBER_ADDED, event)
-        return groupRepository.addMember(groupId, user)
+        messageAdapter.postEvent(EventType.MEMBER_ADDED, event)
+        return groupRepository.addMember(groupId, userData)
     }
 
     /**
      * Removes a member from a group.
      * @param groupId the ID of the group
-     * @param userId the ID of the user to remove
+     * @param userData the ID of the user to remove
      * @return the updated group, or null if the group does not exist
      */
-    override fun removeMember(groupId: String, user: User): Group? {
+    override fun removeMember(groupId: String, userData: UserData): Group? {
         val event = RemovedMemberToGroup.create(
-            groupId,
-            io.github.positionpal.User.create(user.id, user.name, user.surname, user.email, user.role),
+            { groupId },
+            io.github.positionpal.entities.User.create(
+                { userData.id },
+                userData.name,
+                userData.surname,
+                userData.email,
+            ),
         )
-        messageAdapter.postEvent(MessageType.MEMBER_REMOVED, event)
-        return groupRepository.removeMember(groupId, user)
+        messageAdapter.postEvent(EventType.MEMBER_REMOVED, event)
+        return groupRepository.removeMember(groupId, userData)
     }
 }

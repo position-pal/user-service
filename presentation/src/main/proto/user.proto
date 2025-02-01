@@ -26,7 +26,6 @@ message UserData {
   string name = 2;
   string surname = 3;
   string email = 4;
-  string role = 5;
 }
 
 message User {

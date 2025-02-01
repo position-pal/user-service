@@ -13,7 +13,6 @@ object Common {
      * @param surname The surname of the user. Default is "User".
      * @param email The email of the user. Default is "random-uuid@example.com".
      * @param password The password of the user. Default is "password123".
-     * @param role The role of the user. Default is "user".
      * @return A User object with the specified or default values.
      */
     fun createTestUser(
@@ -22,8 +21,7 @@ object Common {
         surname: String = "User",
         email: String = UUID.randomUUID().toString() + "@example.com",
         password: String = "password123",
-        role: String = "user",
-    ): User = User(id, name, surname, email, password, role)
+    ): User = User(UserData(id, name, surname, email), password)
 
     /**
      * Creates a test group with the provided parameters or default values.
@@ -37,7 +35,7 @@ object Common {
     fun createTestGroup(
         id: String = UUID.randomUUID().toString(),
         name: String = "Default",
-        members: List<User> = emptyList(),
-        createdBy: User = createTestUser(),
+        members: List<UserData> = emptyList(),
+        createdBy: UserData = createTestUser().userData,
     ): Group = Group(id, name, members, createdBy)
 }

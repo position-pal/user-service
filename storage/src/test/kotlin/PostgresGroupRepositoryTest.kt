@@ -26,7 +26,7 @@ class PostgresGroupRepositoryTest : FunSpec({
         test("should save a group and return the saved group") {
             val creator = createTestUser()
             userService.createUser(creator)
-            val group = createTestGroup(name = "Group1", createdBy = creator)
+            val group = createTestGroup(name = "Group1", createdBy = creator.userData)
 
             val savedGroup = groupService.createGroup(group)
 
@@ -40,7 +40,7 @@ class PostgresGroupRepositoryTest : FunSpec({
         test("should return a group if it exists") {
             val creator = createTestUser()
             userService.createUser(creator)
-            val group = createTestGroup(name = "Group2", createdBy = creator)
+            val group = createTestGroup(name = "Group2", createdBy = creator.userData)
 
             val createdGroup = groupService.createGroup(group)
             val retrievedGroup = groupService.getGroup(createdGroup.id)
@@ -62,7 +62,7 @@ class PostgresGroupRepositoryTest : FunSpec({
         test("should update an existing group and return the updated group") {
             val creator = createTestUser()
             userService.createUser(creator)
-            val group = createTestGroup(name = "Group3", createdBy = creator)
+            val group = createTestGroup(name = "Group3", createdBy = creator.userData)
 
             val createdGroup = groupService.createGroup(group)
             val updatedGroup = createdGroup.copy(name = "UpdatedGroup3")
@@ -88,7 +88,7 @@ class PostgresGroupRepositoryTest : FunSpec({
         test("should delete an existing group and return true") {
             val creator = createTestUser()
             userService.createUser(creator)
-            val group = createTestGroup(name = "Group4", createdBy = creator)
+            val group = createTestGroup(name = "Group4", createdBy = creator.userData)
 
             val createdGroup = groupService.createGroup(group)
             val deleteResult = groupService.deleteGroup(createdGroup.id)
@@ -110,8 +110,8 @@ class PostgresGroupRepositoryTest : FunSpec({
             val creator = createTestUser()
             userService.createUser(creator)
             val groups = listOf(
-                createTestGroup(id = "1", name = "Group1", createdBy = creator),
-                createTestGroup(id = "2", name = "Group2", createdBy = creator),
+                createTestGroup(id = "1", name = "Group1", createdBy = creator.userData),
+                createTestGroup(id = "2", name = "Group2", createdBy = creator.userData),
             )
 
             groups.forEach { group ->
@@ -127,19 +127,19 @@ class PostgresGroupRepositoryTest : FunSpec({
         val user = createTestUser(id = "test-id-to-add", name = "Johnny", email = "add-me@mail.com")
         userService.createUser(user)
         test("should add a member to an existing group and return the updated group") {
-            val group = createTestGroup(name = "Group5", createdBy = user)
+            val group = createTestGroup(name = "Group5", createdBy = user.userData)
             val createdGroup = groupService.createGroup(group)
 
-            val updatedGroup = groupService.addMember(createdGroup.id, user)
+            val updatedGroup = groupService.addMember(createdGroup.id, user.userData)
 
             updatedGroup shouldNotBe null
-            updatedGroup?.members?.any { it.id == user.id } shouldBe true
+            updatedGroup?.members?.any { it.id == user.userData.id } shouldBe true
         }
 
         test("should return null when trying to add a member to a non-existent group") {
             val nonExistentGroupId = "non-existent-id"
 
-            val result = groupService.addMember(nonExistentGroupId, user)
+            val result = groupService.addMember(nonExistentGroupId, user.userData)
 
             result shouldBe null
         }
@@ -148,22 +148,21 @@ class PostgresGroupRepositoryTest : FunSpec({
     context("removeMemberToDB") {
         val user = createTestUser(id = "test-id-to-remove", name = "Johnny", email = "remove-me@mail.com")
         userService.createUser(user)
-
         test("should remove a member from an existing group and return the updated group") {
-            val group = createTestGroup(name = "Group6", createdBy = user)
+            val group = createTestGroup(name = "Group6", createdBy = user.userData)
             val createdGroup = groupService.createGroup(group)
-            groupService.addMember(createdGroup.id, user)
+            groupService.addMember(createdGroup.id, user.userData)
 
-            val updatedGroup = groupService.removeMember(createdGroup.id, user)
+            val updatedGroup = groupService.removeMember(createdGroup.id, user.userData)
 
             updatedGroup shouldNotBe null
-            updatedGroup?.members?.contains(user) shouldBe false
+            updatedGroup?.members?.contains(user.userData) shouldBe false
         }
 
         test("should return null when trying to remove a member from a non-existent group") {
             val nonExistentGroupId = "non-existent-id"
 
-            val result = groupService.removeMember(nonExistentGroupId, user)
+            val result = groupService.removeMember(nonExistentGroupId, user.userData)
 
             result shouldBe null
         }

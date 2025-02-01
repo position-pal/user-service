@@ -52,12 +52,12 @@ class InMemoryGroupRepository : GroupRepository {
     /**
      * Adds a member to a group.
      * @param groupId the ID of the group
-     * @param userId the ID of the user to add
+     * @param userData the ID of the user to add
      * @return the updated group, or null if the group does not exist
      */
-    override fun addMember(groupId: String, user: User): Group? =
+    override fun addMember(groupId: String, userData: UserData): Group? =
         groups[groupId]?.let { group ->
-            val updatedGroup = group.copy(members = group.members + user)
+            val updatedGroup = group.copy(members = group.members + userData)
             groups[groupId] = updatedGroup
             updatedGroup
         }
@@ -65,12 +65,12 @@ class InMemoryGroupRepository : GroupRepository {
     /**
      * Removes a member from a group.
      * @param groupId the ID of the group
-     * @param userId the ID of the user to remove
+     * @param userData the ID of the user to remove
      * @return the updated group, or null if the group does not exist
      */
-    override fun removeMember(groupId: String, user: User): Group? =
+    override fun removeMember(groupId: String, userData: UserData): Group? =
         groups[groupId]?.let { group ->
-            val updatedGroup = group.copy(members = group.members - user)
+            val updatedGroup = group.copy(members = group.members - userData)
             groups[groupId] = updatedGroup
             updatedGroup
         }

@@ -14,7 +14,7 @@ class GroupServiceTest : FunSpec({
     val createdGroupIds = mutableListOf<String>()
     val createdUserIds = mutableListOf<String>()
 
-    val creator = User("test-uuid", "Test", "User", "test@email.it", "test-password", "user")
+    val creator = User(UserData("test-uuid", "Test", "User", "test@email.it"), "test-password")
 
     beforeEach {
         createdGroupIds.clear()
@@ -28,7 +28,7 @@ class GroupServiceTest : FunSpec({
     }
 
     beforeSpec {
-        userRepository.save(User("test-uuid", "Test", "User", "test.user@example.com", "password123", "admin"))
+        userRepository.save(User(UserData("test-uuid", "Test", "User", "test@email.it"), "test-password"))
     }
 
     afterSpec {
@@ -38,7 +38,7 @@ class GroupServiceTest : FunSpec({
 
     context("createGroup") {
         test("should add a group and return the created group") {
-            val group = Group("", "Friends", listOf(), creator)
+            val group = Group("", "Friends", listOf(), creator.userData)
             val createdGroup = groupService.createGroup(group)
 
             createdGroup.id shouldNotBe ""
@@ -49,7 +49,7 @@ class GroupServiceTest : FunSpec({
 
     context("getGroup") {
         test("should return a group if it exists") {
-            val group = Group("", "Testers", listOf(), creator)
+            val group = Group("", "Testers", listOf(), creator.userData)
             val createdGroup = groupService.createGroup(group)
             val retrievedGroup = groupService.getGroup(createdGroup.id)
 
@@ -65,7 +65,7 @@ class GroupServiceTest : FunSpec({
 
     context("updateGroup") {
         test("should update an existing group and return the updated group") {
-            val group = Group("", "Basketball Team", listOf(), creator)
+            val group = Group("", "Basketball Team", listOf(), creator.userData)
             val createdGroup = groupService.createGroup(group)
             val updatedGroup = createdGroup.copy(name = "Volleyball Team")
 
@@ -77,14 +77,14 @@ class GroupServiceTest : FunSpec({
         }
 
         test("should return null when trying to update a non-existent group") {
-            val group = Group("non-existent-id", "NonExistent", listOf(), creator)
+            val group = Group("non-existent-id", "NonExistent", listOf(), creator.userData)
             groupService.updateGroup("non-existent-id", group) shouldBe null
         }
     }
 
     context("deleteGroup") {
         test("should delete an existing group and return true") {
-            val group = Group("", "Family", listOf(), creator)
+            val group = Group("", "Family", listOf(), creator.userData)
             val createdGroup = groupService.createGroup(group)
             groupService.deleteGroup(createdGroup.id) shouldBe true
             groupRepository.findById(createdGroup.id) shouldBe null
@@ -96,38 +96,38 @@ class GroupServiceTest : FunSpec({
     }
 
     context("addMember") {
-        val user = User("new-user-id", "New", "User", "new.user@example.com", "password123", "user")
+        val user = User(UserData("new-user-id", "New", "User", "new.user@example.com"), "password123")
         test("should create a user, add it to the group, and return the updated group") {
-            val group = Group("", "Book Club", listOf(), creator)
+            val group = Group("", "Book Club", listOf(), creator.userData)
             val createdGroup = groupService.createGroup(group)
             createdGroupIds.add(createdGroup.id)
 
             userRepository.save(user)
-            createdUserIds.add(user.id)
+            createdUserIds.add(user.userData.id)
 
-            val updatedGroup = groupService.addMember(createdGroup.id, user)
+            val updatedGroup = groupService.addMember(createdGroup.id, user.userData)
 
             updatedGroup shouldNotBe null
-            updatedGroup?.members shouldBe listOf(user)
-            groupRepository.findById(createdGroup.id)?.members shouldBe listOf(user)
+            updatedGroup?.members shouldBe listOf(user.userData)
+            groupRepository.findById(createdGroup.id)?.members shouldBe listOf(user.userData)
         }
 
         test("should return null when trying to add a user to a non-existent group") {
-            groupService.addMember("non-existent-id", user) shouldBe null
+            groupService.addMember("non-existent-id", user.userData) shouldBe null
         }
     }
 
     context("removeMember") {
-        val user = User("test-uuid", "Test", "User", "test.user@example.com", "password123", "user")
+        val user = User(UserData("test-uuid", "Test", "User", "test.user@example.com"), "password123")
         test("should remove a user from the group and delete the user, then return the updated group") {
-            val group = Group("", "Chess Club", listOf(user), user)
+            val group = Group("", "Chess Club", listOf(user.userData), user.userData)
             val createdGroup = groupService.createGroup(group)
             createdGroupIds.add(createdGroup.id)
 
             userRepository.save(user)
-            createdUserIds.add(user.id)
+            createdUserIds.add(user.userData.id)
 
-            val updatedGroup = groupService.removeMember(createdGroup.id, user)
+            val updatedGroup = groupService.removeMember(createdGroup.id, user.userData)
 
             updatedGroup shouldNotBe null
             updatedGroup?.members shouldBe emptyList()
@@ -135,7 +135,7 @@ class GroupServiceTest : FunSpec({
         }
 
         test("should return null when trying to remove a user from a non-existent group") {
-            groupService.removeMember("non-existent-id", user) shouldBe null
+            groupService.removeMember("non-existent-id", user.userData) shouldBe null
         }
     }
 })

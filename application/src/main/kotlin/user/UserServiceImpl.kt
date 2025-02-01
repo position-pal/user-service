@@ -31,7 +31,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
      */
     override fun updateUser(userId: String, user: User): User? =
         userRepository.findById(userId)?.let {
-            val updatedUser = user.copy(id = userId)
+            val updatedUser = user.copy(userData = user.userData.copy(id = userId))
             userRepository.update(updatedUser)
         }
 

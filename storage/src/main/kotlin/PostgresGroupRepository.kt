@@ -25,7 +25,7 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @param groupId the unique identifier of the group
      * @param users the list of user to be added to the group
      */
-    private fun saveMembership(groupId: String, users: List<User>) {
+    private fun saveMembership(groupId: String, users: List<UserData>) {
         for (user in users) {
             db.insert(Memberships) {
                 set(it.groupId, groupId)
@@ -40,12 +40,12 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @param groupId the unique identifier of the group
      * @return a list of user entities that are members of the group
      */
-    private fun getMembers(groupId: String): List<User> =
+    private fun getMembers(groupId: String): List<UserData> =
         db.users.filter {
             it.id inList db.from(Memberships).select(Memberships.userId).where {
                 Memberships.groupId eq groupId
             }
-        }.toList()
+        }.toList().map { it.userData }
 
     /**
      * Saves a group to the database.
@@ -75,7 +75,7 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
         val members = getMembers(groupId)
         val createdBy = db.users.filter { it.id eq group.createdBy.id }
             .firstOrNull() ?: throw IllegalArgumentException("CreatedBy user not found")
-        return group.copy(members = members, createdBy = createdBy)
+        return group.copy(members = members, createdBy = createdBy.userData)
     }
 
     /**
@@ -117,7 +117,10 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
         return groups.map { group ->
             val members = getMembers(group.id)
             group.copy(members = members)
-                .copy(createdBy = db.users.filter { it.id eq group.createdBy.id }.firstOrNull() ?: return emptyList())
+                .copy(
+                    createdBy = db.users.filter { it.id eq group.createdBy.id }.firstOrNull()?.userData
+                        ?: return emptyList(),
+                )
         }
     }
 
@@ -128,11 +131,11 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @param user the user to be added
      * @return the updated group entity if the member was added, otherwise null
      */
-    override fun addMember(groupId: String, user: User): Group? {
+    override fun addMember(groupId: String, userData: UserData): Group? {
         return runCatching {
             db.insert(Memberships) {
                 set(it.groupId, groupId)
-                set(it.userId, user.id)
+                set(it.userId, userData.id)
             }
         }.onFailure { e ->
             println("Error adding member: ${e.message}")
@@ -146,11 +149,11 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
      * @param user the user to be removed
      * @return the updated group entity if the member was removed, otherwise null
      */
-    override fun removeMember(groupId: String, user: User): Group? {
+    override fun removeMember(groupId: String, userData: UserData): Group? {
         return runCatching {
             db.delete(Memberships) {
                 it.groupId eq groupId
-                it.userId eq user.id
+                it.userId eq userData.id
             }
         }.onFailure { e ->
             println("Error removing member: ${e.message}")

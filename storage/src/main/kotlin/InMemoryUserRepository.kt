@@ -14,7 +14,7 @@ class InMemoryUserRepository : UserRepository {
      */
     override fun save(user: User): User {
         val userId = java.util.UUID.randomUUID().toString()
-        val newUser = user.copy(id = userId)
+        val newUser = user.copy(userData = user.userData.copy(id = userId))
         users[userId] = newUser
         return newUser
     }
@@ -32,8 +32,8 @@ class InMemoryUserRepository : UserRepository {
      * @return the updated user, or null if the user does not exist
      */
     override fun update(user: User): User? =
-        users.takeIf { it.containsKey(user.id) }
-            ?.apply { this[user.id] = user }
+        users.takeIf { it.containsKey(user.userData.id) }
+            ?.apply { this[user.userData.id] = user }
             ?.let { user }
 
     /**

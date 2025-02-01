@@ -1,5 +1,5 @@
 import Converter.mapFromGrpcGroup
-import Converter.mapFromGrpcUser
+import Converter.mapFromGrpcUserData
 import Converter.mapToGrpcGroup
 import GroupOuterClass.AddMemberRequest
 import GroupOuterClass.AddMemberResponse
@@ -77,7 +77,7 @@ class GrpcGroupServiceAdapter(
     }
 
     override suspend fun addMember(request: AddMemberRequest): AddMemberResponse {
-        val updatedGroup = groupService.addMember(request.groupId, mapFromGrpcUser(request.user))
+        val updatedGroup = groupService.addMember(request.groupId, mapFromGrpcUserData(request.user))
         val status = updatedGroup?.let {
             createStatus(StatusCode.OK, "Member added successfully")
         } ?: createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)
@@ -88,7 +88,7 @@ class GrpcGroupServiceAdapter(
     }
 
     override suspend fun removeMember(request: RemoveMemberRequest): RemoveMemberResponse {
-        val updatedGroup = groupService.removeMember(request.groupId, mapFromGrpcUser(request.user))
+        val updatedGroup = groupService.removeMember(request.groupId, mapFromGrpcUserData(request.user))
         val status = updatedGroup?.let {
             createStatus(StatusCode.OK, "Member removed successfully")
         } ?: createStatus(StatusCode.NOT_FOUND, GROUP_NOT_FOUND_MESSAGE)

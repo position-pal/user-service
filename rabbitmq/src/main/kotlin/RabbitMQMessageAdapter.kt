@@ -2,13 +2,13 @@ import com.rabbitmq.client.AMQP
 import com.rabbitmq.client.BuiltinExchangeType
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.ConnectionFactory
-import io.github.positionpal.AddedMemberToGroup
-import io.github.positionpal.Event
 import io.github.positionpal.EventSerializer
-import io.github.positionpal.GroupCreated
-import io.github.positionpal.GroupDeleted
-import io.github.positionpal.MessageType
-import io.github.positionpal.RemovedMemberToGroup
+import io.github.positionpal.events.AddedMemberToGroup
+import io.github.positionpal.events.Event
+import io.github.positionpal.events.EventType
+import io.github.positionpal.events.GroupCreated
+import io.github.positionpal.events.GroupDeleted
+import io.github.positionpal.events.RemovedMemberToGroup
 
 /**
  * A message adapter for RabbitMQ to handle posting events and managing connections.
@@ -47,7 +47,7 @@ class RabbitMQMessageAdapter(
      * @param event The event to be posted.
      * @throws IllegalArgumentException if the event type is not supported.
      */
-    override fun postEvent(type: MessageType, event: Event) {
+    override fun postEvent(type: EventType, event: Event) {
         val headers = mapOf(
             "message_type" to type.toString(),
         )
@@ -57,18 +57,14 @@ class RabbitMQMessageAdapter(
             .build()
 
         val byte = when (type) {
-            MessageType.GROUP_CREATED ->
+            EventType.GROUP_CREATED ->
                 serializer.serializeGroupCreated(event as GroupCreated?)
-            MessageType.GROUP_DELETED ->
+            EventType.GROUP_DELETED ->
                 serializer.serializeGroupDeleted(event as GroupDeleted?)
-            MessageType.MEMBER_ADDED ->
+            EventType.MEMBER_ADDED ->
                 serializer.serializeAddedMemberToGroup(event as AddedMemberToGroup?)
-            MessageType.MEMBER_REMOVED ->
+            EventType.MEMBER_REMOVED ->
                 serializer.serializeRemovedMemberToGroup(event as RemovedMemberToGroup?)
-            MessageType.GROUP_WISE_NOTIFICATION ->
-                throw IllegalArgumentException("Group wise notification event not supported")
-            MessageType.CO_MEMBERS_NOTIFICATION ->
-                throw IllegalArgumentException("Co members notification event not supported")
         }
 
         channel.basicPublish("group_updates_exchange", "", properties, byte)

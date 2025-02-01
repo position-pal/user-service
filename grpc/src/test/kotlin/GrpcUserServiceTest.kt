@@ -22,7 +22,6 @@ class GrpcUserServiceTest : FunSpec({
                 .setName("Alice")
                 .setSurname("Wonderland")
                 .setEmail("alice@example.com")
-                .setRole("admin")
                 .build()
             val grpcUser = UserOuterClass.User.newBuilder()
                 .setUserData(userData)
@@ -32,12 +31,13 @@ class GrpcUserServiceTest : FunSpec({
             val request = CreateUserRequest.newBuilder().setUser(grpcUser).build()
 
             val createdUser = User(
-                id = "123",
-                name = "Alice",
-                surname = "Wonderland",
-                email = "alice@example.com",
+                UserData(
+                    id = "123",
+                    name = "Alice",
+                    surname = "Wonderland",
+                    email = "alice@example.com",
+                ),
                 password = "password123",
-                role = "admin",
             )
 
             coEvery { mockUserService.createUser(any()) } returns createdUser
@@ -52,12 +52,13 @@ class GrpcUserServiceTest : FunSpec({
     context("getUser") {
         test("should return a user if it exists") {
             val retrievedUser = User(
-                id = "123",
-                name = "Alice",
-                surname = "Wonderland",
-                email = "alice@example.com",
+                UserData(
+                    id = "123",
+                    name = "Alice",
+                    surname = "Wonderland",
+                    email = "alice@example.com",
+                ),
                 password = "password123",
-                role = "admin",
             )
 
             coEvery { mockUserService.getUser("123") } returns retrievedUser
@@ -89,7 +90,6 @@ class GrpcUserServiceTest : FunSpec({
                 .setName("Mary")
                 .setSurname("Wonderland")
                 .setEmail("alice@example.com")
-                .setRole("admin")
                 .build()
             val grpcUser = UserOuterClass.User.newBuilder()
                 .setUserData(userData)
@@ -102,12 +102,13 @@ class GrpcUserServiceTest : FunSpec({
                 .build()
 
             val updatedUser = User(
-                id = "123",
-                name = "Mary",
-                surname = "Wonderland",
-                email = "alice@example.com",
+                UserData(
+                    id = "123",
+                    name = "Alice",
+                    surname = "Wonderland",
+                    email = "alice@example.com",
+                ),
                 password = "newpassword",
-                role = "admin",
             )
 
             coEvery { mockUserService.updateUser("123", any()) } returns updatedUser
@@ -115,7 +116,7 @@ class GrpcUserServiceTest : FunSpec({
             val response = runBlocking { grpcAdapter.updateUser(request) }
 
             response.status.code shouldBe StatusCode.OK
-            response.user.name shouldBe "Mary"
+            response.user.name shouldBe "Alice"
         }
 
         test("should return NOT_FOUND if user does not exist") {
@@ -125,7 +126,6 @@ class GrpcUserServiceTest : FunSpec({
                 .setName("NonExistent")
                 .setSurname("User")
                 .setEmail("non.existent@example.com")
-                .setRole("admin")
                 .build()
             val grpcUser = UserOuterClass.User.newBuilder()
                 .setUserData(userData)

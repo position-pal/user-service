@@ -8,14 +8,12 @@ CREATE TABLE groups (
                         created_by VARCHAR NOT NULL
 );
 
--- Crea la tabella "users"
 CREATE TABLE users (
                        id VARCHAR PRIMARY KEY,
                        name VARCHAR NOT NULL,
                        surname VARCHAR NOT NULL,
                        email VARCHAR NOT NULL UNIQUE,
-                       password VARCHAR NOT NULL,
-                       role VARCHAR NOT NULL
+                       password VARCHAR NOT NULL
 );
 
 CREATE TABLE membership (

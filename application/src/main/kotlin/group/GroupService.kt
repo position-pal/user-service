@@ -1,7 +1,7 @@
 package group
 
 import Group
-import User
+import UserData
 
 /**
  * Service interface for managing Group entities.
@@ -40,16 +40,16 @@ interface GroupService {
     /**
      * Adds a member to a group.
      * @param groupId the ID of the group
-     * @param user the user to add
+     * @param userData the user to add
      * @return the updated group, or null if the group does not exist
      */
-    fun addMember(groupId: String, user: User): Group?
+    fun addMember(groupId: String, userData: UserData): Group?
 
     /**
      * Removes a member from a group.
      * @param groupId the ID of the group
-     * @param user the user to remove
+     * @param userData the user to remove
      * @return the updated group, or null if the group does not exist
      */
-    fun removeMember(groupId: String, user: User): Group?
+    fun removeMember(groupId: String, userData: UserData): Group?
 }

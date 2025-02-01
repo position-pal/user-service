@@ -11,14 +11,26 @@ object Converter {
      */
     fun mapToGrpcUser(user: User): UserOuterClass.User {
         val userData = UserOuterClass.UserData.newBuilder()
-            .setId(user.id)
-            .setName(user.name)
-            .setSurname(user.surname)
-            .setEmail(user.email)
-            .setRole(user.role)
+            .setId(user.userData.id)
+            .setName(user.userData.name)
+            .setSurname(user.userData.surname)
+            .setEmail(user.userData.email)
             .build()
         return UserOuterClass.User.newBuilder().setUserData(userData).setPassword(user.password).build()
     }
+
+    /**
+     * Mps a User entity to a gRPC UserData.
+     *
+     * @param userData the UserData entity to map
+     * @return the mapped gRPC UserData
+     */
+    fun mapToGrpcUserData(userData: UserData): UserOuterClass.UserData = UserOuterClass.UserData.newBuilder()
+        .setId(userData.id)
+        .setName(userData.name)
+        .setSurname(userData.surname)
+        .setEmail(userData.email)
+        .build()
 
     /**
      * Maps a gRPC User to a User entity.
@@ -26,13 +38,28 @@ object Converter {
      * @param grpcUser the gRPC User to map
      * @return the mapped User entity
      */
-    fun mapFromGrpcUser(grpcUser: UserOuterClass.User): User = User(
-        id = grpcUser.userData.id,
-        name = grpcUser.userData.name,
-        surname = grpcUser.userData.surname,
-        email = grpcUser.userData.email,
-        password = grpcUser.password,
-        role = grpcUser.userData.role,
+    fun mapFromGrpcUser(grpcUser: UserOuterClass.User): User =
+        User(
+            UserData(
+                id = grpcUser.userData.id,
+                name = grpcUser.userData.name,
+                surname = grpcUser.userData.surname,
+                email = grpcUser.userData.email,
+            ),
+            password = grpcUser.password,
+        )
+
+    /**
+     * Maps a gRPC UserData to a UserData entity.
+     *
+     * @param grpcUserData the gRPC UserData to map
+     * @return the mapped UserData entity
+     */
+    fun mapFromGrpcUserData(grpcUserData: UserOuterClass.UserData): UserData = UserData(
+        id = grpcUserData.id,
+        name = grpcUserData.name,
+        surname = grpcUserData.surname,
+        email = grpcUserData.email,
     )
 
     /**
@@ -45,8 +72,8 @@ object Converter {
         .newBuilder()
         .setId(group.id)
         .setName(group.name)
-        .addAllMembers(group.members.map { mapToGrpcUser(it) })
-        .setCreatedBy(mapToGrpcUser(group.createdBy))
+        .addAllMembers(group.members.map { mapToGrpcUserData(it) })
+        .setCreatedBy(mapToGrpcUserData(group.createdBy))
         .build()
 
     /**
@@ -58,7 +85,7 @@ object Converter {
     fun mapFromGrpcGroup(grpcGroup: GroupOuterClass.Group): Group = Group(
         id = grpcGroup.id,
         name = grpcGroup.name,
-        members = grpcGroup.membersList.map { mapFromGrpcUser(it) },
-        createdBy = mapFromGrpcUser(grpcGroup.createdBy),
+        members = grpcGroup.membersList.map { mapFromGrpcUserData(it) },
+        createdBy = mapFromGrpcUserData(grpcGroup.createdBy),
     )
 }

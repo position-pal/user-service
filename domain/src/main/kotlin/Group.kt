@@ -9,6 +9,6 @@
 data class Group(
     val id: String,
     val name: String,
-    val members: List<User>,
-    val createdBy: User,
+    val members: List<UserData>,
+    val createdBy: UserData,
 )

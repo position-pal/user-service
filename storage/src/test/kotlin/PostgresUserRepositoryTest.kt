@@ -12,7 +12,7 @@ class PostgresUserRepositoryTest : FunSpec({
     val userService: UserService = UserServiceImpl(userRepository)
 
     beforeTest {
-        val allUsers = userRepository.findAll()
+        val allUsers = userRepository.findAll().map { user -> user.userData }
         allUsers.forEach { user -> userRepository.deleteById(user.id) }
     }
 
@@ -20,7 +20,7 @@ class PostgresUserRepositoryTest : FunSpec({
         test("should save a user and return the saved user") {
             val user = createTestUser(email = "email1")
 
-            val savedUser = userService.createUser(user)
+            val savedUser = userService.createUser(user).userData
 
             savedUser.id shouldNotBe ""
             savedUser.email shouldBe "email1"
@@ -32,8 +32,8 @@ class PostgresUserRepositoryTest : FunSpec({
         test("should return a user if it exists") {
             val user = createTestUser(name = "Jane", email = "email2")
 
-            val createdUser = userService.createUser(user)
-            val retrievedUser = userService.getUser(createdUser.id)
+            val createdUser = userService.createUser(user).userData
+            val retrievedUser = userService.getUser(createdUser.id)?.userData
 
             retrievedUser shouldNotBe null
             retrievedUser?.id shouldBe createdUser.id
@@ -53,13 +53,13 @@ class PostgresUserRepositoryTest : FunSpec({
             val user = createTestUser(email = "email3")
 
             val createdUser = userService.createUser(user)
-            val updatedUser = createdUser.copy(name = "Jack")
+            val updatedUser = createdUser.copy(userData = createdUser.userData.copy(name = "Jack"))
 
-            val result = userService.updateUser(createdUser.id, updatedUser)
+            val result = userService.updateUser(createdUser.userData.id, updatedUser)
 
             result shouldNotBe null
-            result?.name shouldBe "Jack"
-            userRepository.findById(createdUser.id)?.name shouldBe "Jack"
+            result?.userData?.name shouldBe "Jack"
+            userRepository.findById(createdUser.userData.id)?.userData?.name shouldBe "Jack"
         }
 
         test("should return null when trying to update a non-existent user") {
@@ -76,7 +76,7 @@ class PostgresUserRepositoryTest : FunSpec({
         test("should delete an existing user and return true") {
             val user = createTestUser(email = "email4")
 
-            val createdUser = userService.createUser(user)
+            val createdUser = userService.createUser(user).userData
             val deleteResult = userService.deleteUser(createdUser.id)
 
             deleteResult shouldBe true
