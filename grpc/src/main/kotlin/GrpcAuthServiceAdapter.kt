@@ -21,7 +21,7 @@ class GrpcAuthServiceAdapter(private val authService: AuthService) : AuthService
      * @return The authentication response containing the JWT token.
      */
     override suspend fun authenticate(request: AuthenticateRequest): AuthenticateResponse {
-        val token = authService.authenticate(request.username, request.password)
+        val token = authService.authenticate(request.email, request.password)
         return AuthenticateResponse.newBuilder()
             .setToken(token)
             .setStatus(

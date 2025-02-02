@@ -14,7 +14,7 @@ class GrpcAuthServiceTest : FunSpec({
 
     context("authenticate") {
         test("should return token when authentication is successful") {
-            val request = AuthenticateRequest.newBuilder().setUsername("user").setPassword("pass").build()
+            val request = AuthenticateRequest.newBuilder().setEmail("user").setPassword("pass").build()
             coEvery { mockkAuthService.authenticate("user", "pass") } returns "token"
 
             val response = grpcAdapter.authenticate(request)
@@ -23,7 +23,7 @@ class GrpcAuthServiceTest : FunSpec({
         }
 
         test("should return empty token when authentication fails") {
-            val request = AuthenticateRequest.newBuilder().setUsername("user").setPassword("wrongpass").build()
+            val request = AuthenticateRequest.newBuilder().setEmail("user").setPassword("wrongpass").build()
             coEvery { mockkAuthService.authenticate("user", "wrongpass") } returns ""
 
             val response = grpcAdapter.authenticate(request)
