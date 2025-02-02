@@ -159,4 +159,19 @@ class PostgresGroupRepository(private val db: Database = DBConnection.getDatabas
             println("Error removing member: ${e.message}")
         }.getOrNull()?.let { findById(groupId) }
     }
+
+    /**
+     * Finds all groups that a user is a member of.
+     *
+     * @param email the identifier of the user
+     * @return a list of group entities that the user is a member of
+     */
+    override fun findGroupsByUserEmail(email: String): List<Group> {
+        val user = db.users.filter { it.email eq email }.firstOrNull() ?: return emptyList()
+        val groupIds = db.from(Memberships).select(Memberships.groupId).where { Memberships.userId eq user.userData.id }
+        return db.groups.filter { it.id inList groupIds }.toList().map { group ->
+            val members = getMembers(group.id)
+            group.copy(members = members)
+        }
+    }
 }

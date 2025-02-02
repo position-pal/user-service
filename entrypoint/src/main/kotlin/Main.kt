@@ -45,6 +45,9 @@ fun main() {
         serializer = AvroSerializer(),
     )
 
+    // Initialize the group service
+    val groupService = GroupServiceImpl(PostgresGroupRepository(), messageAdapter)
+
     // Initialize the authentication service adapter with the necessary dependencies
     val authAdapter = GrpcAuthServiceAdapter(
         AuthServiceImpl(
@@ -53,14 +56,12 @@ fun main() {
             Issuer("io.github.positionpal"),
             Audience("positionpal.io"),
         ),
+        groupService,
     )
 
     // Initialize the group service adapter with the necessary dependencies
     val groupAdapter = GrpcGroupServiceAdapter(
-        GroupServiceImpl(
-            PostgresGroupRepository(),
-            messageAdapter,
-        ),
+        groupService,
     )
 
     // Initialize the user service adapter with the necessary dependencies

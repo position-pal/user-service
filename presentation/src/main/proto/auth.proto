@@ -5,6 +5,7 @@ import "user.proto";
 service AuthService {
     rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse);
     rpc Authorize(AuthorizeRequest) returns (AuthorizeResponse);
+    rpc AuthorizeUserToAccessGroup (AuthorizeUserToAccessGroupRequest) returns (AuthorizeUserToAccessGroupResponse);
 }
 
 message AuthenticateRequest {
@@ -22,6 +23,16 @@ message AuthorizeRequest {
 }
 
 message AuthorizeResponse {
+    bool authorized = 1;
+    Status status = 2;
+}
+
+message AuthorizeUserToAccessGroupRequest {
+    string token = 1;
+    string groupId = 2;
+}
+
+message AuthorizeUserToAccessGroupResponse {
     bool authorized = 1;
     Status status = 2;
 }

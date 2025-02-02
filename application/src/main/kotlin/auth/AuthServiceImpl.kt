@@ -5,6 +5,7 @@ import Secret
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTVerificationException
+import com.auth0.jwt.interfaces.DecodedJWT
 import java.util.*
 
 /**
@@ -50,6 +51,21 @@ class AuthServiceImpl(
     }
 
     /**
+     * Verifies the given JWT token.
+     *
+     * @param token The JWT token to verify.
+     * @return The decoded JWT token if verification is successful.
+     * @throws JWTVerificationException if the token is invalid or verification fails.
+     */
+    private fun verify(token: String): DecodedJWT {
+        val verifier = JWT.require(algorithm)
+            .withIssuer(issuer.value)
+            .withAudience(audience.value)
+            .build()
+        return verifier.verify(token)
+    }
+
+    /**
      * Authorizes a user by verifying their JWT token.
      *
      * @param token The JWT token to verify.
@@ -57,13 +73,24 @@ class AuthServiceImpl(
      */
     override fun authorize(token: String): Boolean =
         try {
-            val verifier = JWT.require(algorithm)
-                .withIssuer(issuer.value)
-                .withAudience(audience.value)
-                .build()
-            verifier.verify(token)
+            verify(token)
             true
         } catch (_: JWTVerificationException) {
             false
         }
+
+    /**
+     * Extracts the email from a given JWT token.
+     *
+     * @param token The JWT token from which to extract the email.
+     * @return The email extracted from the token, or `null` if the token is invalid.
+     */
+    override fun getEmailFromToken(token: String): String? {
+        return try {
+            val decodedJWT = verify(token)
+            decodedJWT.getClaim("email").asString()
+        } catch (_: JWTVerificationException) {
+            null
+        }
+    }
 }

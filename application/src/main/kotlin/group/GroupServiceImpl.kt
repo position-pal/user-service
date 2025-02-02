@@ -107,4 +107,12 @@ class GroupServiceImpl(
         messageAdapter.postEvent(EventType.MEMBER_REMOVED, event)
         return groupRepository.removeMember(groupId, userData)
     }
+
+    /**
+     * Retrieves all groups of a given user email.
+     * @param email the email of the user
+     * @return a list of all groups
+     */
+    override fun findAllGroupsOfUser(email: String): List<Group> =
+        groupRepository.findGroupsByUserEmail(email)
 }

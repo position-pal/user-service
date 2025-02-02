@@ -74,4 +74,14 @@ class InMemoryGroupRepository : GroupRepository {
             groups[groupId] = updatedGroup
             updatedGroup
         }
+
+    /**
+     * Retrieves all groups for a given user.
+     *
+     * @param email the email of the user
+     * @return a list of groups the user is a member of
+     */
+    override fun findGroupsByUserEmail(email: String): List<Group> {
+        return groups.values.filter { group -> group.members.any { it.email == email } }
+    }
 }

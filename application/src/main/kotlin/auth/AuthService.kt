@@ -21,4 +21,12 @@ interface AuthService {
      * @return true if the token is valid, false otherwise
      */
     fun authorize(token: String): Boolean
+
+    /**
+     * Extracts the email from a given token.
+     *
+     * @param token the token of the user
+     * @return email of user encoded in token
+     */
+    fun getEmailFromToken(token: String): String?
 }

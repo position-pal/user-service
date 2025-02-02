@@ -2,17 +2,21 @@ import Auth.AuthenticateRequest
 import Auth.AuthenticateResponse
 import Auth.AuthorizeRequest
 import Auth.AuthorizeResponse
+import Auth.AuthorizeUserToAccessGroupRequest
+import Auth.AuthorizeUserToAccessGroupResponse
 import AuthServiceGrpcKt.AuthServiceCoroutineImplBase
 import StatusUtility.createStatus
 import UserOuterClass.StatusCode
 import auth.AuthService
+import group.GroupService
 
 /**
  * Adapter class for gRPC authentication service.
  *
  * @property authService The authentication service to be used.
  */
-class GrpcAuthServiceAdapter(private val authService: AuthService) : AuthServiceCoroutineImplBase() {
+class GrpcAuthServiceAdapter(private val authService: AuthService, private val groupService: GroupService) :
+    AuthServiceCoroutineImplBase() {
 
     /**
      * Authenticates a user based on the provided request.
@@ -52,6 +56,30 @@ class GrpcAuthServiceAdapter(private val authService: AuthService) : AuthService
                     createStatus(StatusCode.WRONG_CREDENTIALS, "Unauthorized")
                 },
             )
+            .build()
+    }
+
+    /**
+     * Authorizes a user to access a group based on the provided request.
+     *
+     * @param request The authorization request containing the JWT token and group ID.
+     * @return The authorization response indicating whether the user is authorized.
+     */
+    override suspend fun authorizeUserToAccessGroup(
+        request: AuthorizeUserToAccessGroupRequest,
+    ): AuthorizeUserToAccessGroupResponse {
+        val email = authService.getEmailFromToken(request.token).orEmpty()
+        groupService.findAllGroupsOfUser(email).forEach {
+            if (it.id == request.groupId) {
+                return AuthorizeUserToAccessGroupResponse.newBuilder()
+                    .setAuthorized(true)
+                    .setStatus(createStatus(StatusCode.OK, "OK"))
+                    .build()
+            }
+        }
+        return AuthorizeUserToAccessGroupResponse.newBuilder()
+            .setAuthorized(false)
+            .setStatus(createStatus(StatusCode.WRONG_CREDENTIALS, "Unauthorized"))
             .build()
     }
 }

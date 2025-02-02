@@ -57,4 +57,11 @@ interface GroupRepository {
      * @return the updated group, or null if the group does not exist
      */
     fun removeMember(groupId: String, userData: UserData): Group?
+
+    /**
+     * Retrieves all groups for a given user.
+     * @param email the email of the user
+     * @return a list of groups the user is a member of
+     */
+    fun findGroupsByUserEmail(email: String): List<Group>
 }

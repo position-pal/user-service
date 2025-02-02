@@ -52,4 +52,11 @@ interface GroupService {
      * @return the updated group, or null if the group does not exist
      */
     fun removeMember(groupId: String, userData: UserData): Group?
+
+    /**
+     * Retrieves all groups of a given user email.
+     * @param email the email of the user
+     * @return a list of all groups
+     */
+    fun findAllGroupsOfUser(email: String): List<Group>
 }
