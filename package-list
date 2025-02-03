@@ -36,9 +36,10 @@ $dokka.location:/Groups/createdBy/#/PointingToDeclaration/storage/[root]/-group
 $dokka.location:/Groups/id/#/PointingToDeclaration/storage/[root]/-groups/id.html
 $dokka.location:/Groups/name/#/PointingToDeclaration/storage/[root]/-groups/name.html
 $dokka.location:/GrpcAuthServiceAdapter///PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/index.html
-$dokka.location:/GrpcAuthServiceAdapter/GrpcAuthServiceAdapter/#auth.AuthService/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/-grpc-auth-service-adapter.html
+$dokka.location:/GrpcAuthServiceAdapter/GrpcAuthServiceAdapter/#auth.AuthService#group.GroupService/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/-grpc-auth-service-adapter.html
 $dokka.location:/GrpcAuthServiceAdapter/authenticate/#Auth.AuthenticateRequest/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/authenticate.html
 $dokka.location:/GrpcAuthServiceAdapter/authorize/#Auth.AuthorizeRequest/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/authorize.html
+$dokka.location:/GrpcAuthServiceAdapter/authorizeUserToAccessGroup/#Auth.AuthorizeUserToAccessGroupRequest/PointingToDeclaration/grpc/[root]/-grpc-auth-service-adapter/authorize-user-to-access-group.html
 $dokka.location:/GrpcGroupServiceAdapter///PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/index.html
 $dokka.location:/GrpcGroupServiceAdapter/GrpcGroupServiceAdapter/#group.GroupService/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/-grpc-group-service-adapter.html
 $dokka.location:/GrpcGroupServiceAdapter/addMember/#GroupOuterClass.AddMemberRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/add-member.html
@@ -59,6 +60,7 @@ $dokka.location:/InMemoryGroupRepository/addMember/#kotlin.String#UserData/Point
 $dokka.location:/InMemoryGroupRepository/deleteById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-group-repository/delete-by-id.html
 $dokka.location:/InMemoryGroupRepository/findAll/#/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-all.html
 $dokka.location:/InMemoryGroupRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-by-id.html
+$dokka.location:/InMemoryGroupRepository/findGroupsByUserEmail/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-groups-by-user-email.html
 $dokka.location:/InMemoryGroupRepository/removeMember/#kotlin.String#UserData/PointingToDeclaration/storage/[root]/-in-memory-group-repository/remove-member.html
 $dokka.location:/InMemoryGroupRepository/save/#Group/PointingToDeclaration/storage/[root]/-in-memory-group-repository/save.html
 $dokka.location:/InMemoryGroupRepository/update/#Group/PointingToDeclaration/storage/[root]/-in-memory-group-repository/update.html
@@ -92,6 +94,7 @@ $dokka.location:/PostgresGroupRepository/addMember/#kotlin.String#UserData/Point
 $dokka.location:/PostgresGroupRepository/deleteById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-group-repository/delete-by-id.html
 $dokka.location:/PostgresGroupRepository/findAll/#/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-all.html
 $dokka.location:/PostgresGroupRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-by-id.html
+$dokka.location:/PostgresGroupRepository/findGroupsByUserEmail/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-groups-by-user-email.html
 $dokka.location:/PostgresGroupRepository/removeMember/#kotlin.String#UserData/PointingToDeclaration/storage/[root]/-postgres-group-repository/remove-member.html
 $dokka.location:/PostgresGroupRepository/save/#Group/PointingToDeclaration/storage/[root]/-postgres-group-repository/save.html
 $dokka.location:/PostgresGroupRepository/update/#Group/PointingToDeclaration/storage/[root]/-postgres-group-repository/update.html

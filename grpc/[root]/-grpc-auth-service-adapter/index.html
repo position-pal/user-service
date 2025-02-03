@@ -41,7 +41,7 @@
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
-        <div class="library-version" id="library-version">1.2.3
+        <div class="library-version" id="library-version">1.3.0
         </div>
         <div class="navigation-controls">
         <div class="filter-section filter-section_loading" id="filter-section">
@@ -94,24 +94,24 @@
   <div class="breadcrumbs"><a href="../../index.html">grpc</a><span class="delimiter">/</span><a href="../index.html">[root]</a><span class="delimiter">/</span><span class="current">GrpcAuthServiceAdapter</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Grpc</span><wbr><span>Auth</span><wbr><span>Service</span><wbr><span><span>Adapter</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":grpc:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">GrpcAuthServiceAdapter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authService<span class="token operator">: </span><a href="../../../application/auth/-auth-service/index.html">AuthService</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="/AuthServiceGrpcKt.AuthServiceCoroutineImplBase///PointingToDeclaration/">AuthServiceGrpcKt.AuthServiceCoroutineImplBase</span></div><p class="paragraph">Adapter class for gRPC authentication service.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":grpc:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">GrpcAuthServiceAdapter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authService<span class="token operator">: </span><a href="../../../application/auth/-auth-service/index.html">AuthService</a><span class="token punctuation">, </span></span><span class="parameter ">groupService<span class="token operator">: </span><a href="../../../application/group/-group-service/index.html">GroupService</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="/AuthServiceGrpcKt.AuthServiceCoroutineImplBase///PointingToDeclaration/">AuthServiceGrpcKt.AuthServiceCoroutineImplBase</span></div><p class="paragraph">Adapter class for gRPC authentication service.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="-341172170%2FConstructors%2F1947382442" anchor-label="GrpcAuthServiceAdapter" id="-341172170%2FConstructors%2F1947382442" data-filterable-set=":grpc:dokkaHtmlPartial/main"></a>
+        <div class="table"><a data-name="151319300%2FConstructors%2F1947382442" anchor-label="GrpcAuthServiceAdapter" id="151319300%2FConstructors%2F1947382442" data-filterable-set=":grpc:dokkaHtmlPartial/main"></a>
           <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":grpc:dokkaHtmlPartial/main" data-filterable-set=":grpc:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-grpc-auth-service-adapter.html"><span>Grpc</span><wbr><span>Auth</span><wbr><span>Service</span><wbr><span><span>Adapter</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-341172170%2FConstructors%2F1947382442"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="151319300%2FConstructors%2F1947382442"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":grpc:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authService<span class="token operator">: </span><a href="../../../application/auth/-auth-service/index.html">AuthService</a></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":grpc:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authService<span class="token operator">: </span><a href="../../../application/auth/-auth-service/index.html">AuthService</a><span class="token punctuation">, </span></span><span class="parameter ">groupService<span class="token operator">: </span><a href="../../../application/group/-group-service/index.html">GroupService</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -165,6 +165,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":grpc:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="authorize.html"><span class="token function">authorize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><span data-unresolved-link="/Auth.AuthorizeRequest///PointingToDeclaration/">Auth.AuthorizeRequest</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/Auth.AuthorizeResponse///PointingToDeclaration/">Auth.AuthorizeResponse</span></div><div class="brief "><p class="paragraph">Authorizes a user based on the provided request.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1116118316%2FFunctions%2F1947382442" anchor-label="authorizeUserToAccessGroup" id="-1116118316%2FFunctions%2F1947382442" data-filterable-set=":grpc:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":grpc:dokkaHtmlPartial/main" data-filterable-set=":grpc:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="authorize-user-to-access-group.html"><span>authorize</span><wbr><span>User</span><wbr><span>To</span><wbr><span>Access</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1116118316%2FFunctions%2F1947382442"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":grpc:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="authorize-user-to-access-group.html"><span class="token function">authorizeUserToAccessGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><span data-unresolved-link="/Auth.AuthorizeUserToAccessGroupRequest///PointingToDeclaration/">Auth.AuthorizeUserToAccessGroupRequest</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/Auth.AuthorizeUserToAccessGroupResponse///PointingToDeclaration/">Auth.AuthorizeUserToAccessGroupResponse</span></div><div class="brief "><p class="paragraph">Authorizes a user to access a group based on the provided request.</p></div></div></div>
                 </div>
               </div>
             </div>
