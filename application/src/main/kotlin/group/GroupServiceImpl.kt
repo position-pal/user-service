@@ -25,8 +25,9 @@ class GroupServiceImpl(
      * @return the created group
      */
     override fun createGroup(group: Group): Group {
+        val savedGroup = groupRepository.save(group)
         val event = GroupCreated.create(
-            io.github.positionpal.entities.GroupId.create(group.id),
+            io.github.positionpal.entities.GroupId.create(savedGroup.id),
             io.github.positionpal.entities.User.create(
                 { group.createdBy.id },
                 group.createdBy.name,
@@ -39,7 +40,7 @@ class GroupServiceImpl(
             messageAdapter.postEvent(
                 EventType.MEMBER_ADDED,
                 AddedMemberToGroup.create(
-                    io.github.positionpal.entities.GroupId.create(group.id),
+                    io.github.positionpal.entities.GroupId.create(savedGroup.id),
                     io.github.positionpal.entities.User.create(
                         { it.id },
                         it.name,
@@ -49,7 +50,7 @@ class GroupServiceImpl(
                 ),
             )
         }
-        return groupRepository.save(group)
+        return savedGroup
     }
 
     /**
