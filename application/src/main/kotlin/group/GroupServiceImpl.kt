@@ -26,7 +26,7 @@ class GroupServiceImpl(
      */
     override fun createGroup(group: Group): Group {
         val event = GroupCreated.create(
-            { group.id },
+            io.github.positionpal.entities.GroupId.create(group.id),
             io.github.positionpal.entities.User.create(
                 { group.createdBy.id },
                 group.createdBy.name,
@@ -39,7 +39,7 @@ class GroupServiceImpl(
             messageAdapter.postEvent(
                 EventType.MEMBER_ADDED,
                 AddedMemberToGroup.create(
-                    { group.id },
+                    io.github.positionpal.entities.GroupId.create(group.id),
                     io.github.positionpal.entities.User.create(
                         { it.id },
                         it.name,
@@ -77,7 +77,7 @@ class GroupServiceImpl(
      * @return true if the group was deleted, false otherwise
      */
     override fun deleteGroup(groupId: String): Boolean {
-        val event = GroupDeleted.create { groupId }
+        val event = GroupDeleted.create(io.github.positionpal.entities.GroupId.create(groupId))
         messageAdapter.postEvent(EventType.GROUP_DELETED, event)
         return groupRepository.deleteById(groupId)
     }
@@ -90,7 +90,7 @@ class GroupServiceImpl(
      */
     override fun addMember(groupId: String, userData: UserData): Group? {
         val event = AddedMemberToGroup.create(
-            { groupId },
+            io.github.positionpal.entities.GroupId.create(groupId),
             io.github.positionpal.entities.User.create(
                 { userData.id },
                 userData.name,
@@ -110,7 +110,7 @@ class GroupServiceImpl(
      */
     override fun removeMember(groupId: String, userData: UserData): Group? {
         val event = RemovedMemberToGroup.create(
-            { groupId },
+            io.github.positionpal.entities.GroupId.create(groupId),
             io.github.positionpal.entities.User.create(
                 { userData.id },
                 userData.name,
