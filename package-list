@@ -68,6 +68,7 @@ $dokka.location:/InMemoryUserRepository///PointingToDeclaration/storage/[root]/
 $dokka.location:/InMemoryUserRepository/InMemoryUserRepository/#/PointingToDeclaration/storage/[root]/-in-memory-user-repository/-in-memory-user-repository.html
 $dokka.location:/InMemoryUserRepository/deleteById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-user-repository/delete-by-id.html
 $dokka.location:/InMemoryUserRepository/findAll/#/PointingToDeclaration/storage/[root]/-in-memory-user-repository/find-all.html
+$dokka.location:/InMemoryUserRepository/findByEmail/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-user-repository/find-by-email.html
 $dokka.location:/InMemoryUserRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-user-repository/find-by-id.html
 $dokka.location:/InMemoryUserRepository/save/#User/PointingToDeclaration/storage/[root]/-in-memory-user-repository/save.html
 $dokka.location:/InMemoryUserRepository/update/#User/PointingToDeclaration/storage/[root]/-in-memory-user-repository/update.html
@@ -102,6 +103,7 @@ $dokka.location:/PostgresUserRepository///PointingToDeclaration/storage/[root]/
 $dokka.location:/PostgresUserRepository/PostgresUserRepository/#org.ktorm.database.Database/PointingToDeclaration/storage/[root]/-postgres-user-repository/-postgres-user-repository.html
 $dokka.location:/PostgresUserRepository/deleteById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-user-repository/delete-by-id.html
 $dokka.location:/PostgresUserRepository/findAll/#/PointingToDeclaration/storage/[root]/-postgres-user-repository/find-all.html
+$dokka.location:/PostgresUserRepository/findByEmail/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-user-repository/find-by-email.html
 $dokka.location:/PostgresUserRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-user-repository/find-by-id.html
 $dokka.location:/PostgresUserRepository/save/#User/PointingToDeclaration/storage/[root]/-postgres-user-repository/save.html
 $dokka.location:/PostgresUserRepository/update/#User/PointingToDeclaration/storage/[root]/-postgres-user-repository/update.html
