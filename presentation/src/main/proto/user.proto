@@ -5,6 +5,7 @@ service UserService {
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
   rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
   rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+  rpc GetUserByEmail (GetUserByEmailRequest) returns (GetUserByEmailResponse);
 }
 
 enum StatusCode {
@@ -67,5 +68,14 @@ message DeleteUserRequest {
 
 message DeleteUserResponse {
   string userId = 1;
+  Status status = 2;
+}
+
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+message GetUserByEmailResponse {
+  UserData user = 1;
   Status status = 2;
 }

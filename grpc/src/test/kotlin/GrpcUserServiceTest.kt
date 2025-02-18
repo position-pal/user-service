@@ -167,4 +167,36 @@ class GrpcUserServiceTest : FunSpec({
             response.userId shouldBe "non-existent-id"
         }
     }
+
+    context("getUserByEmail") {
+        test("should return a user by email") {
+            val userData = UserOuterClass.UserData.newBuilder()
+                .setId("123")
+                .setName("Alice")
+                .setSurname("Wonderland")
+                .setEmail("ian@solo.it")
+                .build()
+
+            val request = UserOuterClass.GetUserByEmailRequest.newBuilder()
+                .setEmail("ian@solo.it")
+                .build()
+
+            val retrievedUser = User(
+                UserData(
+                    id = "123",
+                    name = "Alice",
+                    surname = "Wonderland",
+                    email = "ian@solo.it",
+                ),
+                password = "password123",
+            )
+
+            coEvery { mockUserService.getUserByEmail("ian@solo.it") } returns retrievedUser.userData
+
+            val response = runBlocking { grpcAdapter.getUserByEmail(request) }
+
+            response.status.code shouldBe StatusCode.OK
+            response.user.name shouldBe "Alice"
+        }
+    }
 })

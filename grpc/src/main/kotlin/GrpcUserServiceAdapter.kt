@@ -6,6 +6,8 @@ import UserOuterClass.CreateUserRequest
 import UserOuterClass.CreateUserResponse
 import UserOuterClass.DeleteUserRequest
 import UserOuterClass.DeleteUserResponse
+import UserOuterClass.GetUserByEmailRequest
+import UserOuterClass.GetUserByEmailResponse
 import UserOuterClass.GetUserRequest
 import UserOuterClass.GetUserResponse
 import UserOuterClass.StatusCode
@@ -65,6 +67,17 @@ class GrpcUserServiceAdapter(private val userService: UserService) : UserService
         }
         return DeleteUserResponse.newBuilder()
             .setUserId(request.userId)
+            .setStatus(status)
+            .build()
+    }
+
+    override suspend fun getUserByEmail(request: GetUserByEmailRequest): GetUserByEmailResponse {
+        val user = userService.getUserByEmail(request.email)
+        val status = user?.let {
+            createStatus(StatusCode.OK, "User retrieved successfully")
+        } ?: createStatus(StatusCode.NOT_FOUND, USER_NOT_FOUND_MESSAGE)
+        return GetUserByEmailResponse.newBuilder()
+            .setUser(user?.let { mapToGrpcUserData(it) } ?: UserData.getDefaultInstance())
             .setStatus(status)
             .build()
     }
