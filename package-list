@@ -53,6 +53,7 @@ $dokka.location:/GrpcUserServiceAdapter/GrpcUserServiceAdapter/#user.UserService
 $dokka.location:/GrpcUserServiceAdapter/createUser/#UserOuterClass.CreateUserRequest/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/create-user.html
 $dokka.location:/GrpcUserServiceAdapter/deleteUser/#UserOuterClass.DeleteUserRequest/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/delete-user.html
 $dokka.location:/GrpcUserServiceAdapter/getUser/#UserOuterClass.GetUserRequest/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/get-user.html
+$dokka.location:/GrpcUserServiceAdapter/getUserByEmail/#UserOuterClass.GetUserByEmailRequest/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/get-user-by-email.html
 $dokka.location:/GrpcUserServiceAdapter/updateUser/#UserOuterClass.UpdateUserRequest/PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/update-user.html
 $dokka.location:/InMemoryGroupRepository///PointingToDeclaration/storage/[root]/-in-memory-group-repository/index.html
 $dokka.location:/InMemoryGroupRepository/InMemoryGroupRepository/#/PointingToDeclaration/storage/[root]/-in-memory-group-repository/-in-memory-group-repository.html
