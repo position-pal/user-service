@@ -23,14 +23,12 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      */
     override fun save(user: User): User {
         val userId = user.userData.id.ifBlank { java.util.UUID.randomUUID().toString() }
-        val hashedPassword = BCrypt.hashpw(user.password, BCrypt.gensalt())
-
         db.insert(Users) {
             set(it.id, userId)
             set(it.name, user.userData.name)
             set(it.surname, user.userData.surname)
             set(it.email, user.userData.email)
-            set(it.password, hashedPassword)
+            set(it.password, BCrypt.hashpw(user.password, BCrypt.gensalt()))
         }
         return user.copy(userData = user.userData.copy(id = userId))
     }
@@ -51,10 +49,18 @@ class PostgresUserRepository(private val db: Database = DBConnection.getDatabase
      */
     override fun update(user: User): User? {
         val affectedRows = db.update(Users) {
-            set(it.name, user.userData.name)
-            set(it.surname, user.userData.surname)
-            set(it.email, user.userData.email)
-            set(it.password, user.password)
+            if (user.userData.name.isNotBlank()) {
+                set(it.name, user.userData.name)
+            }
+            if (user.userData.surname.isNotBlank()) {
+                set(it.surname, user.userData.surname)
+            }
+            if (user.userData.email.isNotBlank()) {
+                set(it.email, user.userData.email)
+            }
+            if (user.password.isNotBlank()) {
+                set(it.password, BCrypt.hashpw(user.password, BCrypt.gensalt()))
+            }
             where {
                 it.id eq user.userData.id
             }
