@@ -63,6 +63,7 @@ $dokka.location:/InMemoryGroupRepository/deleteById/#kotlin.String/PointingToDec
 $dokka.location:/InMemoryGroupRepository/findAll/#/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-all.html
 $dokka.location:/InMemoryGroupRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-by-id.html
 $dokka.location:/InMemoryGroupRepository/findGroupsByUserEmail/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-groups-by-user-email.html
+$dokka.location:/InMemoryGroupRepository/findGroupsByUserId/#kotlin.String/PointingToDeclaration/storage/[root]/-in-memory-group-repository/find-groups-by-user-id.html
 $dokka.location:/InMemoryGroupRepository/removeMember/#kotlin.String#UserData/PointingToDeclaration/storage/[root]/-in-memory-group-repository/remove-member.html
 $dokka.location:/InMemoryGroupRepository/save/#Group/PointingToDeclaration/storage/[root]/-in-memory-group-repository/save.html
 $dokka.location:/InMemoryGroupRepository/update/#Group/PointingToDeclaration/storage/[root]/-in-memory-group-repository/update.html
@@ -98,6 +99,7 @@ $dokka.location:/PostgresGroupRepository/deleteById/#kotlin.String/PointingToDec
 $dokka.location:/PostgresGroupRepository/findAll/#/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-all.html
 $dokka.location:/PostgresGroupRepository/findById/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-by-id.html
 $dokka.location:/PostgresGroupRepository/findGroupsByUserEmail/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-groups-by-user-email.html
+$dokka.location:/PostgresGroupRepository/findGroupsByUserId/#kotlin.String/PointingToDeclaration/storage/[root]/-postgres-group-repository/find-groups-by-user-id.html
 $dokka.location:/PostgresGroupRepository/removeMember/#kotlin.String#UserData/PointingToDeclaration/storage/[root]/-postgres-group-repository/remove-member.html
 $dokka.location:/PostgresGroupRepository/save/#Group/PointingToDeclaration/storage/[root]/-postgres-group-repository/save.html
 $dokka.location:/PostgresGroupRepository/update/#Group/PointingToDeclaration/storage/[root]/-postgres-group-repository/update.html
