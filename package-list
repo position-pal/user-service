@@ -46,6 +46,7 @@ $dokka.location:/GrpcGroupServiceAdapter/addMember/#GroupOuterClass.AddMemberReq
 $dokka.location:/GrpcGroupServiceAdapter/createGroup/#GroupOuterClass.CreateGroupRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/create-group.html
 $dokka.location:/GrpcGroupServiceAdapter/deleteGroup/#GroupOuterClass.DeleteGroupRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/delete-group.html
 $dokka.location:/GrpcGroupServiceAdapter/getGroup/#GroupOuterClass.GetGroupRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/get-group.html
+$dokka.location:/GrpcGroupServiceAdapter/getGroupsOfUser/#GroupOuterClass.GetGroupsRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/get-groups-of-user.html
 $dokka.location:/GrpcGroupServiceAdapter/removeMember/#GroupOuterClass.RemoveMemberRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/remove-member.html
 $dokka.location:/GrpcGroupServiceAdapter/updateGroup/#GroupOuterClass.UpdateGroupRequest/PointingToDeclaration/grpc/[root]/-grpc-group-service-adapter/update-group.html
 $dokka.location:/GrpcUserServiceAdapter///PointingToDeclaration/grpc/[root]/-grpc-user-service-adapter/index.html
