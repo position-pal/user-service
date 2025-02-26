@@ -77,7 +77,7 @@ message RemoveMemberResponse {
 }
 
 message GetGroupsRequest {
-  string email = 1;
+  string userId = 1;
 }
 
 message GetGroupsResponse {

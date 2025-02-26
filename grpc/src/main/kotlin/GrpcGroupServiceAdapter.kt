@@ -101,9 +101,10 @@ class GrpcGroupServiceAdapter(
     }
 
     override suspend fun getGroupsOfUser(request: GetGroupsRequest): GetGroupsResponse {
-        val groups = groupService.findAllGroupsOfUser(request.email)
+        val groups = groupService.findAllGroupsByUserId(request.userId)
         return GetGroupsResponse.newBuilder()
             .addAllGroups(groups.map { mapToGrpcGroup(it) })
+            .setStatus(createStatus(StatusCode.OK, "Groups retrieved successfully"))
             .build()
     }
 }

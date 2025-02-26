@@ -59,4 +59,11 @@ interface GroupService {
      * @return a list of all groups
      */
     fun findAllGroupsOfUser(email: String): List<Group>
+
+    /**
+     * Retrieves all groups of a given user email.
+     * @param id the id of the user
+     * @return a list of all groups
+     */
+    fun findAllGroupsByUserId(id: String): List<Group>
 }

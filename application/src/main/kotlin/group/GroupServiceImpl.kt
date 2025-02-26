@@ -130,4 +130,8 @@ class GroupServiceImpl(
      */
     override fun findAllGroupsOfUser(email: String): List<Group> =
         groupRepository.findGroupsByUserEmail(email)
+
+    override fun findAllGroupsByUserId(id: String): List<Group> {
+        return groupRepository.findGroupsByUserId(id)
+    }
 }

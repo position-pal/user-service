@@ -84,4 +84,8 @@ class InMemoryGroupRepository : GroupRepository {
     override fun findGroupsByUserEmail(email: String): List<Group> {
         return groups.values.filter { group -> group.members.any { it.email == email } }
     }
+
+    override fun findGroupsByUserId(id: String): List<Group> {
+        return groups.values.filter { group -> group.members.any { it.id == id } }
+    }
 }

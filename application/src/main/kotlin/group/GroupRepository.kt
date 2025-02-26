@@ -64,4 +64,11 @@ interface GroupRepository {
      * @return a list of groups the user is a member of
      */
     fun findGroupsByUserEmail(email: String): List<Group>
+
+    /**
+     * Retrieves all groups for a given user.
+     * @param id the id of the user
+     * @return a list of groups the user is a member of
+     */
+    fun findGroupsByUserId(id: String): List<Group>
 }
