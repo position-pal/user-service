@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 env:
-  USERNAME: ${{ secrets.USERNAME }}
-  TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+  GPR_USER: ${{ github.actor }}
+  GPR_KEY: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -16,10 +16,6 @@ jobs:
         jvm-version: [ 17, 21 ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
-    env:
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -30,13 +26,10 @@ jobs:
           java-version: ${{ matrix.jvm-version }}
       - name: Assemble main and test classes
         run: ./gradlew classes testClasses
-
       - name: Check
         run: ./gradlew check
-
       - name: Generate fatjar
         run: ./gradlew entrypoint:shadowJar
-
       - name: Upload fatjar
         if: ${{ contains(matrix.os, 'ubuntu') && matrix.jvm-version == 21 }}
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
