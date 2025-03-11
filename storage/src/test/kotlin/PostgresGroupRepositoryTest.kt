@@ -16,7 +16,7 @@ class PostgresGroupRepositoryTest : FunSpec({
     val groupRepository: GroupRepository = PostgresGroupRepository(testDB)
     val messageAdapter = mockk<MessageAdapter>()
     val groupService: GroupService = GroupServiceImpl(groupRepository, messageAdapter)
-    val userService: UserService = UserServiceImpl(PostgresUserRepository())
+    val userService: UserService = UserServiceImpl(PostgresUserRepository(testDB))
 
     beforeEach {
         every { messageAdapter.postEvent(any(), any()) } returns Unit
