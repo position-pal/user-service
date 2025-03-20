@@ -1,3 +1,22 @@
+## [2.3.0](https://github.com/position-pal/user-service/compare/2.2.0...2.3.0) (2025-03-20)
+
+### Dependency updates
+
+* **api-deps:** update shared.kernel to v1.0.3 ([#235](https://github.com/position-pal/user-service/issues/235)) ([837ca31](https://github.com/position-pal/user-service/commit/837ca311ff214b95719d36ac4d0482779bd95cef))
+* **core-deps:** update dependency org.jetbrains.kotlin.jvm to v2.1.20 ([#236](https://github.com/position-pal/user-service/issues/236)) ([f0b0c26](https://github.com/position-pal/user-service/commit/f0b0c26004dbc8e92c269a478f55dcce272826e1))
+
+### Build and continuous integration
+
+* **deps:** pin actions/download-artifact action to cc20338 ([#228](https://github.com/position-pal/user-service/issues/228)) ([2699c07](https://github.com/position-pal/user-service/commit/2699c076e0c7fc0eebd248ca8beb5b43dc9a0ab3))
+* **deps:** update actions/download-artifact digest to 95815c3 ([#233](https://github.com/position-pal/user-service/issues/233)) ([e4e96b1](https://github.com/position-pal/user-service/commit/e4e96b1333572aa7778281f0934ab4cf911e9761))
+* **deps:** update actions/download-artifact digest to b14cf4c ([#231](https://github.com/position-pal/user-service/issues/231)) ([f659b68](https://github.com/position-pal/user-service/commit/f659b68a623dc03c702afb85d538d7e68e87178c))
+* **deps:** update actions/download-artifact digest to cc20338 ([#232](https://github.com/position-pal/user-service/issues/232)) ([c899cfc](https://github.com/position-pal/user-service/commit/c899cfc1c1e0d9e9d819caed5f9329f42e9b0b2b))
+* **deps:** update actions/upload-artifact action to v4.6.2 ([#234](https://github.com/position-pal/user-service/issues/234)) ([56d2517](https://github.com/position-pal/user-service/commit/56d25171bfca341dc4be40771c6eedf038b0f81a))
+* fix dry delivery path ([25488d8](https://github.com/position-pal/user-service/commit/25488d8efb87c77983d594dc6a2691603726a652))
+* fix fatjar path ([#229](https://github.com/position-pal/user-service/issues/229)) ([c30a3f7](https://github.com/position-pal/user-service/commit/c30a3f70c1d89509fe2ca244e52ef4f6dc43a5ad))
+* fix fork release ([#230](https://github.com/position-pal/user-service/issues/230)) ([ffd653c](https://github.com/position-pal/user-service/commit/ffd653c66d5287869525847c26d768b1d49eeb97))
+* update dry-delivery ([14f12ed](https://github.com/position-pal/user-service/commit/14f12eda1ab44dd7f4a89427f283357c75ca838e))
+
 ## [2.2.0](https://github.com/position-pal/user-service/compare/2.1.0...2.2.0) (2025-03-17)
 
 ### Dependency updates
