@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21@sha256:37d46d0b856ebad9cf56aa4244bec967fe0248862c75ec7d3d773a6d5918cf8c
+FROM eclipse-temurin:21@sha256:22d40ca9ace636f5e3dfe2d597bbb26292e7a301e239ca2556bc24b5d3d8a128
 
 WORKDIR /app
 
