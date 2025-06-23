@@ -1,3 +1,11 @@
+## [2.5.1](https://github.com/position-pal/user-service/compare/2.5.0...2.5.1) (2025-06-23)
+
+### Dependency updates
+
+* **core-deps:** update dependency org.jetbrains.kotlin:kotlin-stdlib to v2.2.0 ([#327](https://github.com/position-pal/user-service/issues/327)) ([53b5234](https://github.com/position-pal/user-service/commit/53b52347406f3f851f52f09ef86227c671b01a29))
+* **core-deps:** update dependency org.jetbrains.kotlin.jvm to v2.2.0 ([#328](https://github.com/position-pal/user-service/issues/328)) ([75a15ad](https://github.com/position-pal/user-service/commit/75a15ada2ea3a1576b770fbbdb6eaadff253dd02))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.27 ([#329](https://github.com/position-pal/user-service/issues/329)) ([3c671d0](https://github.com/position-pal/user-service/commit/3c671d0baa80941d6d6767c85654be5634ab358b))
+
 ## [2.5.0](https://github.com/position-pal/user-service/compare/2.4.0...2.5.0) (2025-06-23)
 
 ### Dependency updates
