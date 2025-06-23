@@ -1,3 +1,45 @@
+## [2.5.0](https://github.com/position-pal/user-service/compare/2.4.0...2.5.0) (2025-06-23)
+
+### Dependency updates
+
+* **api-deps:** update shared.kernel to v1.0.5 ([#326](https://github.com/position-pal/user-service/issues/326)) ([b962d7f](https://github.com/position-pal/user-service/commit/b962d7ff01f526d3b19bea80467d1a49b47f5f58))
+* **deps:** update dependency io.mockk:mockk to v1.14.4 ([#325](https://github.com/position-pal/user-service/issues/325)) ([b476c67](https://github.com/position-pal/user-service/commit/b476c67f8cf87556c16a0d82ab4ddc871eb35a01))
+* **deps:** update dependency org.mockito:mockito-core to v5.18.0 ([#299](https://github.com/position-pal/user-service/issues/299)) ([e8a9370](https://github.com/position-pal/user-service/commit/e8a93701045c262f775091d56b036b1f8061c00e))
+* **deps:** update dependency org.postgresql:postgresql to v42.7.6 ([#307](https://github.com/position-pal/user-service/issues/307)) ([5595913](https://github.com/position-pal/user-service/commit/55959137db6d64cda57f759dcaaf239da54f57a8))
+* **deps:** update dependency org.postgresql:postgresql to v42.7.7 ([#320](https://github.com/position-pal/user-service/issues/320)) ([0b4d099](https://github.com/position-pal/user-service/commit/0b4d0998d48cb745154168ac6b0478c16b66549d))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.128 ([#298](https://github.com/position-pal/user-service/issues/298)) ([78e6f14](https://github.com/position-pal/user-service/commit/78e6f1446455cef6f6a8556fcbcb2058d7c1a692))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.129 ([#301](https://github.com/position-pal/user-service/issues/301)) ([ad56230](https://github.com/position-pal/user-service/commit/ad56230da579a0ed54a330398cae5b7545b8d81b))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.131 ([#303](https://github.com/position-pal/user-service/issues/303)) ([6f5511f](https://github.com/position-pal/user-service/commit/6f5511faf0ea3712acb37cea0d33ccd74e0b1815))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.132 ([#309](https://github.com/position-pal/user-service/issues/309)) ([9d84a57](https://github.com/position-pal/user-service/commit/9d84a572e8e4f68e771b1085f253c271fcb6abfa))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.133 ([#310](https://github.com/position-pal/user-service/issues/310)) ([bab5d0b](https://github.com/position-pal/user-service/commit/bab5d0b5cbb971bc154001847cc888cab8315156))
+* **deps:** update eclipse-temurin:21 docker digest to 2cc80b4 ([#319](https://github.com/position-pal/user-service/issues/319)) ([973beae](https://github.com/position-pal/user-service/commit/973beae1b789d2e58c1ec8bb9e5a1045c3dca630))
+* **deps:** update eclipse-temurin:21 docker digest to 5e7983a ([#312](https://github.com/position-pal/user-service/issues/312)) ([0817215](https://github.com/position-pal/user-service/commit/0817215dda1d19f381737150770a84014d8bc310))
+* **deps:** update eclipse-temurin:21 docker digest to 88214b1 ([#296](https://github.com/position-pal/user-service/issues/296)) ([4125f01](https://github.com/position-pal/user-service/commit/4125f011f920b300efadcbd57a53d26e2c6a0d57))
+* **deps:** update grpc-java monorepo to v1.73.0 ([#306](https://github.com/position-pal/user-service/issues/306)) ([b939764](https://github.com/position-pal/user-service/commit/b939764d737987205de9ecbda00fadb021965e2b))
+* **deps:** update ktor monorepo to v3.2.0 ([#321](https://github.com/position-pal/user-service/issues/321)) ([f24ad3c](https://github.com/position-pal/user-service/commit/f24ad3ced832f67223df8c28d5cba9d2f009fee3))
+* **deps:** update node.js to 22.16 ([#302](https://github.com/position-pal/user-service/issues/302)) ([d2e2556](https://github.com/position-pal/user-service/commit/d2e2556d6f16754367ccc2bf0f99f3735fb55f7e))
+* **deps:** update plugin com.gradle.develocity to v4.0.2 ([#305](https://github.com/position-pal/user-service/issues/305)) ([8e0563f](https://github.com/position-pal/user-service/commit/8e0563f47ef50c18579d20ff1c46132b39f3ef33))
+* **deps:** update plugin git-semantic-versioning to v5.1.3 ([#293](https://github.com/position-pal/user-service/issues/293)) ([5f1b4fc](https://github.com/position-pal/user-service/commit/5f1b4fcef08fb06b5a8e63d971f807fce4bde090))
+* **deps:** update plugin git-semantic-versioning to v5.1.4 ([#316](https://github.com/position-pal/user-service/issues/316)) ([fa3ebbf](https://github.com/position-pal/user-service/commit/fa3ebbf4848e64634848f18213840ebe88386943))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.24 ([#294](https://github.com/position-pal/user-service/issues/294)) ([749de91](https://github.com/position-pal/user-service/commit/749de9151a498cc25c3e9cdcba8270c3e50cca1a))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.25 ([#300](https://github.com/position-pal/user-service/issues/300)) ([95481c8](https://github.com/position-pal/user-service/commit/95481c8fcae3101458b6bd948d2e75fad1cb4570))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.26 ([#317](https://github.com/position-pal/user-service/issues/317)) ([a74784f](https://github.com/position-pal/user-service/commit/a74784f16863f256c986546c919338a18ee64bbd))
+* **deps:** update postgres:17.5-alpine docker digest to bcb90dc ([#311](https://github.com/position-pal/user-service/issues/311)) ([c0c0d01](https://github.com/position-pal/user-service/commit/c0c0d01f5716863d0eed1230b4466edae4d5e54d))
+* **deps:** update postgres:17.5-alpine docker digest to fbe2160 ([#318](https://github.com/position-pal/user-service/issues/318)) ([ee05a23](https://github.com/position-pal/user-service/commit/ee05a23bc5bea46a3238e4f7ced3662614a057de))
+* **deps:** update protobuf monorepo to v4.31.0 ([#295](https://github.com/position-pal/user-service/issues/295)) ([1ff1531](https://github.com/position-pal/user-service/commit/1ff15312f9f2440b4fa92b953c7afdda7998c021))
+* **deps:** update protobuf monorepo to v4.31.1 ([#308](https://github.com/position-pal/user-service/issues/308)) ([6111e3d](https://github.com/position-pal/user-service/commit/6111e3db9849ba3bf0d87cd24e957fc053ad077f))
+* **deps:** update rabbitmq:4-management docker digest to 0a59497 ([#315](https://github.com/position-pal/user-service/issues/315)) ([ba90d1b](https://github.com/position-pal/user-service/commit/ba90d1b444b0d74206c791379e5007c37d1f4140))
+* **deps:** update rabbitmq:4-management docker digest to 935b3f8 ([#314](https://github.com/position-pal/user-service/issues/314)) ([e340250](https://github.com/position-pal/user-service/commit/e3402500503a3f8780815f48adcd892d49635c8a))
+* **deps:** update rabbitmq:4-management docker digest to 9d67e45 ([#323](https://github.com/position-pal/user-service/issues/323)) ([c4c386f](https://github.com/position-pal/user-service/commit/c4c386f66e8e25ea83eef1370453b8dc55ff47f1))
+* **deps:** update rabbitmq:4-management docker digest to eb8a205 ([#313](https://github.com/position-pal/user-service/issues/313)) ([a7e243c](https://github.com/position-pal/user-service/commit/a7e243ccad636fa3d1db7b0fe05be0c30aadb71f))
+
+### Build and continuous integration
+
+* **deps:** update docker/build-push-action digest to 1dc7386 ([#297](https://github.com/position-pal/user-service/issues/297)) ([50c5870](https://github.com/position-pal/user-service/commit/50c5870ebaff6077b910cc5c09223bfb4eedbf0c))
+* **deps:** update docker/build-push-action digest to 2634353 ([#304](https://github.com/position-pal/user-service/issues/304)) ([cf6ba6b](https://github.com/position-pal/user-service/commit/cf6ba6b680825f2e608737124181f1816a9ecb5b))
+* **deps:** update docker/setup-buildx-action digest to 18ce135 ([#322](https://github.com/position-pal/user-service/issues/322)) ([9cab426](https://github.com/position-pal/user-service/commit/9cab426ada05276b77f99efc7971cd1b81e28b28))
+* **deps:** update docker/setup-buildx-action digest to e468171 ([#324](https://github.com/position-pal/user-service/issues/324)) ([06cf1a8](https://github.com/position-pal/user-service/commit/06cf1a86c4b43116fcb3a492f092d6a87fc220f1))
+
 ## [2.4.0](https://github.com/position-pal/user-service/compare/2.3.0...2.4.0) (2025-05-13)
 
 ### Dependency updates
