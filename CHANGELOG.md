@@ -1,3 +1,12 @@
+## [2.6.0](https://github.com/position-pal/user-service/compare/2.5.2...2.6.0) (2025-08-15)
+
+### Dependency updates
+
+* **api-deps:** update shared.kernel to v1.0.6 ([#388](https://github.com/position-pal/user-service/issues/388)) ([c0144c7](https://github.com/position-pal/user-service/commit/c0144c7943b5cb603de8286a5e7037417cc64944))
+* **deps:** update plugin git-semantic-versioning to v6.0.1 ([#386](https://github.com/position-pal/user-service/issues/386)) ([b30f75d](https://github.com/position-pal/user-service/commit/b30f75d567d4dde30b0bdd988e45fead7bdf3315))
+* **deps:** update postgres docker tag to v17.6 ([#387](https://github.com/position-pal/user-service/issues/387)) ([82ad69f](https://github.com/position-pal/user-service/commit/82ad69f489b72430108293c714c9aa101b5615a2))
+* **deps:** update protobuf monorepo to v4.32.0 ([#389](https://github.com/position-pal/user-service/issues/389)) ([8785210](https://github.com/position-pal/user-service/commit/8785210fc1b19e643509e98918f84188cb6c7b1c))
+
 ## [2.5.2](https://github.com/position-pal/user-service/compare/2.5.1...2.5.2) (2025-08-14)
 
 ### Dependency updates
