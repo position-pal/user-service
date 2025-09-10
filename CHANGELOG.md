@@ -1,3 +1,40 @@
+## [2.6.1](https://github.com/position-pal/user-service/compare/2.6.0...2.6.1) (2025-09-10)
+
+### Dependency updates
+
+* **core-deps:** update dependency org.jetbrains.kotlin.jvm to v2.2.20 ([#419](https://github.com/position-pal/user-service/issues/419)) ([ede8200](https://github.com/position-pal/user-service/commit/ede8200888a179801676e2fd70a1254308e76e8c))
+* **deps:** update dependency org.mockito:mockito-core to v5.19.0 ([#391](https://github.com/position-pal/user-service/issues/391)) ([a65b4c3](https://github.com/position-pal/user-service/commit/a65b4c3bcadfcd9cd69edfd0a90a4594120f8d90))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.140 ([#394](https://github.com/position-pal/user-service/issues/394)) ([ba30d80](https://github.com/position-pal/user-service/commit/ba30d80d29ddf6500847765e454245ece4616498))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.141 ([#409](https://github.com/position-pal/user-service/issues/409)) ([6486b64](https://github.com/position-pal/user-service/commit/6486b640ab18caf20eddc92b53ead586199b0674))
+* **deps:** update eclipse-temurin:21 docker digest to 3457990 ([#410](https://github.com/position-pal/user-service/issues/410)) ([a887ad8](https://github.com/position-pal/user-service/commit/a887ad84f2c95c6e85a9e82087067929c97a147a))
+* **deps:** update eclipse-temurin:21 docker digest to 3d9321a ([#403](https://github.com/position-pal/user-service/issues/403)) ([8387cae](https://github.com/position-pal/user-service/commit/8387cae61f4ad0b10886995c95b66005d9c6e924))
+* **deps:** update kotest to v6 ([#395](https://github.com/position-pal/user-service/issues/395)) ([8471c7e](https://github.com/position-pal/user-service/commit/8471c7e3c49ef7e790cc49110218cc379ea75cb3))
+* **deps:** update kotest to v6.0.1 ([#400](https://github.com/position-pal/user-service/issues/400)) ([9fcffa1](https://github.com/position-pal/user-service/commit/9fcffa112745a84035ac837a2559da29b30292e7))
+* **deps:** update kotest to v6.0.2 ([#408](https://github.com/position-pal/user-service/issues/408)) ([1ba8317](https://github.com/position-pal/user-service/commit/1ba8317543cd328c67ff7aa8a956ed5b6a6b5754))
+* **deps:** update kotest to v6.0.3 ([#414](https://github.com/position-pal/user-service/issues/414)) ([d964202](https://github.com/position-pal/user-service/commit/d9642028ca8d9b075615c15a2fc684a8a85c2c3e))
+* **deps:** update node.js to 22.19 ([#401](https://github.com/position-pal/user-service/issues/401)) ([71c17ab](https://github.com/position-pal/user-service/commit/71c17abd1dd3b3e8e9ada569e9b7e2e1cd6a52f7))
+* **deps:** update plugin com.gradle.develocity to v4.1.1 ([#396](https://github.com/position-pal/user-service/issues/396)) ([807e68d](https://github.com/position-pal/user-service/commit/807e68d13c7015d45e6b9a1f2f32c1d1ae433e60))
+* **deps:** update plugin git-semantic-versioning to v6.0.2 ([#397](https://github.com/position-pal/user-service/issues/397)) ([490d560](https://github.com/position-pal/user-service/commit/490d5601071bad035e98603273cec3f8800374ec))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.30 ([#393](https://github.com/position-pal/user-service/issues/393)) ([6e08d2c](https://github.com/position-pal/user-service/commit/6e08d2c58aaa14f9482cac73b3890f69dbc6c323))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.1.0 ([#402](https://github.com/position-pal/user-service/issues/402)) ([5112e89](https://github.com/position-pal/user-service/commit/5112e89ce222c6e37f5e5562e5c55c817bb8730e))
+* **deps:** update postgres:17.6-alpine docker digest to 3406990 ([#392](https://github.com/position-pal/user-service/issues/392)) ([0708d64](https://github.com/position-pal/user-service/commit/0708d6437a1314f119b67e04b1ebb320ef0defbc))
+* **deps:** update postgres:17.6-alpine docker digest to 9fee786 ([#417](https://github.com/position-pal/user-service/issues/417)) ([8189799](https://github.com/position-pal/user-service/commit/81897991f1dd8e13a679ad2fb6030a3db96c71d1))
+* **deps:** update postgres:17.6-alpine docker digest to a283fb0 ([#390](https://github.com/position-pal/user-service/issues/390)) ([062bc0a](https://github.com/position-pal/user-service/commit/062bc0a676fe0024d719aa7c3d4de24834c19747))
+* **deps:** update postgres:17.6-alpine docker digest to d5f196a ([#418](https://github.com/position-pal/user-service/issues/418)) ([80829ce](https://github.com/position-pal/user-service/commit/80829ceac0324bc2c5b0abc863c4a06eb4a0f314))
+* **deps:** update postgres:17.6-alpine docker digest to d93aaac ([#415](https://github.com/position-pal/user-service/issues/415)) ([41d8d2c](https://github.com/position-pal/user-service/commit/41d8d2c8d9928b75f1c1569b7148a9bb2e0399cc))
+* **deps:** update postgres:17.6-alpine docker digest to de3b2a5 ([#416](https://github.com/position-pal/user-service/issues/416)) ([5f9ca39](https://github.com/position-pal/user-service/commit/5f9ca3931e59c69bf9b9645fc09d3013360d9b13))
+* **deps:** update rabbitmq:4-management docker digest to 0943765 ([#411](https://github.com/position-pal/user-service/issues/411)) ([b56854a](https://github.com/position-pal/user-service/commit/b56854a3373a7b2478027d4f2fe09899a82abead))
+* **deps:** update rabbitmq:4-management docker digest to 326cd7c ([#413](https://github.com/position-pal/user-service/issues/413)) ([3bab37b](https://github.com/position-pal/user-service/commit/3bab37b0750e655083f3e7b332fed2fb8639fe1c))
+* **deps:** update rabbitmq:4-management docker digest to 6331ea4 ([#405](https://github.com/position-pal/user-service/issues/405)) ([0c76f85](https://github.com/position-pal/user-service/commit/0c76f8598320e57bf49600b6751b311e8da522dd))
+* **deps:** update rabbitmq:4-management docker digest to 8485c89 ([#404](https://github.com/position-pal/user-service/issues/404)) ([2c41d43](https://github.com/position-pal/user-service/commit/2c41d433f93f0971cc97890d5139be00e86a6b75))
+* **deps:** update rabbitmq:4-management docker digest to 93ade3d ([#406](https://github.com/position-pal/user-service/issues/406)) ([e6ac4ae](https://github.com/position-pal/user-service/commit/e6ac4ae5f2051d7139878bbe8b719c67e9799eb1))
+* **deps:** update rabbitmq:4-management docker digest to 9a53469 ([#407](https://github.com/position-pal/user-service/issues/407)) ([9906913](https://github.com/position-pal/user-service/commit/990691330f4050a3c8388df46570fb2d079eb953))
+
+### Build and continuous integration
+
+* **deps:** update actions/setup-java action to v5 ([#399](https://github.com/position-pal/user-service/issues/399)) ([320d479](https://github.com/position-pal/user-service/commit/320d479a8cf3b17e7ec392684a61190589a902a2))
+* **deps:** update actions/setup-node action to v5 ([#412](https://github.com/position-pal/user-service/issues/412)) ([06c9558](https://github.com/position-pal/user-service/commit/06c955866169b8efbffa4fee25f0604a488b6cb9))
+
 ## [2.6.0](https://github.com/position-pal/user-service/compare/2.5.2...2.6.0) (2025-08-15)
 
 ### Dependency updates
