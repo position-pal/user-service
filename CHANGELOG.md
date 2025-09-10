@@ -1,3 +1,10 @@
+## [2.7.0](https://github.com/position-pal/user-service/compare/2.6.1...2.7.0) (2025-09-10)
+
+### Dependency updates
+
+* **api-deps:** update shared.kernel to v1.0.7 ([#421](https://github.com/position-pal/user-service/issues/421)) ([13609c4](https://github.com/position-pal/user-service/commit/13609c4caf5286056dd21ee3060c212081963673))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.1.1 ([#422](https://github.com/position-pal/user-service/issues/422)) ([3fdff22](https://github.com/position-pal/user-service/commit/3fdff22fbf06e380628e031c7dd774debcd1bfaa))
+
 ## [2.6.1](https://github.com/position-pal/user-service/compare/2.6.0...2.6.1) (2025-09-10)
 
 ### Dependency updates
