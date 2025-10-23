@@ -1,3 +1,9 @@
+## [2.8.0](https://github.com/position-pal/user-service/compare/2.7.1...2.8.0) (2025-10-23)
+
+### Dependency updates
+
+* **api-deps:** update shared.kernel to v1.0.8 ([#491](https://github.com/position-pal/user-service/issues/491)) ([05cf217](https://github.com/position-pal/user-service/commit/05cf21774f114220d91026729b17b09cda252514))
+
 ## [2.7.1](https://github.com/position-pal/user-service/compare/2.7.0...2.7.1) (2025-10-23)
 
 ### Dependency updates
