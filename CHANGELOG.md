@@ -1,3 +1,9 @@
+## [2.9.0](https://github.com/position-pal/user-service/compare/2.8.1...2.9.0) (2025-12-16)
+
+### Dependency updates
+
+* **api-deps:** update dependency io.github.positionpal:kernel-domain to v1.0.9 ([#559](https://github.com/position-pal/user-service/issues/559)) ([1fca48c](https://github.com/position-pal/user-service/commit/1fca48c079e708cee95e745c3fa8c6c5e7856de9))
+
 ## [2.8.1](https://github.com/position-pal/user-service/compare/2.8.0...2.8.1) (2025-12-16)
 
 ### Dependency updates
