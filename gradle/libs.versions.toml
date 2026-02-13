@@ -54,5 +54,5 @@ kotlin-dokka = { id = "org.jetbrains.dokka", version = "2.1.0" }
 git-semantic-versioning = "org.danilopianini.git-sensitive-semantic-versioning:6.0.2"
 protobuf = {id = "com.google.protobuf", version.ref = "protobuf"}
 shadowJar = "com.github.johnrengelman.shadow:8.1.1"
-gradle-docker-compose = "com.avast.gradle.docker-compose:0.17.12"
+gradle-docker-compose = "com.avast.gradle.docker-compose:0.17.21"
 
