@@ -41,7 +41,7 @@ avro = { module = "org.apache.avro:avro", version.ref = "avro" }
 kernel-presentation = { module = "io.github.positionpal:kernel-presentation", version.ref = "shared-kernel" }
 kernel-domain = { module = "io.github.positionpal:kernel-domain", version.ref = "shared-kernel" }
 slf4j = { module = "org.slf4j:slf4j-simple", version = "2.0.17" }
-rabbit-amqp = { module = "com.rabbitmq:amqp-client", version = "5.28.0" }
+rabbit-amqp = { module = "com.rabbitmq:amqp-client", version = "5.29.0" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version = "0.4" }
 
 [bundles]
