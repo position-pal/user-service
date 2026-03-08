@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.10"
-kotest = "6.1.4"
+kotest = "6.1.5"
 mockito = "5.22.0"
 proto = "4.34.0"
 grpc = "1.73.0"
