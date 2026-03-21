@@ -49,7 +49,7 @@ kotlin-testing = [ "kotest-junit5-jvm", "kotest-assertions-core-jvm", "mockito-c
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-qa = "org.danilopianini.gradle-kotlin-qa:0.69.0"
+kotlin-qa = "org.danilopianini.gradle-kotlin-qa:0.101.1"
 kotlin-dokka = { id = "org.jetbrains.dokka", version = "2.1.0" }
 git-semantic-versioning = "org.danilopianini.git-sensitive-semantic-versioning:6.0.2"
 protobuf = {id = "com.google.protobuf", version.ref = "protobuf"}
