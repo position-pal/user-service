@@ -16,7 +16,7 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   rabbitmq:
-    image: rabbitmq:4-management@sha256:c1e33461287f4c53049ce525575f0df77b2a00a88e2593776afbb6c1489bdb81
+    image: rabbitmq:4-management@sha256:ae1ad049b970675ea952e4dc6b58ff424f1193f403c1f11e98a689d445bfe694
     container_name: rabbitmq
     ports:
       - "5672:5672"
