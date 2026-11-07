@@ -1,6 +1,6 @@
 plugins {
     id("org.danilopianini.gradle-pre-commit-git-hooks") version "2.1.27"
-    id("com.gradle.develocity") version "4.6.0"
+    id("com.gradle.develocity") version "4.6.1"
 }
 
 rootProject.name = "user-service"
